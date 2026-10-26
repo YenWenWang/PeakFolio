@@ -1,0 +1,47 @@
+name: Seasonal Fall Foliage Data Sync (Jul 1 - Nov 30)
+
+on:
+  schedule:
+    # Runs once daily at 06:00 UTC ONLY during July, August, September, October, and November (months 7-11).
+    # Zero runs occur from December 1 through June 30.
+    - cron: '0 6 * 7-11 *'
+  workflow_dispatch:
+    inputs:
+      force_run:
+        description: 'Force a manual snapshot build even outside Jul 1 - Nov 30'
+        required: false
+        default: 'true'
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  sync-foliage-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fetch NOAA / Open-Meteo Forecast & Build Foliage Snapshot (Jul 1 - Nov 30 Window)
+        env:
+          FORCE_RUN: ${{ github.event.inputs.force_run || 'false' }}
+        run: |
+          python3 scripts/build_foliage_snapshot.py
+
+      - name: Commit & Deploy Updated Snapshot to GitHub Pages
+        run: |
+          git config user.name "peakfolio-data-bot"
+          git config user.email "bot@peakfolio.app"
+          git add foliage-forecast-snapshot.json data/archive/ || true
+          if git diff --staged --quiet; then
+            echo "No snapshot changes to commit."
+          else
+            git commit -m "chore(data): seasonal NOAA/Open-Meteo foliage snapshot ($(date -u +'%Y-%m-%d'))"
+            git push
+          fi
