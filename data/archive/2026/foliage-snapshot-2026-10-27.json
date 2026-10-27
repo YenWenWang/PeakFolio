@@ -1,0 +1,1810 @@
+{
+  "version": "2026.10.27-seasonal",
+  "generatedAt": "2026-10-27T14:23:02Z",
+  "seasonalWindow": "July 1 - November 30",
+  "stationsCount": 106,
+  "stations": [
+    {
+      "id": "stowe-vt",
+      "name": "Stowe & Green Mountains, VT",
+      "state": "VT",
+      "lat": 44.47,
+      "lon": -72.68,
+      "elevFt": 1550,
+      "peakDoyBase": 283,
+      "weather": {
+        "nightLowF": 36,
+        "dayHighF": 50,
+        "diurnalSwingF": 14,
+        "sunnyPct": 54,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 36\u00b0F / Day 50\u00b0F (\u0394T 14\u00b0F) \u00b7 54% Sun"
+      }
+    },
+    {
+      "id": "white-mtns-nh",
+      "name": "Kancamagus Hwy (White Mtns), NH",
+      "state": "NH",
+      "lat": 44.03,
+      "lon": -71.38,
+      "elevFt": 2100,
+      "peakDoyBase": 281,
+      "weather": {
+        "nightLowF": 35,
+        "dayHighF": 49,
+        "diurnalSwingF": 14,
+        "sunnyPct": 57,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 35\u00b0F / Day 49\u00b0F (\u0394T 14\u00b0F) \u00b7 57% Sun"
+      }
+    },
+    {
+      "id": "acadia-me",
+      "name": "Acadia & Penobscot Bay, ME",
+      "state": "ME",
+      "lat": 44.34,
+      "lon": -68.27,
+      "elevFt": 650,
+      "peakDoyBase": 286,
+      "weather": {
+        "nightLowF": 35,
+        "dayHighF": 47,
+        "diurnalSwingF": 12,
+        "sunnyPct": 63,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 35\u00b0F / Day 47\u00b0F (\u0394T 12\u00b0F) \u00b7 63% Sun"
+      }
+    },
+    {
+      "id": "adirondacks-ny",
+      "name": "Lake Placid & Adirondacks, NY",
+      "state": "NY",
+      "lat": 44.28,
+      "lon": -73.98,
+      "elevFt": 1950,
+      "peakDoyBase": 279,
+      "weather": {
+        "nightLowF": 36,
+        "dayHighF": 50,
+        "diurnalSwingF": 14,
+        "sunnyPct": 57,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 36\u00b0F / Day 50\u00b0F (\u0394T 14\u00b0F) \u00b7 57% Sun"
+      }
+    },
+    {
+      "id": "berkshires-ma",
+      "name": "The Berkshires & Litchfield Hills, MA/CT",
+      "state": "MA",
+      "lat": 42.31,
+      "lon": -73.25,
+      "elevFt": 1200,
+      "peakDoyBase": 292,
+      "weather": {
+        "nightLowF": 41,
+        "dayHighF": 54,
+        "diurnalSwingF": 13,
+        "sunnyPct": 52,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 41\u00b0F / Day 54\u00b0F (\u0394T 13\u00b0F) \u00b7 52% Sun"
+      }
+    },
+    {
+      "id": "poconos-pa",
+      "name": "Pocono Mountains & Alleghenies, PA",
+      "state": "PA",
+      "lat": 41.12,
+      "lon": -75.35,
+      "elevFt": 1650,
+      "peakDoyBase": 294,
+      "weather": {
+        "nightLowF": 41,
+        "dayHighF": 53,
+        "diurnalSwingF": 12,
+        "sunnyPct": 40,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 41\u00b0F / Day 53\u00b0F (\u0394T 12\u00b0F) \u00b7 40% Sun"
+      }
+    },
+    {
+      "id": "shenandoah-va",
+      "name": "Shenandoah & Blue Ridge Pkwy, VA",
+      "state": "VA",
+      "lat": 38.52,
+      "lon": -78.43,
+      "elevFt": 2600,
+      "peakDoyBase": 298,
+      "weather": {
+        "nightLowF": 42,
+        "dayHighF": 54,
+        "diurnalSwingF": 12,
+        "sunnyPct": 55,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 42\u00b0F / Day 54\u00b0F (\u0394T 12\u00b0F) \u00b7 55% Sun"
+      }
+    },
+    {
+      "id": "smokies-nc-tn",
+      "name": "Great Smoky Mountains & Blue Ridge, NC/TN",
+      "state": "NC",
+      "lat": 35.61,
+      "lon": -83.48,
+      "elevFt": 3200,
+      "peakDoyBase": 303,
+      "weather": {
+        "nightLowF": 43,
+        "dayHighF": 54,
+        "diurnalSwingF": 11,
+        "sunnyPct": 52,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 43\u00b0F / Day 54\u00b0F (\u0394T 11\u00b0F) \u00b7 52% Sun"
+      }
+    },
+    {
+      "id": "up-michigan",
+      "name": "Porcupine Mtns & Upper Peninsula, MI",
+      "state": "MI",
+      "lat": 46.75,
+      "lon": -89.78,
+      "elevFt": 1350,
+      "peakDoyBase": 280,
+      "weather": {
+        "nightLowF": 40,
+        "dayHighF": 47,
+        "diurnalSwingF": 7,
+        "sunnyPct": 73,
+        "moistureIdx": 0.44,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 40\u00b0F / Day 47\u00b0F (\u0394T 7\u00b0F) \u00b7 73% Sun"
+      }
+    },
+    {
+      "id": "north-shore-mn",
+      "name": "North Shore Superior & Boundary Waters, MN",
+      "state": "MN",
+      "lat": 47.62,
+      "lon": -90.85,
+      "elevFt": 1400,
+      "peakDoyBase": 274,
+      "weather": {
+        "nightLowF": 38,
+        "dayHighF": 47,
+        "diurnalSwingF": 9,
+        "sunnyPct": 79,
+        "moistureIdx": 0.11,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 38\u00b0F / Day 47\u00b0F (\u0394T 9\u00b0F) \u00b7 79% Sun"
+      }
+    },
+    {
+      "id": "door-county-wi",
+      "name": "Door County & Driftless Area, WI",
+      "state": "WI",
+      "lat": 45.05,
+      "lon": -87.15,
+      "elevFt": 780,
+      "peakDoyBase": 290,
+      "weather": {
+        "nightLowF": 45,
+        "dayHighF": 52,
+        "diurnalSwingF": 7,
+        "sunnyPct": 58,
+        "moistureIdx": 0.82,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 45\u00b0F / Day 52\u00b0F (\u0394T 7\u00b0F) \u00b7 58% Sun"
+      }
+    },
+    {
+      "id": "hocking-hills-oh",
+      "name": "Hocking Hills & Brown County, OH/IN",
+      "state": "OH",
+      "lat": 39.43,
+      "lon": -82.53,
+      "elevFt": 980,
+      "peakDoyBase": 300,
+      "weather": {
+        "nightLowF": 51,
+        "dayHighF": 63,
+        "diurnalSwingF": 12,
+        "sunnyPct": 49,
+        "moistureIdx": 0.54,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 51\u00b0F / Day 63\u00b0F (\u0394T 12\u00b0F) \u00b7 49% Sun"
+      }
+    },
+    {
+      "id": "ozarks-ar",
+      "name": "Ozark Highlands & Buffalo River, AR/MO",
+      "state": "AR",
+      "lat": 36.04,
+      "lon": -93.18,
+      "elevFt": 1450,
+      "peakDoyBase": 311,
+      "weather": {
+        "nightLowF": 53,
+        "dayHighF": 65,
+        "diurnalSwingF": 12,
+        "sunnyPct": 50,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 53\u00b0F / Day 65\u00b0F (\u0394T 12\u00b0F) \u00b7 50% Sun"
+      }
+    },
+    {
+      "id": "caddo-lake-tx-la",
+      "name": "Caddo Lake & Atchafalaya Basin, TX/LA",
+      "state": "LA",
+      "lat": 32.68,
+      "lon": -94.12,
+      "elevFt": 180,
+      "peakDoyBase": 327,
+      "weather": {
+        "nightLowF": 59,
+        "dayHighF": 77,
+        "diurnalSwingF": 18,
+        "sunnyPct": 79,
+        "moistureIdx": 0.81,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 59\u00b0F / Day 77\u00b0F (\u0394T 18\u00b0F) \u00b7 79% Sun"
+      }
+    },
+    {
+      "id": "lost-maples-tx",
+      "name": "Lost Maples & Hill Country, TX",
+      "state": "TX",
+      "lat": 29.81,
+      "lon": -99.57,
+      "elevFt": 1900,
+      "peakDoyBase": 325,
+      "weather": {
+        "nightLowF": 57,
+        "dayHighF": 73,
+        "diurnalSwingF": 16,
+        "sunnyPct": 83,
+        "moistureIdx": 0.58,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 57\u00b0F / Day 73\u00b0F (\u0394T 16\u00b0F) \u00b7 83% Sun"
+      }
+    },
+    {
+      "id": "maroon-bells-co",
+      "name": "Maroon Bells & Kebler Pass (Aspen), CO",
+      "state": "CO",
+      "lat": 39.07,
+      "lon": -106.94,
+      "elevFt": 9500,
+      "peakDoyBase": 267,
+      "weather": {
+        "nightLowF": 20,
+        "dayHighF": 35,
+        "diurnalSwingF": 15,
+        "sunnyPct": 88,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 20\u00b0F / Day 35\u00b0F (\u0394T 15\u00b0F) \u00b7 88% Sun"
+      }
+    },
+    {
+      "id": "wasatch-ut",
+      "name": "Wasatch Back & Logan Canyon, UT",
+      "state": "UT",
+      "lat": 40.65,
+      "lon": -111.58,
+      "elevFt": 7400,
+      "peakDoyBase": 273,
+      "weather": {
+        "nightLowF": 27,
+        "dayHighF": 40,
+        "diurnalSwingF": 13,
+        "sunnyPct": 84,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 27\u00b0F / Day 40\u00b0F (\u0394T 13\u00b0F) \u00b7 84% Sun"
+      }
+    },
+    {
+      "id": "glacier-mt",
+      "name": "Glacier NP & Seeley-Swan Valley, MT",
+      "state": "MT",
+      "lat": 48.51,
+      "lon": -113.99,
+      "elevFt": 4200,
+      "peakDoyBase": 282,
+      "weather": {
+        "nightLowF": 27,
+        "dayHighF": 44,
+        "diurnalSwingF": 17,
+        "sunnyPct": 63,
+        "moistureIdx": 0.17,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 27\u00b0F / Day 44\u00b0F (\u0394T 17\u00b0F) \u00b7 63% Sun"
+      }
+    },
+    {
+      "id": "enchantments-wa",
+      "name": "The Enchantments & North Cascades, WA",
+      "state": "WA",
+      "lat": 47.52,
+      "lon": -120.82,
+      "elevFt": 5400,
+      "peakDoyBase": 281,
+      "weather": {
+        "nightLowF": 27,
+        "dayHighF": 39,
+        "diurnalSwingF": 12,
+        "sunnyPct": 64,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 27\u00b0F / Day 39\u00b0F (\u0394T 12\u00b0F) \u00b7 64% Sun"
+      }
+    },
+    {
+      "id": "columbia-gorge-or",
+      "name": "Columbia River Gorge & Willamette, OR",
+      "state": "OR",
+      "lat": 45.57,
+      "lon": -122.12,
+      "elevFt": 950,
+      "peakDoyBase": 299,
+      "weather": {
+        "nightLowF": 40,
+        "dayHighF": 52,
+        "diurnalSwingF": 12,
+        "sunnyPct": 63,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 40\u00b0F / Day 52\u00b0F (\u0394T 12\u00b0F) \u00b7 63% Sun"
+      }
+    },
+    {
+      "id": "eastern-sierra-ca",
+      "name": "Eastern Sierra (Bishop Creek & June Lake), CA",
+      "state": "CA",
+      "lat": 37.24,
+      "lon": -118.59,
+      "elevFt": 8100,
+      "peakDoyBase": 288,
+      "weather": {
+        "nightLowF": 35,
+        "dayHighF": 49,
+        "diurnalSwingF": 14,
+        "sunnyPct": 96,
+        "moistureIdx": 0.05,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 35\u00b0F / Day 49\u00b0F (\u0394T 14\u00b0F) \u00b7 96% Sun"
+      }
+    },
+    {
+      "id": "new-haven-ct",
+      "name": "New Haven & East Rock / Sleeping Giant, CT",
+      "state": "CT",
+      "lat": 41.31,
+      "lon": -72.92,
+      "elevFt": 380,
+      "peakDoyBase": 300,
+      "weather": {
+        "nightLowF": 49,
+        "dayHighF": 60,
+        "diurnalSwingF": 11,
+        "sunnyPct": 51,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 49\u00b0F / Day 60\u00b0F (\u0394T 11\u00b0F) \u00b7 51% Sun"
+      }
+    },
+    {
+      "id": "hudson-valley-catskills-ny",
+      "name": "Catskills & Hudson Highlands, NY",
+      "state": "NY",
+      "lat": 42.12,
+      "lon": -74.24,
+      "elevFt": 2150,
+      "peakDoyBase": 289,
+      "weather": {
+        "nightLowF": 37,
+        "dayHighF": 49,
+        "diurnalSwingF": 12,
+        "sunnyPct": 43,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 37\u00b0F / Day 49\u00b0F (\u0394T 12\u00b0F) \u00b7 43% Sun"
+      }
+    },
+    {
+      "id": "monongahela-wv",
+      "name": "Dolly Sods & Blackwater Falls, WV",
+      "state": "WV",
+      "lat": 39.04,
+      "lon": -79.32,
+      "elevFt": 3700,
+      "peakDoyBase": 287,
+      "weather": {
+        "nightLowF": 42,
+        "dayHighF": 53,
+        "diurnalSwingF": 11,
+        "sunnyPct": 48,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 42\u00b0F / Day 53\u00b0F (\u0394T 11\u00b0F) \u00b7 48% Sun"
+      }
+    },
+    {
+      "id": "traverse-city-mi",
+      "name": "Sleeping Bear Dunes & Traverse City, MI",
+      "state": "MI",
+      "lat": 44.76,
+      "lon": -85.62,
+      "elevFt": 820,
+      "peakDoyBase": 291,
+      "weather": {
+        "nightLowF": 45,
+        "dayHighF": 53,
+        "diurnalSwingF": 8,
+        "sunnyPct": 54,
+        "moistureIdx": 0.71,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 45\u00b0F / Day 53\u00b0F (\u0394T 8\u00b0F) \u00b7 54% Sun"
+      }
+    },
+    {
+      "id": "brown-county-in",
+      "name": "Brown County & Shawnee National Forest, IN/IL",
+      "state": "IN",
+      "lat": 39.15,
+      "lon": -86.24,
+      "elevFt": 890,
+      "peakDoyBase": 303,
+      "weather": {
+        "nightLowF": 53,
+        "dayHighF": 64,
+        "diurnalSwingF": 11,
+        "sunnyPct": 45,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 53\u00b0F / Day 64\u00b0F (\u0394T 11\u00b0F) \u00b7 45% Sun"
+      }
+    },
+    {
+      "id": "chattahoochee-ga",
+      "name": "Chattahoochee NF & Amicalola Falls, GA",
+      "state": "GA",
+      "lat": 34.62,
+      "lon": -84.19,
+      "elevFt": 2400,
+      "peakDoyBase": 311,
+      "weather": {
+        "nightLowF": 50,
+        "dayHighF": 61,
+        "diurnalSwingF": 11,
+        "sunnyPct": 60,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 61\u00b0F (\u0394T 11\u00b0F) \u00b7 60% Sun"
+      }
+    },
+    {
+      "id": "black-hills-sd",
+      "name": "Spearfish Canyon & Black Hills, SD/WY",
+      "state": "SD",
+      "lat": 44.35,
+      "lon": -103.92,
+      "elevFt": 5200,
+      "peakDoyBase": 276,
+      "weather": {
+        "nightLowF": 37,
+        "dayHighF": 55,
+        "diurnalSwingF": 18,
+        "sunnyPct": 68,
+        "moistureIdx": 0.14,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 37\u00b0F / Day 55\u00b0F (\u0394T 18\u00b0F) \u00b7 68% Sun"
+      }
+    },
+    {
+      "id": "flagstaff-az",
+      "name": "San Francisco Peaks & Oak Creek Canyon, AZ",
+      "state": "AZ",
+      "lat": 35.19,
+      "lon": -111.65,
+      "elevFt": 7100,
+      "peakDoyBase": 288,
+      "weather": {
+        "nightLowF": 38,
+        "dayHighF": 55,
+        "diurnalSwingF": 17,
+        "sunnyPct": 83,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 38\u00b0F / Day 55\u00b0F (\u0394T 17\u00b0F) \u00b7 83% Sun"
+      }
+    },
+    {
+      "id": "yosemite-napa-ca",
+      "name": "Yosemite Valley & Sierra Foothills, CA",
+      "state": "CA",
+      "lat": 37.74,
+      "lon": -119.59,
+      "elevFt": 4200,
+      "peakDoyBase": 303,
+      "weather": {
+        "nightLowF": 46,
+        "dayHighF": 64,
+        "diurnalSwingF": 18,
+        "sunnyPct": 90,
+        "moistureIdx": 0.3,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 46\u00b0F / Day 64\u00b0F (\u0394T 18\u00b0F) \u00b7 90% Sun"
+      }
+    },
+    {
+      "id": "tetons-wy-id",
+      "name": "Grand Teton & Snake River Valley, WY/ID",
+      "state": "WY",
+      "lat": 43.79,
+      "lon": -110.68,
+      "elevFt": 6800,
+      "peakDoyBase": 270,
+      "weather": {
+        "nightLowF": 26,
+        "dayHighF": 46,
+        "diurnalSwingF": 20,
+        "sunnyPct": 88,
+        "moistureIdx": 0.32,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 26\u00b0F / Day 46\u00b0F (\u0394T 20\u00b0F) \u00b7 88% Sun"
+      }
+    },
+    {
+      "id": "baxter-katahdin-me",
+      "name": "Baxter State Park & North Maine Woods, ME",
+      "state": "ME",
+      "lat": 45.92,
+      "lon": -68.92,
+      "elevFt": 2450,
+      "peakDoyBase": 270,
+      "weather": {
+        "nightLowF": 23,
+        "dayHighF": 38,
+        "diurnalSwingF": 15,
+        "sunnyPct": 69,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 23\u00b0F / Day 38\u00b0F (\u0394T 15\u00b0F) \u00b7 69% Sun"
+      }
+    },
+    {
+      "id": "finger-lakes-ithaca-ny",
+      "name": "Finger Lakes & Letchworth Gorge, NY",
+      "state": "NY",
+      "lat": 42.45,
+      "lon": -76.5,
+      "elevFt": 1120,
+      "peakDoyBase": 292,
+      "weather": {
+        "nightLowF": 45,
+        "dayHighF": 57,
+        "diurnalSwingF": 12,
+        "sunnyPct": 43,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 45\u00b0F / Day 57\u00b0F (\u0394T 12\u00b0F) \u00b7 43% Sun"
+      }
+    },
+    {
+      "id": "pine-barrens-nj",
+      "name": "Wharton State Forest & Pine Barrens, NJ",
+      "state": "NJ",
+      "lat": 39.72,
+      "lon": -74.68,
+      "elevFt": 140,
+      "peakDoyBase": 306,
+      "weather": {
+        "nightLowF": 51,
+        "dayHighF": 65,
+        "diurnalSwingF": 14,
+        "sunnyPct": 56,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 51\u00b0F / Day 65\u00b0F (\u0394T 14\u00b0F) \u00b7 56% Sun"
+      }
+    },
+    {
+      "id": "allegheny-nf-pa",
+      "name": "Allegheny National Forest & Kinzua, PA",
+      "state": "PA",
+      "lat": 41.75,
+      "lon": -78.95,
+      "elevFt": 1920,
+      "peakDoyBase": 288,
+      "weather": {
+        "nightLowF": 44,
+        "dayHighF": 54,
+        "diurnalSwingF": 10,
+        "sunnyPct": 39,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 44\u00b0F / Day 54\u00b0F (\u0394T 10\u00b0F) \u00b7 39% Sun"
+      }
+    },
+    {
+      "id": "pisgah-grandfather-nc",
+      "name": "Pisgah NF & Grandfather Mountain, NC",
+      "state": "NC",
+      "lat": 36.09,
+      "lon": -81.83,
+      "elevFt": 4100,
+      "peakDoyBase": 293,
+      "weather": {
+        "nightLowF": 43,
+        "dayHighF": 54,
+        "diurnalSwingF": 11,
+        "sunnyPct": 47,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 43\u00b0F / Day 54\u00b0F (\u0394T 11\u00b0F) \u00b7 47% Sun"
+      }
+    },
+    {
+      "id": "congaree-np-sc",
+      "name": "Congaree National Park & Santee Bottoms, SC",
+      "state": "SC",
+      "lat": 33.79,
+      "lon": -80.78,
+      "elevFt": 110,
+      "peakDoyBase": 322,
+      "weather": {
+        "nightLowF": 60,
+        "dayHighF": 76,
+        "diurnalSwingF": 16,
+        "sunnyPct": 77,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 60\u00b0F / Day 76\u00b0F (\u0394T 16\u00b0F) \u00b7 77% Sun"
+      }
+    },
+    {
+      "id": "bankhead-talladega-al",
+      "name": "Bankhead & Talladega National Forests, AL",
+      "state": "AL",
+      "lat": 34.25,
+      "lon": -87.35,
+      "elevFt": 1150,
+      "peakDoyBase": 317,
+      "weather": {
+        "nightLowF": 56,
+        "dayHighF": 68,
+        "diurnalSwingF": 12,
+        "sunnyPct": 62,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 56\u00b0F / Day 68\u00b0F (\u0394T 12\u00b0F) \u00b7 62% Sun"
+      }
+    },
+    {
+      "id": "daniel-boone-ky",
+      "name": "Daniel Boone NF & Red River Gorge, KY",
+      "state": "KY",
+      "lat": 37.8,
+      "lon": -83.62,
+      "elevFt": 1320,
+      "peakDoyBase": 305,
+      "weather": {
+        "nightLowF": 54,
+        "dayHighF": 67,
+        "diurnalSwingF": 13,
+        "sunnyPct": 46,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 54\u00b0F / Day 67\u00b0F (\u0394T 13\u00b0F) \u00b7 46% Sun"
+      }
+    },
+    {
+      "id": "cuyahoga-np-oh",
+      "name": "Cuyahoga Valley National Park, OH",
+      "state": "OH",
+      "lat": 41.24,
+      "lon": -81.55,
+      "elevFt": 850,
+      "peakDoyBase": 296,
+      "weather": {
+        "nightLowF": 50,
+        "dayHighF": 61,
+        "diurnalSwingF": 11,
+        "sunnyPct": 41,
+        "moistureIdx": 1.06,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 61\u00b0F (\u0394T 11\u00b0F) \u00b7 41% Sun"
+      }
+    },
+    {
+      "id": "shawnee-nf-il",
+      "name": "Shawnee National Forest (Garden of the Gods), IL",
+      "state": "IL",
+      "lat": 37.6,
+      "lon": -88.38,
+      "elevFt": 820,
+      "peakDoyBase": 308,
+      "weather": {
+        "nightLowF": 55,
+        "dayHighF": 67,
+        "diurnalSwingF": 12,
+        "sunnyPct": 40,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 55\u00b0F / Day 67\u00b0F (\u0394T 12\u00b0F) \u00b7 40% Sun"
+      }
+    },
+    {
+      "id": "chequamegon-nicolet-wi",
+      "name": "Chequamegon-Nicolet National Forest, WI",
+      "state": "WI",
+      "lat": 45.88,
+      "lon": -89.62,
+      "elevFt": 1620,
+      "peakDoyBase": 278,
+      "weather": {
+        "nightLowF": 39,
+        "dayHighF": 51,
+        "diurnalSwingF": 12,
+        "sunnyPct": 62,
+        "moistureIdx": 0.54,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 39\u00b0F / Day 51\u00b0F (\u0394T 12\u00b0F) \u00b7 62% Sun"
+      }
+    },
+    {
+      "id": "driftless-effigy-ia",
+      "name": "Effigy Mounds & Upper Iowa River (Driftless), IA",
+      "state": "IA",
+      "lat": 43.09,
+      "lon": -91.18,
+      "elevFt": 1080,
+      "peakDoyBase": 292,
+      "weather": {
+        "nightLowF": 47,
+        "dayHighF": 55,
+        "diurnalSwingF": 8,
+        "sunnyPct": 43,
+        "moistureIdx": 0.98,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 47\u00b0F / Day 55\u00b0F (\u0394T 8\u00b0F) \u00b7 43% Sun"
+      }
+    },
+    {
+      "id": "mark-twain-nf-mo",
+      "name": "Mark Twain National Forest & Current River, MO",
+      "state": "MO",
+      "lat": 37.18,
+      "lon": -91.25,
+      "elevFt": 1280,
+      "peakDoyBase": 307,
+      "weather": {
+        "nightLowF": 55,
+        "dayHighF": 67,
+        "diurnalSwingF": 12,
+        "sunnyPct": 46,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 55\u00b0F / Day 67\u00b0F (\u0394T 12\u00b0F) \u00b7 46% Sun"
+      }
+    },
+    {
+      "id": "ouachita-talimena-ok",
+      "name": "Ouachita NF & Talimena Scenic Drive, OK/AR",
+      "state": "OK",
+      "lat": 34.69,
+      "lon": -94.62,
+      "elevFt": 2150,
+      "peakDoyBase": 313,
+      "weather": {
+        "nightLowF": 52,
+        "dayHighF": 68,
+        "diurnalSwingF": 16,
+        "sunnyPct": 62,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 52\u00b0F / Day 68\u00b0F (\u0394T 16\u00b0F) \u00b7 62% Sun"
+      }
+    },
+    {
+      "id": "flint-hills-ks",
+      "name": "Konza Prairie & Kansas River Gallery Forest, KS",
+      "state": "KS",
+      "lat": 39.1,
+      "lon": -96.56,
+      "elevFt": 1180,
+      "peakDoyBase": 304,
+      "weather": {
+        "nightLowF": 52,
+        "dayHighF": 61,
+        "diurnalSwingF": 9,
+        "sunnyPct": 43,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 52\u00b0F / Day 61\u00b0F (\u0394T 9\u00b0F) \u00b7 43% Sun"
+      }
+    },
+    {
+      "id": "pine-ridge-niobrara-ne",
+      "name": "Niobrara Valley & Pine Ridge, NE",
+      "state": "NE",
+      "lat": 42.78,
+      "lon": -100.02,
+      "elevFt": 2650,
+      "peakDoyBase": 289,
+      "weather": {
+        "nightLowF": 47,
+        "dayHighF": 58,
+        "diurnalSwingF": 11,
+        "sunnyPct": 52,
+        "moistureIdx": 0.88,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 47\u00b0F / Day 58\u00b0F (\u0394T 11\u00b0F) \u00b7 52% Sun"
+      }
+    },
+    {
+      "id": "turtle-mtns-sheyenne-nd",
+      "name": "Turtle Mountains & Sheyenne River Valley, ND",
+      "state": "ND",
+      "lat": 48.85,
+      "lon": -100.05,
+      "elevFt": 2150,
+      "peakDoyBase": 272,
+      "weather": {
+        "nightLowF": 42,
+        "dayHighF": 53,
+        "diurnalSwingF": 11,
+        "sunnyPct": 61,
+        "moistureIdx": -0.13,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 42\u00b0F / Day 53\u00b0F (\u0394T 11\u00b0F) \u00b7 61% Sun"
+      }
+    },
+    {
+      "id": "rocky-mtn-np-co",
+      "name": "Rocky Mountain National Park (Bear Lake), CO",
+      "state": "CO",
+      "lat": 40.34,
+      "lon": -105.68,
+      "elevFt": 9450,
+      "peakDoyBase": 266,
+      "weather": {
+        "nightLowF": 23,
+        "dayHighF": 42,
+        "diurnalSwingF": 19,
+        "sunnyPct": 81,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 23\u00b0F / Day 42\u00b0F (\u0394T 19\u00b0F) \u00b7 81% Sun"
+      }
+    },
+    {
+      "id": "san-juan-telluride-co",
+      "name": "San Juan Mountains (Telluride & Million Dollar Hwy), CO",
+      "state": "CO",
+      "lat": 37.93,
+      "lon": -107.81,
+      "elevFt": 9300,
+      "peakDoyBase": 272,
+      "weather": {
+        "nightLowF": 26,
+        "dayHighF": 42,
+        "diurnalSwingF": 16,
+        "sunnyPct": 86,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 26\u00b0F / Day 42\u00b0F (\u0394T 16\u00b0F) \u00b7 86% Sun"
+      }
+    },
+    {
+      "id": "zion-kolob-ut",
+      "name": "Zion National Park & Kolob Canyons, UT",
+      "state": "UT",
+      "lat": 37.29,
+      "lon": -113.02,
+      "elevFt": 6200,
+      "peakDoyBase": 295,
+      "weather": {
+        "nightLowF": 41,
+        "dayHighF": 54,
+        "diurnalSwingF": 13,
+        "sunnyPct": 85,
+        "moistureIdx": 0.99,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 41\u00b0F / Day 54\u00b0F (\u0394T 13\u00b0F) \u00b7 85% Sun"
+      }
+    },
+    {
+      "id": "lolo-bitterroot-mt",
+      "name": "Bitterroot & Lolo National Forests, MT/ID",
+      "state": "MT",
+      "lat": 46.62,
+      "lon": -114.12,
+      "elevFt": 4600,
+      "peakDoyBase": 286,
+      "weather": {
+        "nightLowF": 34,
+        "dayHighF": 51,
+        "diurnalSwingF": 17,
+        "sunnyPct": 82,
+        "moistureIdx": 0.3,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 34\u00b0F / Day 51\u00b0F (\u0394T 17\u00b0F) \u00b7 82% Sun"
+      }
+    },
+    {
+      "id": "sawtooth-boise-id",
+      "name": "Sawtooth National Forest & Stanley Basin, ID",
+      "state": "ID",
+      "lat": 44.21,
+      "lon": -114.93,
+      "elevFt": 6450,
+      "peakDoyBase": 272,
+      "weather": {
+        "nightLowF": 23,
+        "dayHighF": 45,
+        "diurnalSwingF": 22,
+        "sunnyPct": 76,
+        "moistureIdx": 0.95,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 23\u00b0F / Day 45\u00b0F (\u0394T 22\u00b0F) \u00b7 76% Sun"
+      }
+    },
+    {
+      "id": "olympic-rainier-wa",
+      "name": "Mt. Rainier & Olympic National Parks, WA",
+      "state": "WA",
+      "lat": 46.85,
+      "lon": -121.75,
+      "elevFt": 3800,
+      "peakDoyBase": 275,
+      "weather": {
+        "nightLowF": -4,
+        "dayHighF": 5,
+        "diurnalSwingF": 9,
+        "sunnyPct": 65,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night -4\u00b0F / Day 5\u00b0F (\u0394T 9\u00b0F) \u00b7 65% Sun"
+      }
+    },
+    {
+      "id": "shasta-trinity-ca",
+      "name": "Shasta-Trinity & Plumas National Forests, CA",
+      "state": "CA",
+      "lat": 40.28,
+      "lon": -121.15,
+      "elevFt": 4500,
+      "peakDoyBase": 293,
+      "weather": {
+        "nightLowF": 31,
+        "dayHighF": 55,
+        "diurnalSwingF": 24,
+        "sunnyPct": 78,
+        "moistureIdx": 0.88,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 31\u00b0F / Day 55\u00b0F (\u0394T 24\u00b0F) \u00b7 78% Sun"
+      }
+    },
+    {
+      "id": "sangre-de-cristo-nm",
+      "name": "Taos & Santa Fe National Forest, NM",
+      "state": "NM",
+      "lat": 35.78,
+      "lon": -105.82,
+      "elevFt": 8800,
+      "peakDoyBase": 282,
+      "weather": {
+        "nightLowF": 31,
+        "dayHighF": 46,
+        "diurnalSwingF": 15,
+        "sunnyPct": 78,
+        "moistureIdx": 0.88,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 31\u00b0F / Day 46\u00b0F (\u0394T 15\u00b0F) \u00b7 78% Sun"
+      }
+    },
+    {
+      "id": "mt-washington-franconia-nh",
+      "name": "Franconia Ridge & Presidential Range, NH",
+      "state": "NH",
+      "lat": 44.27,
+      "lon": -71.3,
+      "elevFt": 3650,
+      "peakDoyBase": 268,
+      "weather": {
+        "nightLowF": 20,
+        "dayHighF": 34,
+        "diurnalSwingF": 14,
+        "sunnyPct": 54,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 20\u00b0F / Day 34\u00b0F (\u0394T 14\u00b0F) \u00b7 54% Sun"
+      }
+    },
+    {
+      "id": "northeast-kingdom-jay-vt",
+      "name": "Northeast Kingdom & Lake Willoughby, VT",
+      "state": "VT",
+      "lat": 44.75,
+      "lon": -72.06,
+      "elevFt": 1880,
+      "peakDoyBase": 276,
+      "weather": {
+        "nightLowF": 34,
+        "dayHighF": 48,
+        "diurnalSwingF": 14,
+        "sunnyPct": 53,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 34\u00b0F / Day 48\u00b0F (\u0394T 14\u00b0F) \u00b7 53% Sun"
+      }
+    },
+    {
+      "id": "moosehead-rangeley-me",
+      "name": "Moosehead Lake & Western Mountains, ME",
+      "state": "ME",
+      "lat": 45.48,
+      "lon": -69.68,
+      "elevFt": 1650,
+      "peakDoyBase": 276,
+      "weather": {
+        "nightLowF": 32,
+        "dayHighF": 47,
+        "diurnalSwingF": 15,
+        "sunnyPct": 64,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 32\u00b0F / Day 47\u00b0F (\u0394T 15\u00b0F) \u00b7 64% Sun"
+      }
+    },
+    {
+      "id": "cape-cod-plymouth-ma",
+      "name": "Cape Cod & Plymouth Pine-Oak Woodlands, MA",
+      "state": "MA",
+      "lat": 41.78,
+      "lon": -70.32,
+      "elevFt": 110,
+      "peakDoyBase": 305,
+      "weather": {
+        "nightLowF": 50,
+        "dayHighF": 58,
+        "diurnalSwingF": 8,
+        "sunnyPct": 66,
+        "moistureIdx": 0.46,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 58\u00b0F (\u0394T 8\u00b0F) \u00b7 66% Sun"
+      }
+    },
+    {
+      "id": "quiet-corner-pachaug-ct",
+      "name": "Pachaug Forest & Narragansett Uplands, CT/RI",
+      "state": "CT",
+      "lat": 41.62,
+      "lon": -71.84,
+      "elevFt": 540,
+      "peakDoyBase": 296,
+      "weather": {
+        "nightLowF": 44,
+        "dayHighF": 59,
+        "diurnalSwingF": 15,
+        "sunnyPct": 61,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 44\u00b0F / Day 59\u00b0F (\u0394T 15\u00b0F) \u00b7 61% Sun"
+      }
+    },
+    {
+      "id": "tug-hill-thousand-islands-ny",
+      "name": "Tug Hill Plateau & St. Lawrence Valley, NY",
+      "state": "NY",
+      "lat": 43.78,
+      "lon": -75.62,
+      "elevFt": 1780,
+      "peakDoyBase": 282,
+      "weather": {
+        "nightLowF": 38,
+        "dayHighF": 50,
+        "diurnalSwingF": 12,
+        "sunnyPct": 53,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 38\u00b0F / Day 50\u00b0F (\u0394T 12\u00b0F) \u00b7 53% Sun"
+      }
+    },
+    {
+      "id": "shawangunks-minnewaska-ny",
+      "name": "Shawangunk Ridge & Hudson Highlands, NY",
+      "state": "NY",
+      "lat": 41.68,
+      "lon": -74.22,
+      "elevFt": 1620,
+      "peakDoyBase": 294,
+      "weather": {
+        "nightLowF": 43,
+        "dayHighF": 56,
+        "diurnalSwingF": 13,
+        "sunnyPct": 41,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 43\u00b0F / Day 56\u00b0F (\u0394T 13\u00b0F) \u00b7 41% Sun"
+      }
+    },
+    {
+      "id": "laurel-highlands-ohiopyle-pa",
+      "name": "Laurel Highlands & Ohiopyle Gorge, PA",
+      "state": "PA",
+      "lat": 39.88,
+      "lon": -79.48,
+      "elevFt": 2350,
+      "peakDoyBase": 293,
+      "weather": {
+        "nightLowF": 50,
+        "dayHighF": 60,
+        "diurnalSwingF": 10,
+        "sunnyPct": 45,
+        "moistureIdx": 0.92,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 60\u00b0F (\u0394T 10\u00b0F) \u00b7 45% Sun"
+      }
+    },
+    {
+      "id": "pine-creek-gorge-pa",
+      "name": "Pine Creek Gorge (PA Grand Canyon) & Tioga, PA",
+      "state": "PA",
+      "lat": 41.7,
+      "lon": -77.44,
+      "elevFt": 1890,
+      "peakDoyBase": 289,
+      "weather": {
+        "nightLowF": 43,
+        "dayHighF": 54,
+        "diurnalSwingF": 11,
+        "sunnyPct": 37,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 43\u00b0F / Day 54\u00b0F (\u0394T 11\u00b0F) \u00b7 37% Sun"
+      }
+    },
+    {
+      "id": "catoctin-deep-creek-md",
+      "name": "Deep Creek Lake & Catoctin Mountain, MD",
+      "state": "MD",
+      "lat": 39.58,
+      "lon": -78.85,
+      "elevFt": 2280,
+      "peakDoyBase": 294,
+      "weather": {
+        "nightLowF": 48,
+        "dayHighF": 62,
+        "diurnalSwingF": 14,
+        "sunnyPct": 52,
+        "moistureIdx": 1.03,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 48\u00b0F / Day 62\u00b0F (\u0394T 14\u00b0F) \u00b7 52% Sun"
+      }
+    },
+    {
+      "id": "delmarva-chesapeake-md-de",
+      "name": "Chesapeake Bay & Delmarva Sweetgum-Oak, MD/DE",
+      "state": "MD",
+      "lat": 38.88,
+      "lon": -75.85,
+      "elevFt": 65,
+      "peakDoyBase": 310,
+      "weather": {
+        "nightLowF": 53,
+        "dayHighF": 67,
+        "diurnalSwingF": 14,
+        "sunnyPct": 60,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 53\u00b0F / Day 67\u00b0F (\u0394T 14\u00b0F) \u00b7 60% Sun"
+      }
+    },
+    {
+      "id": "new-river-gauley-wv",
+      "name": "New River Gorge & Gauley River Canyon, WV",
+      "state": "WV",
+      "lat": 38.07,
+      "lon": -81.08,
+      "elevFt": 1980,
+      "peakDoyBase": 299,
+      "weather": {
+        "nightLowF": 53,
+        "dayHighF": 63,
+        "diurnalSwingF": 10,
+        "sunnyPct": 50,
+        "moistureIdx": 0.83,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 53\u00b0F / Day 63\u00b0F (\u0394T 10\u00b0F) \u00b7 50% Sun"
+      }
+    },
+    {
+      "id": "mount-rogers-clinches-va",
+      "name": "Mt. Rogers High Country & Clinch Mtns, VA",
+      "state": "VA",
+      "lat": 36.66,
+      "lon": -81.54,
+      "elevFt": 4450,
+      "peakDoyBase": 289,
+      "weather": {
+        "nightLowF": 40,
+        "dayHighF": 50,
+        "diurnalSwingF": 10,
+        "sunnyPct": 40,
+        "moistureIdx": 0.71,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 40\u00b0F / Day 50\u00b0F (\u0394T 10\u00b0F) \u00b7 40% Sun"
+      }
+    },
+    {
+      "id": "virginia-piedmont-james-va",
+      "name": "Virginia Piedmont & James River Valley, VA",
+      "state": "VA",
+      "lat": 37.55,
+      "lon": -77.85,
+      "elevFt": 420,
+      "peakDoyBase": 308,
+      "weather": {
+        "nightLowF": 51,
+        "dayHighF": 67,
+        "diurnalSwingF": 16,
+        "sunnyPct": 62,
+        "moistureIdx": 0.78,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 51\u00b0F / Day 67\u00b0F (\u0394T 16\u00b0F) \u00b7 62% Sun"
+      }
+    },
+    {
+      "id": "nantahala-highlands-nc",
+      "name": "Nantahala Gorge & Highlands Plateau, NC",
+      "state": "NC",
+      "lat": 35.06,
+      "lon": -83.2,
+      "elevFt": 3850,
+      "peakDoyBase": 299,
+      "weather": {
+        "nightLowF": 47,
+        "dayHighF": 59,
+        "diurnalSwingF": 12,
+        "sunnyPct": 60,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 47\u00b0F / Day 59\u00b0F (\u0394T 12\u00b0F) \u00b7 60% Sun"
+      }
+    },
+    {
+      "id": "uwharrie-piedmont-nc",
+      "name": "Uwharrie Mountains & North Carolina Piedmont, NC",
+      "state": "NC",
+      "lat": 35.42,
+      "lon": -80.05,
+      "elevFt": 740,
+      "peakDoyBase": 314,
+      "weather": {
+        "nightLowF": 55,
+        "dayHighF": 72,
+        "diurnalSwingF": 17,
+        "sunnyPct": 69,
+        "moistureIdx": 0.4,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 55\u00b0F / Day 72\u00b0F (\u0394T 17\u00b0F) \u00b7 69% Sun"
+      }
+    },
+    {
+      "id": "jocassee-table-rock-sc",
+      "name": "Jocassee Gorges & Table Rock Escarpment, SC",
+      "state": "SC",
+      "lat": 35.02,
+      "lon": -82.72,
+      "elevFt": 2250,
+      "peakDoyBase": 310,
+      "weather": {
+        "nightLowF": 53,
+        "dayHighF": 66,
+        "diurnalSwingF": 13,
+        "sunnyPct": 58,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 53\u00b0F / Day 66\u00b0F (\u0394T 13\u00b0F) \u00b7 58% Sun"
+      }
+    },
+    {
+      "id": "providence-pine-mtn-ga",
+      "name": "F.D. Roosevelt Pine Mountain & Providence Canyon, GA",
+      "state": "GA",
+      "lat": 32.84,
+      "lon": -84.82,
+      "elevFt": 1150,
+      "peakDoyBase": 322,
+      "weather": {
+        "nightLowF": 57,
+        "dayHighF": 71,
+        "diurnalSwingF": 14,
+        "sunnyPct": 64,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 57\u00b0F / Day 71\u00b0F (\u0394T 14\u00b0F) \u00b7 64% Sun"
+      }
+    },
+    {
+      "id": "torreya-apalachicola-fl",
+      "name": "Torreya Ravines & Apalachicola Bluffs, FL",
+      "state": "FL",
+      "lat": 30.57,
+      "lon": -84.95,
+      "elevFt": 250,
+      "peakDoyBase": 331,
+      "weather": {
+        "nightLowF": 64,
+        "dayHighF": 77,
+        "diurnalSwingF": 13,
+        "sunnyPct": 76,
+        "moistureIdx": 0.83,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 64\u00b0F / Day 77\u00b0F (\u0394T 13\u00b0F) \u00b7 76% Sun"
+      }
+    },
+    {
+      "id": "cheaha-little-river-al",
+      "name": "Mt. Cheaha & Little River Canyon, AL",
+      "state": "AL",
+      "lat": 33.49,
+      "lon": -85.81,
+      "elevFt": 2350,
+      "peakDoyBase": 314,
+      "weather": {
+        "nightLowF": 52,
+        "dayHighF": 66,
+        "diurnalSwingF": 14,
+        "sunnyPct": 69,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 52\u00b0F / Day 66\u00b0F (\u0394T 14\u00b0F) \u00b7 69% Sun"
+      }
+    },
+    {
+      "id": "tishomingo-natchez-ms",
+      "name": "Tishomingo Foothills & Natchez Trace, MS",
+      "state": "MS",
+      "lat": 34.6,
+      "lon": -88.18,
+      "elevFt": 590,
+      "peakDoyBase": 319,
+      "weather": {
+        "nightLowF": 57,
+        "dayHighF": 70,
+        "diurnalSwingF": 13,
+        "sunnyPct": 57,
+        "moistureIdx": 1.01,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 57\u00b0F / Day 70\u00b0F (\u0394T 13\u00b0F) \u00b7 57% Sun"
+      }
+    },
+    {
+      "id": "cumberland-plateau-savage-tn",
+      "name": "Savage Gulf & Fall Creek Falls (Cumberland), TN",
+      "state": "TN",
+      "lat": 35.66,
+      "lon": -85.35,
+      "elevFt": 1920,
+      "peakDoyBase": 306,
+      "weather": {
+        "nightLowF": 54,
+        "dayHighF": 65,
+        "diurnalSwingF": 11,
+        "sunnyPct": 53,
+        "moistureIdx": 0.9,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 54\u00b0F / Day 65\u00b0F (\u0394T 11\u00b0F) \u00b7 53% Sun"
+      }
+    },
+    {
+      "id": "reelfoot-west-tn",
+      "name": "Reelfoot Lake & Chickasaw Bluffs, TN/KY",
+      "state": "TN",
+      "lat": 36.39,
+      "lon": -89.38,
+      "elevFt": 320,
+      "peakDoyBase": 317,
+      "weather": {
+        "nightLowF": 58,
+        "dayHighF": 70,
+        "diurnalSwingF": 12,
+        "sunnyPct": 52,
+        "moistureIdx": 1.02,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 58\u00b0F / Day 70\u00b0F (\u0394T 12\u00b0F) \u00b7 52% Sun"
+      }
+    },
+    {
+      "id": "land-between-lakes-ky",
+      "name": "Land Between the Lakes & Mammoth Cave, KY",
+      "state": "KY",
+      "lat": 36.86,
+      "lon": -88.06,
+      "elevFt": 620,
+      "peakDoyBase": 309,
+      "weather": {
+        "nightLowF": 56,
+        "dayHighF": 68,
+        "diurnalSwingF": 12,
+        "sunnyPct": 42,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 56\u00b0F / Day 68\u00b0F (\u0394T 12\u00b0F) \u00b7 42% Sun"
+      }
+    },
+    {
+      "id": "mohican-malabar-oh",
+      "name": "Mohican Gorge & Clear Fork Valley, OH",
+      "state": "OH",
+      "lat": 40.61,
+      "lon": -82.26,
+      "elevFt": 1180,
+      "peakDoyBase": 295,
+      "weather": {
+        "nightLowF": 50,
+        "dayHighF": 60,
+        "diurnalSwingF": 10,
+        "sunnyPct": 42,
+        "moistureIdx": 1.08,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 60\u00b0F (\u0394T 10\u00b0F) \u00b7 42% Sun"
+      }
+    },
+    {
+      "id": "turkey-run-shades-in",
+      "name": "Turkey Run & Sugar Creek Sandstone Gorges, IN",
+      "state": "IN",
+      "lat": 39.88,
+      "lon": -87.2,
+      "elevFt": 690,
+      "peakDoyBase": 300,
+      "weather": {
+        "nightLowF": 53,
+        "dayHighF": 64,
+        "diurnalSwingF": 11,
+        "sunnyPct": 41,
+        "moistureIdx": 0.95,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 53\u00b0F / Day 64\u00b0F (\u0394T 11\u00b0F) \u00b7 41% Sun"
+      }
+    },
+    {
+      "id": "starved-rock-illinois-river-il",
+      "name": "Starved Rock & Mississippi Palisades, IL",
+      "state": "IL",
+      "lat": 41.32,
+      "lon": -88.99,
+      "elevFt": 680,
+      "peakDoyBase": 297,
+      "weather": {
+        "nightLowF": 52,
+        "dayHighF": 60,
+        "diurnalSwingF": 8,
+        "sunnyPct": 33,
+        "moistureIdx": 0.68,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 52\u00b0F / Day 60\u00b0F (\u0394T 8\u00b0F) \u00b7 33% Sun"
+      }
+    },
+    {
+      "id": "tahquamenon-pictured-rocks-mi",
+      "name": "Pictured Rocks & Tahquamenon Falls, MI",
+      "state": "MI",
+      "lat": 46.56,
+      "lon": -86.32,
+      "elevFt": 890,
+      "peakDoyBase": 282,
+      "weather": {
+        "nightLowF": 40,
+        "dayHighF": 51,
+        "diurnalSwingF": 11,
+        "sunnyPct": 67,
+        "moistureIdx": 0.76,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 40\u00b0F / Day 51\u00b0F (\u0394T 11\u00b0F) \u00b7 67% Sun"
+      }
+    },
+    {
+      "id": "baraboo-devils-lake-wi",
+      "name": "Baraboo Hills & Devils Lake Quartzite Bluffs, WI",
+      "state": "WI",
+      "lat": 43.42,
+      "lon": -89.73,
+      "elevFt": 1250,
+      "peakDoyBase": 289,
+      "weather": {
+        "nightLowF": 44,
+        "dayHighF": 54,
+        "diurnalSwingF": 10,
+        "sunnyPct": 48,
+        "moistureIdx": 0.6,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 44\u00b0F / Day 54\u00b0F (\u0394T 10\u00b0F) \u00b7 48% Sun"
+      }
+    },
+    {
+      "id": "itasca-chippewa-mn",
+      "name": "Itasca Headwaters & Chippewa National Forest, MN",
+      "state": "MN",
+      "lat": 47.21,
+      "lon": -95.21,
+      "elevFt": 1475,
+      "peakDoyBase": 276,
+      "weather": {
+        "nightLowF": 42,
+        "dayHighF": 52,
+        "diurnalSwingF": 10,
+        "sunnyPct": 59,
+        "moistureIdx": 0.39,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 42\u00b0F / Day 52\u00b0F (\u0394T 10\u00b0F) \u00b7 59% Sun"
+      }
+    },
+    {
+      "id": "st-croix-blufflands-mn-wi",
+      "name": "St. Croix River Valley & Southeast Blufflands, MN/WI",
+      "state": "MN",
+      "lat": 44.55,
+      "lon": -92.65,
+      "elevFt": 980,
+      "peakDoyBase": 288,
+      "weather": {
+        "nightLowF": 44,
+        "dayHighF": 55,
+        "diurnalSwingF": 11,
+        "sunnyPct": 60,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 44\u00b0F / Day 55\u00b0F (\u0394T 11\u00b0F) \u00b7 60% Sun"
+      }
+    },
+    {
+      "id": "loess-hills-des-moines-ia",
+      "name": "Loess Hills & Des Moines River Valley, IA",
+      "state": "IA",
+      "lat": 41.85,
+      "lon": -95.92,
+      "elevFt": 1220,
+      "peakDoyBase": 296,
+      "weather": {
+        "nightLowF": 50,
+        "dayHighF": 59,
+        "diurnalSwingF": 9,
+        "sunnyPct": 48,
+        "moistureIdx": 1.02,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 59\u00b0F (\u0394T 9\u00b0F) \u00b7 48% Sun"
+      }
+    },
+    {
+      "id": "katy-trail-missouri-river-mo",
+      "name": "Missouri River Bluffs & Hermann Wine Country, MO",
+      "state": "MO",
+      "lat": 38.7,
+      "lon": -91.44,
+      "elevFt": 860,
+      "peakDoyBase": 304,
+      "weather": {
+        "nightLowF": 55,
+        "dayHighF": 66,
+        "diurnalSwingF": 11,
+        "sunnyPct": 46,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 55\u00b0F / Day 66\u00b0F (\u0394T 11\u00b0F) \u00b7 46% Sun"
+      }
+    },
+    {
+      "id": "magazine-petit-jean-ar",
+      "name": "Mount Magazine & Arkansas River Valley, AR",
+      "state": "AR",
+      "lat": 35.17,
+      "lon": -93.64,
+      "elevFt": 2650,
+      "peakDoyBase": 308,
+      "weather": {
+        "nightLowF": 48,
+        "dayHighF": 61,
+        "diurnalSwingF": 13,
+        "sunnyPct": 58,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 48\u00b0F / Day 61\u00b0F (\u0394T 13\u00b0F) \u00b7 58% Sun"
+      }
+    },
+    {
+      "id": "piney-woods-daingerfield-tx",
+      "name": "East Texas Piney Woods (Daingerfield & Davy Crockett), TX",
+      "state": "TX",
+      "lat": 33.05,
+      "lon": -94.72,
+      "elevFt": 460,
+      "peakDoyBase": 324,
+      "weather": {
+        "nightLowF": 58,
+        "dayHighF": 75,
+        "diurnalSwingF": 17,
+        "sunnyPct": 79,
+        "moistureIdx": 1.14,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 58\u00b0F / Day 75\u00b0F (\u0394T 17\u00b0F) \u00b7 79% Sun"
+      }
+    },
+    {
+      "id": "mckittrick-guadalupe-tx",
+      "name": "McKittrick Canyon (Guadalupe Mountains NP), TX",
+      "state": "TX",
+      "lat": 31.98,
+      "lon": -104.75,
+      "elevFt": 5650,
+      "peakDoyBase": 310,
+      "weather": {
+        "nightLowF": 51,
+        "dayHighF": 64,
+        "diurnalSwingF": 13,
+        "sunnyPct": 95,
+        "moistureIdx": 0.52,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 51\u00b0F / Day 64\u00b0F (\u0394T 13\u00b0F) \u00b7 95% Sun"
+      }
+    },
+    {
+      "id": "steamboat-routt-co",
+      "name": "Steamboat Springs & Medicine Bow-Routt NF, CO/WY",
+      "state": "CO",
+      "lat": 40.52,
+      "lon": -106.78,
+      "elevFt": 8850,
+      "peakDoyBase": 265,
+      "weather": {
+        "nightLowF": 26,
+        "dayHighF": 44,
+        "diurnalSwingF": 18,
+        "sunnyPct": 83,
+        "moistureIdx": 1.05,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 26\u00b0F / Day 44\u00b0F (\u0394T 18\u00b0F) \u00b7 83% Sun"
+      }
+    },
+    {
+      "id": "sangre-de-cristo-westcliffe-co",
+      "name": "Sangre de Cristo Range & Spanish Peaks, CO",
+      "state": "CO",
+      "lat": 37.65,
+      "lon": -105.48,
+      "elevFt": 9200,
+      "peakDoyBase": 272,
+      "weather": {
+        "nightLowF": 23,
+        "dayHighF": 37,
+        "diurnalSwingF": 14,
+        "sunnyPct": 83,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 23\u00b0F / Day 37\u00b0F (\u0394T 14\u00b0F) \u00b7 83% Sun"
+      }
+    },
+    {
+      "id": "bighorn-wind-river-wy",
+      "name": "Bighorn Mountains & Wind River Range, WY",
+      "state": "WY",
+      "lat": 44.32,
+      "lon": -107.25,
+      "elevFt": 7600,
+      "peakDoyBase": 266,
+      "weather": {
+        "nightLowF": 22,
+        "dayHighF": 36,
+        "diurnalSwingF": 14,
+        "sunnyPct": 92,
+        "moistureIdx": 0.28,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 22\u00b0F / Day 36\u00b0F (\u0394T 14\u00b0F) \u00b7 92% Sun"
+      }
+    },
+    {
+      "id": "jemez-valles-caldera-nm",
+      "name": "Valles Caldera & Jemez Mountains, NM",
+      "state": "NM",
+      "lat": 35.86,
+      "lon": -106.52,
+      "elevFt": 8650,
+      "peakDoyBase": 282,
+      "weather": {
+        "nightLowF": 34,
+        "dayHighF": 50,
+        "diurnalSwingF": 16,
+        "sunnyPct": 76,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 34\u00b0F / Day 50\u00b0F (\u0394T 16\u00b0F) \u00b7 76% Sun"
+      }
+    },
+    {
+      "id": "cloudcroft-ruidoso-nm",
+      "name": "Cloudcroft & Sacramento Mountains (Lincoln NF), NM",
+      "state": "NM",
+      "lat": 32.95,
+      "lon": -105.74,
+      "elevFt": 8650,
+      "peakDoyBase": 290,
+      "weather": {
+        "nightLowF": 35,
+        "dayHighF": 51,
+        "diurnalSwingF": 16,
+        "sunnyPct": 88,
+        "moistureIdx": 1.17,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 35\u00b0F / Day 51\u00b0F (\u0394T 16\u00b0F) \u00b7 88% Sun"
+      }
+    },
+    {
+      "id": "mogollon-rim-chiricahua-az",
+      "name": "Mogollon Rim & White Mountains (Greer), AZ",
+      "state": "AZ",
+      "lat": 34.01,
+      "lon": -109.46,
+      "elevFt": 8350,
+      "peakDoyBase": 285,
+      "weather": {
+        "nightLowF": 36,
+        "dayHighF": 54,
+        "diurnalSwingF": 18,
+        "sunnyPct": 80,
+        "moistureIdx": 0.69,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 36\u00b0F / Day 54\u00b0F (\u0394T 18\u00b0F) \u00b7 80% Sun"
+      }
+    },
+    {
+      "id": "fishlake-boulder-mtn-ut",
+      "name": "Fishlake (Pando Clone) & Boulder Mountain, UT",
+      "state": "UT",
+      "lat": 38.52,
+      "lon": -111.75,
+      "elevFt": 8850,
+      "peakDoyBase": 271,
+      "weather": {
+        "nightLowF": 29,
+        "dayHighF": 46,
+        "diurnalSwingF": 17,
+        "sunnyPct": 85,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 29\u00b0F / Day 46\u00b0F (\u0394T 17\u00b0F) \u00b7 85% Sun"
+      }
+    },
+    {
+      "id": "ruby-mountains-lamoille-nv",
+      "name": "Ruby Mountains (Lamoille Canyon) & Great Basin, NV",
+      "state": "NV",
+      "lat": 40.62,
+      "lon": -115.38,
+      "elevFt": 8200,
+      "peakDoyBase": 273,
+      "weather": {
+        "nightLowF": 20,
+        "dayHighF": 33,
+        "diurnalSwingF": 13,
+        "sunnyPct": 85,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 20\u00b0F / Day 33\u00b0F (\u0394T 13\u00b0F) \u00b7 85% Sun"
+      }
+    },
+    {
+      "id": "lake-tahoe-hope-valley-ca-nv",
+      "name": "Lake Tahoe Basin & Hope Valley (Carson Pass), CA/NV",
+      "state": "CA",
+      "lat": 38.78,
+      "lon": -119.93,
+      "elevFt": 7150,
+      "peakDoyBase": 283,
+      "weather": {
+        "nightLowF": 32,
+        "dayHighF": 52,
+        "diurnalSwingF": 20,
+        "sunnyPct": 87,
+        "moistureIdx": 0.43,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 32\u00b0F / Day 52\u00b0F (\u0394T 20\u00b0F) \u00b7 87% Sun"
+      }
+    },
+    {
+      "id": "napa-sonoma-mendocino-ca",
+      "name": "Napa Valley, Sonoma & Russian River Hardwoods, CA",
+      "state": "CA",
+      "lat": 38.5,
+      "lon": -122.47,
+      "elevFt": 850,
+      "peakDoyBase": 313,
+      "weather": {
+        "nightLowF": 50,
+        "dayHighF": 69,
+        "diurnalSwingF": 19,
+        "sunnyPct": 77,
+        "moistureIdx": 0.49,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 69\u00b0F (\u0394T 19\u00b0F) \u00b7 77% Sun"
+      }
+    },
+    {
+      "id": "mckenzie-deschutes-sisters-or",
+      "name": "McKenzie River & Three Sisters Wilderness, OR",
+      "state": "OR",
+      "lat": 44.18,
+      "lon": -122.05,
+      "elevFt": 2950,
+      "peakDoyBase": 292,
+      "weather": {
+        "nightLowF": 38,
+        "dayHighF": 54,
+        "diurnalSwingF": 16,
+        "sunnyPct": 60,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 38\u00b0F / Day 54\u00b0F (\u0394T 16\u00b0F) \u00b7 60% Sun"
+      }
+    },
+    {
+      "id": "wallowa-blue-mtns-or",
+      "name": "Wallowa Mountains & Hells Canyon Overlook, OR",
+      "state": "OR",
+      "lat": 45.28,
+      "lon": -117.22,
+      "elevFt": 4850,
+      "peakDoyBase": 284,
+      "weather": {
+        "nightLowF": 32,
+        "dayHighF": 45,
+        "diurnalSwingF": 13,
+        "sunnyPct": 71,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 32\u00b0F / Day 45\u00b0F (\u0394T 13\u00b0F) \u00b7 71% Sun"
+      }
+    },
+    {
+      "id": "selkirk-priest-lake-id-wa",
+      "name": "Selkirk Mountains & Priest Lake (Panhandle), ID/WA",
+      "state": "ID",
+      "lat": 48.35,
+      "lon": -116.85,
+      "elevFt": 3400,
+      "peakDoyBase": 283,
+      "weather": {
+        "nightLowF": 35,
+        "dayHighF": 49,
+        "diurnalSwingF": 14,
+        "sunnyPct": 59,
+        "moistureIdx": 0.72,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 35\u00b0F / Day 49\u00b0F (\u0394T 14\u00b0F) \u00b7 59% Sun"
+      }
+    },
+    {
+      "id": "gallatin-paradise-valley-mt",
+      "name": "Gallatin Canyon & Absaroka-Beartooth Range, MT",
+      "state": "MT",
+      "lat": 45.45,
+      "lon": -111.15,
+      "elevFt": 6150,
+      "peakDoyBase": 269,
+      "weather": {
+        "nightLowF": 26,
+        "dayHighF": 44,
+        "diurnalSwingF": 18,
+        "sunnyPct": 84,
+        "moistureIdx": 0.65,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 26\u00b0F / Day 44\u00b0F (\u0394T 18\u00b0F) \u00b7 84% Sun"
+      }
+    }
+  ]
+}
