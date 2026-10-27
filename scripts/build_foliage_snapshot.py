@@ -28,6 +28,9 @@ import time
 import urllib.request
 from typing import Any, Dict, List, Optional, Tuple
 
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+REPO_ROOT = os.path.dirname(SCRIPT_DIR) if os.path.basename(SCRIPT_DIR) == "scripts" else SCRIPT_DIR
+
 # All 106 Primary USFS FIA Forestry & NOAA GHCND Co-Located Stations
 US_FOLIAGE_STATIONS: List[Dict[str, Any]] = [
   {
@@ -1594,7 +1597,7 @@ def build_and_save_historical_years(
         under 600 weight/minute; automatically falls back to NOAA RCC-ACIS if Open-Meteo's
         10,000/day limit is exceeded).
     """
-    hist_dir = os.path.join("data", "historical")
+    hist_dir = os.path.join(REPO_ROOT, "data", "historical")
     os.makedirs(hist_dir, exist_ok=True)
     expected_total = len(US_FOLIAGE_STATIONS)
 
@@ -1743,7 +1746,7 @@ def main() -> int:
     parser.add_argument(
         "--source",
         choices=["noaa", "era5"],
-        default="noaa",
+        default=os.environ.get("HISTORY_SOURCE", "noaa").strip().lower() or "noaa",
         help="Real historical data source: 'noaa' (Official NOAA RCC-ACIS GHCND daily station observations, no 429 rate limits) or 'era5' (Open-Meteo ERA5 with auto-fallback to NOAA on 429). Default: noaa."
     )
     parser.add_argument(
@@ -1807,13 +1810,13 @@ def main() -> int:
     }
 
     # 1. Write root ./foliage-forecast-snapshot.json (auto-loaded by index.html on GitHub Pages)
-    out_file = "foliage-forecast-snapshot.json"
+    out_file = os.path.join(REPO_ROOT, "foliage-forecast-snapshot.json")
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(snapshot_payload, f, indent=2)
     print(f"[OK] Wrote {out_file} ({len(updated_stations)} stations updated at {now_iso}).")
 
     # 2. Save dated seasonal checkpoint in data/archive/YYYY/
-    archive_dir = os.path.join("data", "archive", str(today.year))
+    archive_dir = os.path.join(REPO_ROOT, "data", "archive", str(today.year))
     os.makedirs(archive_dir, exist_ok=True)
     archive_file = os.path.join(archive_dir, f"foliage-snapshot-{today.isoformat()}.json")
     with open(archive_file, "w", encoding="utf-8") as f:
