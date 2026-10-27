@@ -7444,10 +7444,38 @@ const REAL_NOAA_GHCND_STATIONS = {
 
 
 
-        let dailyData = realWeatherMemoryCache[cacheKey] || null;
+        let dailyData = realWeatherMemoryCache[cacheKey] || (loc.realHistoricalDaily && loc.realHistoricalDaily[activeYr]) || null;
         let sourceTag = dailyData?.sourceLabel || (isHistoricalYear
           ? `ERA5 Historical Reanalysis (${activeYr} Sep–Nov Observed)`
           : 'Open-Meteo / NOAA GFS+HRRR Live API');
+
+        // If historical year is selected and not yet cached, try loading the static GitHub repo copy first
+        if (!dailyData && isHistoricalYear && window.location.protocol.startsWith('http')) {
+          try {
+            const repoHistPath = ["data/historical/foliage", "history", `${activeYr}.json`].join("-");
+            const repoResp = await fetch(repoHistPath, { cache: 'force-cache' });
+            if (repoResp.ok) {
+              const repoJson = await repoResp.json();
+              if (repoJson && Array.isArray(repoJson.stations)) {
+                const repoLabel = `GitHub Repo Archive (data/historical/foliage-history-${activeYr}.json)`;
+                repoJson.stations.forEach(s => {
+                  const stn = US_FOLIAGE_LOCATIONS.find(l => l.id === s.id || l.name === s.name);
+                  if (stn && s.dailySeries) {
+                    s.dailySeries.isFullAutumnArchive = true;
+                    s.dailySeries.sourceLabel = repoLabel;
+                    if (!stn.realHistoricalDaily) stn.realHistoricalDaily = {};
+                    stn.realHistoricalDaily[activeYr] = s.dailySeries;
+                    const k = `${stn.lat.toFixed(2)},${stn.lon.toFixed(2)},${activeYr}`;
+                    realWeatherMemoryCache[k] = s.dailySeries;
+                  }
+                });
+                persistRealWeatherCache();
+                dailyData = realWeatherMemoryCache[cacheKey] || (loc.realHistoricalDaily && loc.realHistoricalDaily[activeYr]) || null;
+                if (dailyData) sourceTag = repoLabel;
+              }
+            }
+          } catch (e) {}
+        }
 
         if (!dailyData) {
           try {
@@ -7622,6 +7650,50 @@ const REAL_NOAA_GHCND_STATIONS = {
         if (nationalBatchCache[batchCacheKey]) {
           applyBatchArrayToStations(nationalBatchCache[batchCacheKey].summaries, nationalBatchCache[batchCacheKey].sourceLabel);
           return;
+        }
+
+        // 1. FIRST: Check static GitHub Repository copy in ./data/historical/foliage-history-YYYY.json
+        // When hosted on GitHub Pages (e.g., YenWenWang/PeakFolio), historical years 1950-2025 are served
+        // directly from your own GitHub repo with zero external API dependency.
+        if (isHist && window.location.protocol.startsWith('http')) {
+          try {
+            const repoHistPath = ["data/historical/foliage", "history", `${yr}.json`].join("-");
+            const repoResp = await fetch(repoHistPath, { cache: 'force-cache' });
+            if (repoResp.ok) {
+              const repoJson = await repoResp.json();
+              if (repoJson && Array.isArray(repoJson.stations) && repoJson.stations.length > 0) {
+                const repoLabel = `GitHub Repo Archive (data/historical/foliage-history-${yr}.json)`;
+                const repoSummaries = US_FOLIAGE_LOCATIONS.map(stn => {
+                  const match = repoJson.stations.find(s => s.id === stn.id || s.name === stn.name);
+                  if (!match) return null;
+                  const wx = match.weather || {};
+                  const ds = match.dailySeries || null;
+                  if (ds) {
+                    ds.isFullAutumnArchive = true;
+                    ds.sourceLabel = repoLabel;
+                    const cKey = `${stn.lat.toFixed(2)},${stn.lon.toFixed(2)},${yr}`;
+                    realWeatherMemoryCache[cKey] = ds;
+                  }
+                  return {
+                    nightLowF: wx.nightLowF ?? 38,
+                    dayHighF: wx.dayHighF ?? 58,
+                    sunnyPct: wx.sunnyPct ?? 68,
+                    moistureIdx: wx.moistureIdx ?? 0.2,
+                    dailySeries: ds
+                  };
+                });
+                persistRealWeatherCache();
+                nationalBatchCache[batchCacheKey] = { summaries: repoSummaries, sourceLabel: repoLabel, fetchedAt: Date.now() };
+                try {
+                  localStorage.setItem(NATIONAL_BATCH_CACHE_KEY, JSON.stringify(nationalBatchCache));
+                } catch (e) {}
+                applyBatchArrayToStations(repoSummaries, repoLabel);
+                return;
+              }
+            }
+          } catch (e) {
+            // Static file not yet committed for this year; fall back to live archive fetch
+          }
         }
 
         // Split 106 stations into 2 chunks of 53 coordinates for Open-Meteo multi-point API

@@ -1,19 +1,25 @@
 #!/usr/bin/env python3
 """
-peakfolio. — Seasonal Empirical Weather & Phenology Snapshot Builder
-====================================================================
-Fetches real-time 14-day trailing chilling observations + 16-day GFS/HRRR forecasts
-from the Open-Meteo / NOAA API across all 106 USFS FIA forestry stations and outputs:
-  1. ./foliage-forecast-snapshot.json (automatically loaded by index.html on page load)
-  2. ./data/archive/YYYY/foliage-snapshot-YYYY-MM-DD.json (versioned seasonal history)
+peakfolio. — Seasonal & Historical (1950–2025) Weather & Phenology Snapshot Builder
+===================================================================================
+Supports two modes for your GitHub repository:
 
-SEASONAL WINDOW GUARD:
-  By default, this script ONLY pulls data between July 1 and November 30 (months 7..11),
-  covering pre-season summer moisture/thermal build-up (Jul-Aug) and the active autumn
-  foliage window (Sep-Nov). Outside Jul 1 - Nov 30, it exits cleanly without making API
-  calls unless `--force` or `FORCE_RUN=true` is passed.
+1. DAILY SEASONAL MODE (Default · July 1 – November 30):
+   Fetches real-time 14-day trailing chilling observations + 16-day GFS/HRRR forecasts
+   across all 106 USFS FIA forestry stations and writes:
+     - ./foliage-forecast-snapshot.json (loaded by index.html for the current season)
+     - ./data/archive/YYYY/foliage-snapshot-YYYY-MM-DD.json (daily seasonal archive)
+
+2. HISTORICAL ARCHIVE BACKFILL MODE (--backfill-history START_YEAR END_YEAR):
+   Pulls 1950–2025 historical autumn (Sep 1 – Nov 30) daily ERA5 reanalysis data
+   across all 106 stations and stores static JSON copies directly in your GitHub repo:
+     - ./data/historical/foliage-history-YYYY.json (for each year 1950..2025)
+   Once committed to GitHub, index.html loads historical years directly from your own
+   repository (`./data/historical/foliage-history-YYYY.json`) instead of calling
+   external APIs from the visitor's browser.
 """
 
+import argparse
 import datetime
 import json
 import os
@@ -1110,35 +1116,82 @@ def fetch_open_meteo_batch(stations_chunk: List[Dict[str, Any]], retries: int = 
         try:
             req = urllib.request.Request(
                 url,
-                headers={"User-Agent": "peakfolio-seasonal-etl/1.0 (https://github.com/peakfolio)"}
+                headers={"User-Agent": "peakfolio-seasonal-etl/1.0 (https://github.com/YenWenWang/PeakFolio)"}
             )
             with urllib.request.urlopen(req, timeout=25) as resp:
                 payload = json.loads(resp.read().decode("utf-8"))
                 return payload if isinstance(payload, list) else [payload]
         except Exception as exc:
-            print(f"[WARN] Batch fetch attempt {attempt}/{retries} failed: {exc}")
+            print(f"[WARN] Forecast batch fetch attempt {attempt}/{retries} failed: {exc}")
             if attempt < retries:
                 time.sleep(2.5 * attempt)
     return []
 
 
-def compute_station_metrics(station: Dict[str, Any], daily_obj: Dict[str, Any]) -> Dict[str, Any]:
+def fetch_era5_historical_year_batch(
+    stations_chunk: List[Dict[str, Any]], year: int, retries: int = 3
+) -> List[Dict[str, Any]]:
+    """
+    Batch-fetch historical ERA5 daily autumn observations (Sep 1 - Nov 30) for a given year
+    across up to 53 stations per request, so we can commit static JSON copies into GitHub.
+    """
+    lats = ",".join(f"{s['lat']:.2f}" for s in stations_chunk)
+    lons = ",".join(f"{s['lon']:.2f}" for s in stations_chunk)
+    url = (
+        f"https://archive-api.open-meteo.com/v1/archive"
+        f"?latitude={lats}&longitude={lons}"
+        f"&start_date={year}-09-01&end_date={year}-11-30"
+        f"&daily=temperature_2m_max,temperature_2m_min,sunshine_duration,precipitation_sum"
+        f"&temperature_unit=fahrenheit&timezone=auto"
+    )
+
+    for attempt in range(1, retries + 1):
+        try:
+            req = urllib.request.Request(
+                url,
+                headers={"User-Agent": "peakfolio-historical-archiver/1.0 (https://github.com/YenWenWang/PeakFolio)"}
+            )
+            with urllib.request.urlopen(req, timeout=35) as resp:
+                payload = json.loads(resp.read().decode("utf-8"))
+                return payload if isinstance(payload, list) else [payload]
+        except Exception as exc:
+            print(f"[WARN] Historical ERA5 batch fetch ({year}) attempt {attempt}/{retries} failed: {exc}")
+            if attempt < retries:
+                time.sleep(3.0 * attempt)
+    return []
+
+
+def compute_station_metrics(
+    station: Dict[str, Any], daily_obj: Dict[str, Any], include_daily_series: bool = False, source_tag: str = "Live Open-Meteo / NOAA GFS Sync"
+) -> Dict[str, Any]:
     """
     Compute 10-day mean nightLowF, dayHighF, diurnal ΔT, sunnyPct, moistureIdx,
     and cumulative chilling degree-day (CDD < 47°F) peak DOY shift.
     """
     daily = daily_obj.get("daily", {})
-    mins = [x for x in (daily.get("temperature_2m_min") or []) if x is not None]
-    maxs = [x for x in (daily.get("temperature_2m_max") or []) if x is not None]
-    suns = [x for x in (daily.get("sunshine_duration") or []) if x is not None]
-    prcps = [x for x in (daily.get("precipitation_sum") or []) if x is not None]
+    times = daily.get("time") or []
+    mins_raw = daily.get("temperature_2m_min") or []
+    maxs_raw = daily.get("temperature_2m_max") or []
+    suns_raw = daily.get("sunshine_duration") or []
+    prcps_raw = daily.get("precipitation_sum") or []
+
+    mins = [x for x in mins_raw if x is not None]
+    maxs = [x for x in maxs_raw if x is not None]
+    suns = [x for x in suns_raw if x is not None]
+    prcps = [x for x in prcps_raw if x is not None]
 
     if not mins or not maxs:
         raise ValueError("Empty temperature series")
 
-    win_mins = mins[-14:-4] if len(mins) >= 14 else mins[-10:]
-    win_maxs = maxs[-14:-4] if len(maxs) >= 14 else maxs[-10:]
-    win_suns = suns[-14:-4] if len(suns) >= 14 else suns[-10:]
+    # For a 91-day full autumn archive (Sep 1 - Nov 30), use the core Oct 5 - Oct 25 window for summary stats
+    if len(mins) >= 60:
+        win_mins = mins[34:55]
+        win_maxs = maxs[34:55]
+        win_suns = suns[34:55] if len(suns) >= 55 else suns
+    else:
+        win_mins = mins[-14:-4] if len(mins) >= 14 else mins[-10:]
+        win_maxs = maxs[-14:-4] if len(maxs) >= 14 else maxs[-10:]
+        win_suns = suns[-14:-4] if len(suns) >= 14 else suns[-10:]
 
     night_low_f = round(sum(win_mins) / max(1, len(win_mins)))
     day_high_f = round(sum(win_maxs) / max(1, len(win_maxs)))
@@ -1154,7 +1207,7 @@ def compute_station_metrics(station: Dict[str, Any], daily_obj: Dict[str, Any]) 
     cdd_delta = round((38.0 - night_low_f) * 0.35, 1)
     adjusted_peak_doy = int(round(max(250, min(332, station["peakDoyBase"] - cdd_delta))))
 
-    return {
+    record: Dict[str, Any] = {
         "id": station["id"],
         "name": station["name"],
         "state": station["state"],
@@ -1169,16 +1222,140 @@ def compute_station_metrics(station: Dict[str, Any], daily_obj: Dict[str, Any]) 
             "sunnyPct": sunny_pct,
             "moistureIdx": moisture_idx,
             "microclimateLabel": (
-                f"Live Open-Meteo / NOAA GFS Sync · Night {night_low_f}°F / "
+                f"{source_tag} · Night {night_low_f}°F / "
                 f"Day {day_high_f}°F (ΔT {diurnal_swing_f}°F) · {sunny_pct}% Sun"
             )
         }
     }
 
+    if include_daily_series:
+        record["dailySeries"] = {
+            "time": times,
+            "temperature_2m_min": [round(x, 1) if x is not None else None for x in mins_raw],
+            "temperature_2m_max": [round(x, 1) if x is not None else None for x in maxs_raw],
+            "sunshine_duration": [round(x) if x is not None else None for x in suns_raw],
+            "precipitation_sum": [round(x, 2) if x is not None else None for x in prcps_raw],
+            "isFullAutumnArchive": len(times) >= 60,
+            "sourceLabel": source_tag
+        }
+
+    return record
+
+
+def build_and_save_historical_years(start_year: int, end_year: int, overwrite: bool = False) -> int:
+    """
+    Fetch and store static GitHub repository copies of 1950–2025 autumn weather & phenology
+    in `./data/historical/foliage-history-YYYY.json` + `./data/historical/index.json`.
+    """
+    hist_dir = os.path.join("data", "historical")
+    os.makedirs(hist_dir, exist_ok=True)
+    chunk_size = 53
+    saved_years: List[int] = []
+
+    for yr in range(start_year, end_year + 1):
+        target_path = os.path.join(hist_dir, f"foliage-history-{yr}.json")
+        if os.path.exists(target_path) and not overwrite:
+            print(f"[SKIP] {target_path} already exists in repository. Skipping {yr}.")
+            saved_years.append(yr)
+            continue
+
+        print(f"[INFO] Fetching ERA5 historical autumn (Sep 1 - Nov 30, {yr}) across {len(US_FOLIAGE_STATIONS)} stations...")
+        stations_out: List[Dict[str, Any]] = []
+
+        for start_idx in range(0, len(US_FOLIAGE_STATIONS), chunk_size):
+            chunk = US_FOLIAGE_STATIONS[start_idx : start_idx + chunk_size]
+            responses = fetch_era5_historical_year_batch(chunk, yr)
+            for idx, stn in enumerate(chunk):
+                if idx < len(responses) and responses[idx]:
+                    try:
+                        stations_out.append(
+                            compute_station_metrics(
+                                stn,
+                                responses[idx],
+                                include_daily_series=True,
+                                source_tag=f"GitHub Repo ERA5 Archive ({yr} Sep–Nov Observed)"
+                            )
+                        )
+                    except Exception as exc:
+                        print(f"[WARN] Station {stn['id']} ({yr}) parse warning: {exc}")
+            time.sleep(0.8)
+
+        if not stations_out:
+            print(f"[WARN] Could not fetch historical year {yr}; skipping write.")
+            continue
+
+        now_iso = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        payload = {
+            "version": f"era5-history-{yr}",
+            "year": yr,
+            "generatedAt": now_iso,
+            "seasonalWindow": f"{yr}-09-01 to {yr}-11-30",
+            "stationsCount": len(stations_out),
+            "stations": stations_out
+        }
+        with open(target_path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, separators=(",", ":"))
+        print(f"[OK] Saved {target_path} ({len(stations_out)} stations).")
+        saved_years.append(yr)
+        time.sleep(0.6)
+
+    # Update ./data/historical/index.json manifest of all available years in the repo
+    existing_files = sorted(
+        f for f in os.listdir(hist_dir) if f.startswith("foliage-history-") and f.endswith(".json")
+    )
+    manifest = {
+        "updatedAt": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "availableYears": [
+            int(f.replace("foliage-history-", "").replace(".json", ""))
+            for f in existing_files
+            if f.replace("foliage-history-", "").replace(".json", "").isdigit()
+        ],
+        "files": [f"data/historical/{f}" for f in existing_files]
+    }
+    manifest_path = os.path.join(hist_dir, "index.json")
+    with open(manifest_path, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, indent=2)
+    print(f"[OK] Updated {manifest_path} ({len(manifest['availableYears'])} historical years indexed).")
+    return 0
+
 
 def main() -> int:
+    parser = argparse.ArgumentParser(
+        description="Build daily seasonal foliage snapshots and/or backfill 1950–2025 historical JSON files."
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Run daily snapshot pull even outside the July 1 - November 30 seasonal window."
+    )
+    parser.add_argument(
+        "--backfill-history",
+        nargs=2,
+        metavar=("START_YEAR", "END_YEAR"),
+        type=int,
+        help="Fetch 1950-2025 historical ERA5 autumn data and save static JSON copies to ./data/historical/foliage-history-YYYY.json"
+    )
+    parser.add_argument(
+        "--overwrite-history",
+        action="store_true",
+        help="Re-download and overwrite existing ./data/historical/foliage-history-YYYY.json files."
+    )
+    args = parser.parse_args()
+
+    # Check environment variable fallback for GitHub Actions workflow_dispatch
+    env_backfill = os.environ.get("BACKFILL_HISTORY_RANGE", "").strip()
+    if args.backfill_history:
+        start_yr, end_yr = args.backfill_history
+        return build_and_save_historical_years(start_yr, end_yr, overwrite=args.overwrite_history)
+    elif env_backfill and "-" in env_backfill:
+        parts = env_backfill.split("-", 1)
+        if parts[0].strip().isdigit() and parts[1].strip().isdigit():
+            return build_and_save_historical_years(
+                int(parts[0].strip()), int(parts[1].strip()), overwrite=args.overwrite_history
+            )
+
     today = datetime.date.today()
-    force_flag = ("--force" in sys.argv) or (os.environ.get("FORCE_RUN", "").lower() == "true")
+    force_flag = args.force or (os.environ.get("FORCE_RUN", "").lower() == "true")
 
     if not is_within_seasonal_window(today) and not force_flag:
         print(
