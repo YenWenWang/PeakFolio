@@ -1,6 +1,6 @@
 {
-  "version": "2026.10.28-seasonal",
-  "generatedAt": "2026-10-28T12:08:20Z",
+  "version": "2026.10.29-seasonal",
+  "generatedAt": "2026-10-29T12:18:59Z",
   "seasonalWindow": "July 1 - November 30",
   "stationsCount": 106,
   "stations": [
@@ -11,14 +11,14 @@
       "lat": 44.47,
       "lon": -72.68,
       "elevFt": 1550,
-      "peakDoyBase": 283,
+      "peakDoyBase": 284,
       "weather": {
-        "nightLowF": 36,
+        "nightLowF": 38,
         "dayHighF": 51,
-        "diurnalSwingF": 15,
-        "sunnyPct": 56,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 36\u00b0F / Day 51\u00b0F (\u0394T 15\u00b0F) \u00b7 56% Sun"
+        "diurnalSwingF": 13,
+        "sunnyPct": 63,
+        "moistureIdx": 0.61,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 38\u00b0F / Day 51\u00b0F (\u0394T 13\u00b0F) \u00b7 63% Sun"
       }
     },
     {
@@ -30,12 +30,12 @@
       "elevFt": 2100,
       "peakDoyBase": 281,
       "weather": {
-        "nightLowF": 34,
-        "dayHighF": 48,
+        "nightLowF": 35,
+        "dayHighF": 49,
         "diurnalSwingF": 14,
-        "sunnyPct": 65,
-        "moistureIdx": 1.17,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 34\u00b0F / Day 48\u00b0F (\u0394T 14\u00b0F) \u00b7 65% Sun"
+        "sunnyPct": 69,
+        "moistureIdx": 0.63,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 35\u00b0F / Day 49\u00b0F (\u0394T 14\u00b0F) \u00b7 69% Sun"
       }
     },
     {
@@ -47,12 +47,12 @@
       "elevFt": 650,
       "peakDoyBase": 286,
       "weather": {
-        "nightLowF": 34,
-        "dayHighF": 48,
-        "diurnalSwingF": 14,
-        "sunnyPct": 75,
-        "moistureIdx": 0.72,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 34\u00b0F / Day 48\u00b0F (\u0394T 14\u00b0F) \u00b7 75% Sun"
+        "nightLowF": 35,
+        "dayHighF": 47,
+        "diurnalSwingF": 12,
+        "sunnyPct": 70,
+        "moistureIdx": 0.77,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 35\u00b0F / Day 47\u00b0F (\u0394T 12\u00b0F) \u00b7 70% Sun"
       }
     },
     {
@@ -62,14 +62,14 @@
       "lat": 44.28,
       "lon": -73.98,
       "elevFt": 1950,
-      "peakDoyBase": 279,
+      "peakDoyBase": 280,
       "weather": {
-        "nightLowF": 34,
-        "dayHighF": 49,
-        "diurnalSwingF": 15,
-        "sunnyPct": 55,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 34\u00b0F / Day 49\u00b0F (\u0394T 15\u00b0F) \u00b7 55% Sun"
+        "nightLowF": 37,
+        "dayHighF": 50,
+        "diurnalSwingF": 13,
+        "sunnyPct": 66,
+        "moistureIdx": 0.51,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 37\u00b0F / Day 50\u00b0F (\u0394T 13\u00b0F) \u00b7 66% Sun"
       }
     },
     {
@@ -82,11 +82,11 @@
       "peakDoyBase": 291,
       "weather": {
         "nightLowF": 38,
-        "dayHighF": 53,
-        "diurnalSwingF": 15,
-        "sunnyPct": 69,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 38\u00b0F / Day 53\u00b0F (\u0394T 15\u00b0F) \u00b7 69% Sun"
+        "dayHighF": 55,
+        "diurnalSwingF": 17,
+        "sunnyPct": 74,
+        "moistureIdx": 0.53,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 38\u00b0F / Day 55\u00b0F (\u0394T 17\u00b0F) \u00b7 74% Sun"
       }
     },
     {
@@ -96,14 +96,14 @@
       "lat": 41.12,
       "lon": -75.35,
       "elevFt": 1650,
-      "peakDoyBase": 294,
+      "peakDoyBase": 293,
       "weather": {
-        "nightLowF": 40,
-        "dayHighF": 53,
-        "diurnalSwingF": 13,
-        "sunnyPct": 57,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 40\u00b0F / Day 53\u00b0F (\u0394T 13\u00b0F) \u00b7 57% Sun"
+        "nightLowF": 39,
+        "dayHighF": 54,
+        "diurnalSwingF": 15,
+        "sunnyPct": 62,
+        "moistureIdx": 0.57,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 39\u00b0F / Day 54\u00b0F (\u0394T 15\u00b0F) \u00b7 62% Sun"
       }
     },
     {
@@ -113,14 +113,14 @@
       "lat": 38.52,
       "lon": -78.43,
       "elevFt": 2600,
-      "peakDoyBase": 297,
+      "peakDoyBase": 296,
       "weather": {
-        "nightLowF": 39,
-        "dayHighF": 52,
-        "diurnalSwingF": 13,
-        "sunnyPct": 57,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 39\u00b0F / Day 52\u00b0F (\u0394T 13\u00b0F) \u00b7 57% Sun"
+        "nightLowF": 36,
+        "dayHighF": 51,
+        "diurnalSwingF": 15,
+        "sunnyPct": 64,
+        "moistureIdx": 0.92,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 36\u00b0F / Day 51\u00b0F (\u0394T 15\u00b0F) \u00b7 64% Sun"
       }
     },
     {
@@ -130,14 +130,14 @@
       "lat": 35.61,
       "lon": -83.48,
       "elevFt": 3200,
-      "peakDoyBase": 302,
+      "peakDoyBase": 301,
       "weather": {
-        "nightLowF": 40,
-        "dayHighF": 52,
+        "nightLowF": 38,
+        "dayHighF": 50,
         "diurnalSwingF": 12,
-        "sunnyPct": 58,
+        "sunnyPct": 63,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 40\u00b0F / Day 52\u00b0F (\u0394T 12\u00b0F) \u00b7 58% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 38\u00b0F / Day 50\u00b0F (\u0394T 12\u00b0F) \u00b7 63% Sun"
       }
     },
     {
@@ -147,14 +147,14 @@
       "lat": 46.75,
       "lon": -89.78,
       "elevFt": 1350,
-      "peakDoyBase": 279,
+      "peakDoyBase": 280,
       "weather": {
-        "nightLowF": 39,
-        "dayHighF": 44,
-        "diurnalSwingF": 5,
-        "sunnyPct": 59,
-        "moistureIdx": 1.03,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 39\u00b0F / Day 44\u00b0F (\u0394T 5\u00b0F) \u00b7 59% Sun"
+        "nightLowF": 40,
+        "dayHighF": 48,
+        "diurnalSwingF": 8,
+        "sunnyPct": 63,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 40\u00b0F / Day 48\u00b0F (\u0394T 8\u00b0F) \u00b7 63% Sun"
       }
     },
     {
@@ -164,14 +164,14 @@
       "lat": 47.62,
       "lon": -90.85,
       "elevFt": 1400,
-      "peakDoyBase": 273,
+      "peakDoyBase": 274,
       "weather": {
-        "nightLowF": 36,
-        "dayHighF": 46,
+        "nightLowF": 38,
+        "dayHighF": 48,
         "diurnalSwingF": 10,
-        "sunnyPct": 70,
-        "moistureIdx": 0.3,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 36\u00b0F / Day 46\u00b0F (\u0394T 10\u00b0F) \u00b7 70% Sun"
+        "sunnyPct": 69,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 38\u00b0F / Day 48\u00b0F (\u0394T 10\u00b0F) \u00b7 69% Sun"
       }
     },
     {
@@ -181,14 +181,14 @@
       "lat": 45.05,
       "lon": -87.15,
       "elevFt": 780,
-      "peakDoyBase": 290,
+      "peakDoyBase": 291,
       "weather": {
-        "nightLowF": 44,
-        "dayHighF": 51,
+        "nightLowF": 46,
+        "dayHighF": 53,
         "diurnalSwingF": 7,
-        "sunnyPct": 56,
-        "moistureIdx": 0.97,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 44\u00b0F / Day 51\u00b0F (\u0394T 7\u00b0F) \u00b7 56% Sun"
+        "sunnyPct": 49,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 46\u00b0F / Day 53\u00b0F (\u0394T 7\u00b0F) \u00b7 49% Sun"
       }
     },
     {
@@ -198,14 +198,14 @@
       "lat": 39.43,
       "lon": -82.53,
       "elevFt": 980,
-      "peakDoyBase": 299,
+      "peakDoyBase": 298,
       "weather": {
-        "nightLowF": 46,
-        "dayHighF": 61,
-        "diurnalSwingF": 15,
-        "sunnyPct": 66,
-        "moistureIdx": 0.3,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 46\u00b0F / Day 61\u00b0F (\u0394T 15\u00b0F) \u00b7 66% Sun"
+        "nightLowF": 45,
+        "dayHighF": 57,
+        "diurnalSwingF": 12,
+        "sunnyPct": 56,
+        "moistureIdx": 0.77,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 45\u00b0F / Day 57\u00b0F (\u0394T 12\u00b0F) \u00b7 56% Sun"
       }
     },
     {
@@ -215,14 +215,14 @@
       "lat": 36.04,
       "lon": -93.18,
       "elevFt": 1450,
-      "peakDoyBase": 311,
+      "peakDoyBase": 310,
       "weather": {
-        "nightLowF": 52,
-        "dayHighF": 66,
-        "diurnalSwingF": 14,
-        "sunnyPct": 63,
+        "nightLowF": 50,
+        "dayHighF": 60,
+        "diurnalSwingF": 10,
+        "sunnyPct": 37,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 52\u00b0F / Day 66\u00b0F (\u0394T 14\u00b0F) \u00b7 63% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 60\u00b0F (\u0394T 10\u00b0F) \u00b7 37% Sun"
       }
     },
     {
@@ -232,14 +232,14 @@
       "lat": 32.68,
       "lon": -94.12,
       "elevFt": 180,
-      "peakDoyBase": 327,
+      "peakDoyBase": 326,
       "weather": {
-        "nightLowF": 58,
-        "dayHighF": 75,
-        "diurnalSwingF": 17,
-        "sunnyPct": 75,
-        "moistureIdx": 0.91,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 58\u00b0F / Day 75\u00b0F (\u0394T 17\u00b0F) \u00b7 75% Sun"
+        "nightLowF": 56,
+        "dayHighF": 72,
+        "diurnalSwingF": 16,
+        "sunnyPct": 64,
+        "moistureIdx": 0.72,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 56\u00b0F / Day 72\u00b0F (\u0394T 16\u00b0F) \u00b7 64% Sun"
       }
     },
     {
@@ -251,12 +251,12 @@
       "elevFt": 1900,
       "peakDoyBase": 325,
       "weather": {
-        "nightLowF": 58,
-        "dayHighF": 74,
-        "diurnalSwingF": 16,
-        "sunnyPct": 84,
-        "moistureIdx": 0.4,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 58\u00b0F / Day 74\u00b0F (\u0394T 16\u00b0F) \u00b7 84% Sun"
+        "nightLowF": 57,
+        "dayHighF": 72,
+        "diurnalSwingF": 15,
+        "sunnyPct": 87,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 57\u00b0F / Day 72\u00b0F (\u0394T 15\u00b0F) \u00b7 87% Sun"
       }
     },
     {
@@ -286,11 +286,11 @@
       "peakDoyBase": 274,
       "weather": {
         "nightLowF": 28,
-        "dayHighF": 42,
-        "diurnalSwingF": 14,
-        "sunnyPct": 87,
-        "moistureIdx": 1.06,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 28\u00b0F / Day 42\u00b0F (\u0394T 14\u00b0F) \u00b7 87% Sun"
+        "dayHighF": 39,
+        "diurnalSwingF": 11,
+        "sunnyPct": 79,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 28\u00b0F / Day 39\u00b0F (\u0394T 11\u00b0F) \u00b7 79% Sun"
       }
     },
     {
@@ -302,12 +302,12 @@
       "elevFt": 4200,
       "peakDoyBase": 284,
       "weather": {
-        "nightLowF": 31,
-        "dayHighF": 47,
-        "diurnalSwingF": 16,
-        "sunnyPct": 75,
-        "moistureIdx": 0.09,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 31\u00b0F / Day 47\u00b0F (\u0394T 16\u00b0F) \u00b7 75% Sun"
+        "nightLowF": 32,
+        "dayHighF": 49,
+        "diurnalSwingF": 17,
+        "sunnyPct": 74,
+        "moistureIdx": 0.23,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 32\u00b0F / Day 49\u00b0F (\u0394T 17\u00b0F) \u00b7 74% Sun"
       }
     },
     {
@@ -319,12 +319,12 @@
       "elevFt": 5400,
       "peakDoyBase": 282,
       "weather": {
-        "nightLowF": 28,
-        "dayHighF": 40,
-        "diurnalSwingF": 12,
-        "sunnyPct": 72,
+        "nightLowF": 30,
+        "dayHighF": 43,
+        "diurnalSwingF": 13,
+        "sunnyPct": 74,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 28\u00b0F / Day 40\u00b0F (\u0394T 12\u00b0F) \u00b7 72% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 30\u00b0F / Day 43\u00b0F (\u0394T 13\u00b0F) \u00b7 74% Sun"
       }
     },
     {
@@ -337,11 +337,11 @@
       "peakDoyBase": 299,
       "weather": {
         "nightLowF": 41,
-        "dayHighF": 54,
-        "diurnalSwingF": 13,
-        "sunnyPct": 72,
+        "dayHighF": 51,
+        "diurnalSwingF": 10,
+        "sunnyPct": 54,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 41\u00b0F / Day 54\u00b0F (\u0394T 13\u00b0F) \u00b7 72% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 41\u00b0F / Day 51\u00b0F (\u0394T 10\u00b0F) \u00b7 54% Sun"
       }
     },
     {
@@ -351,14 +351,14 @@
       "lat": 37.24,
       "lon": -118.59,
       "elevFt": 8100,
-      "peakDoyBase": 288,
+      "peakDoyBase": 287,
       "weather": {
-        "nightLowF": 34,
-        "dayHighF": 49,
+        "nightLowF": 33,
+        "dayHighF": 48,
         "diurnalSwingF": 15,
-        "sunnyPct": 96,
-        "moistureIdx": 0.45,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 34\u00b0F / Day 49\u00b0F (\u0394T 15\u00b0F) \u00b7 96% Sun"
+        "sunnyPct": 95,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 33\u00b0F / Day 48\u00b0F (\u0394T 15\u00b0F) \u00b7 95% Sun"
       }
     },
     {
@@ -368,14 +368,14 @@
       "lat": 41.31,
       "lon": -72.92,
       "elevFt": 380,
-      "peakDoyBase": 300,
+      "peakDoyBase": 299,
       "weather": {
-        "nightLowF": 48,
+        "nightLowF": 47,
         "dayHighF": 59,
-        "diurnalSwingF": 11,
-        "sunnyPct": 70,
-        "moistureIdx": 1.19,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 48\u00b0F / Day 59\u00b0F (\u0394T 11\u00b0F) \u00b7 70% Sun"
+        "diurnalSwingF": 12,
+        "sunnyPct": 73,
+        "moistureIdx": 0.94,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 47\u00b0F / Day 59\u00b0F (\u0394T 12\u00b0F) \u00b7 73% Sun"
       }
     },
     {
@@ -388,11 +388,11 @@
       "peakDoyBase": 288,
       "weather": {
         "nightLowF": 35,
-        "dayHighF": 49,
-        "diurnalSwingF": 14,
-        "sunnyPct": 66,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 35\u00b0F / Day 49\u00b0F (\u0394T 14\u00b0F) \u00b7 66% Sun"
+        "dayHighF": 51,
+        "diurnalSwingF": 16,
+        "sunnyPct": 60,
+        "moistureIdx": 0.74,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 35\u00b0F / Day 51\u00b0F (\u0394T 16\u00b0F) \u00b7 60% Sun"
       }
     },
     {
@@ -402,14 +402,14 @@
       "lat": 39.04,
       "lon": -79.32,
       "elevFt": 3700,
-      "peakDoyBase": 286,
+      "peakDoyBase": 285,
       "weather": {
-        "nightLowF": 37,
-        "dayHighF": 49,
-        "diurnalSwingF": 12,
-        "sunnyPct": 47,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 37\u00b0F / Day 49\u00b0F (\u0394T 12\u00b0F) \u00b7 47% Sun"
+        "nightLowF": 36,
+        "dayHighF": 51,
+        "diurnalSwingF": 15,
+        "sunnyPct": 59,
+        "moistureIdx": 0.87,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 36\u00b0F / Day 51\u00b0F (\u0394T 15\u00b0F) \u00b7 59% Sun"
       }
     },
     {
@@ -419,14 +419,14 @@
       "lat": 44.76,
       "lon": -85.62,
       "elevFt": 820,
-      "peakDoyBase": 291,
+      "peakDoyBase": 292,
       "weather": {
-        "nightLowF": 45,
-        "dayHighF": 51,
-        "diurnalSwingF": 6,
-        "sunnyPct": 38,
-        "moistureIdx": 0.81,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 45\u00b0F / Day 51\u00b0F (\u0394T 6\u00b0F) \u00b7 38% Sun"
+        "nightLowF": 46,
+        "dayHighF": 56,
+        "diurnalSwingF": 10,
+        "sunnyPct": 56,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 46\u00b0F / Day 56\u00b0F (\u0394T 10\u00b0F) \u00b7 56% Sun"
       }
     },
     {
@@ -438,12 +438,12 @@
       "elevFt": 890,
       "peakDoyBase": 302,
       "weather": {
-        "nightLowF": 50,
-        "dayHighF": 61,
+        "nightLowF": 48,
+        "dayHighF": 59,
         "diurnalSwingF": 11,
-        "sunnyPct": 54,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 61\u00b0F (\u0394T 11\u00b0F) \u00b7 54% Sun"
+        "sunnyPct": 49,
+        "moistureIdx": 0.93,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 48\u00b0F / Day 59\u00b0F (\u0394T 11\u00b0F) \u00b7 49% Sun"
       }
     },
     {
@@ -455,12 +455,12 @@
       "elevFt": 2400,
       "peakDoyBase": 310,
       "weather": {
-        "nightLowF": 47,
-        "dayHighF": 57,
+        "nightLowF": 46,
+        "dayHighF": 56,
         "diurnalSwingF": 10,
-        "sunnyPct": 46,
+        "sunnyPct": 60,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 47\u00b0F / Day 57\u00b0F (\u0394T 10\u00b0F) \u00b7 46% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 46\u00b0F / Day 56\u00b0F (\u0394T 10\u00b0F) \u00b7 60% Sun"
       }
     },
     {
@@ -472,12 +472,12 @@
       "elevFt": 5200,
       "peakDoyBase": 275,
       "weather": {
-        "nightLowF": 35,
-        "dayHighF": 50,
-        "diurnalSwingF": 15,
-        "sunnyPct": 68,
-        "moistureIdx": 0.85,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 35\u00b0F / Day 50\u00b0F (\u0394T 15\u00b0F) \u00b7 68% Sun"
+        "nightLowF": 34,
+        "dayHighF": 51,
+        "diurnalSwingF": 17,
+        "sunnyPct": 78,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 34\u00b0F / Day 51\u00b0F (\u0394T 17\u00b0F) \u00b7 78% Sun"
       }
     },
     {
@@ -489,12 +489,12 @@
       "elevFt": 7100,
       "peakDoyBase": 288,
       "weather": {
-        "nightLowF": 39,
+        "nightLowF": 38,
         "dayHighF": 55,
-        "diurnalSwingF": 16,
-        "sunnyPct": 82,
-        "moistureIdx": 0.98,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 39\u00b0F / Day 55\u00b0F (\u0394T 16\u00b0F) \u00b7 82% Sun"
+        "diurnalSwingF": 17,
+        "sunnyPct": 85,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 38\u00b0F / Day 55\u00b0F (\u0394T 17\u00b0F) \u00b7 85% Sun"
       }
     },
     {
@@ -504,14 +504,14 @@
       "lat": 37.74,
       "lon": -119.59,
       "elevFt": 4200,
-      "peakDoyBase": 303,
+      "peakDoyBase": 302,
       "weather": {
-        "nightLowF": 47,
-        "dayHighF": 63,
+        "nightLowF": 44,
+        "dayHighF": 60,
         "diurnalSwingF": 16,
-        "sunnyPct": 82,
+        "sunnyPct": 87,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 47\u00b0F / Day 63\u00b0F (\u0394T 16\u00b0F) \u00b7 82% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 44\u00b0F / Day 60\u00b0F (\u0394T 16\u00b0F) \u00b7 87% Sun"
       }
     },
     {
@@ -521,14 +521,14 @@
       "lat": 43.79,
       "lon": -110.68,
       "elevFt": 6800,
-      "peakDoyBase": 269,
+      "peakDoyBase": 271,
       "weather": {
-        "nightLowF": 23,
-        "dayHighF": 42,
-        "diurnalSwingF": 19,
-        "sunnyPct": 89,
-        "moistureIdx": 0.6,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 23\u00b0F / Day 42\u00b0F (\u0394T 19\u00b0F) \u00b7 89% Sun"
+        "nightLowF": 29,
+        "dayHighF": 46,
+        "diurnalSwingF": 17,
+        "sunnyPct": 83,
+        "moistureIdx": 0.58,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 29\u00b0F / Day 46\u00b0F (\u0394T 17\u00b0F) \u00b7 83% Sun"
       }
     },
     {
@@ -543,9 +543,9 @@
         "nightLowF": 23,
         "dayHighF": 39,
         "diurnalSwingF": 16,
-        "sunnyPct": 63,
+        "sunnyPct": 66,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 23\u00b0F / Day 39\u00b0F (\u0394T 16\u00b0F) \u00b7 63% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 23\u00b0F / Day 39\u00b0F (\u0394T 16\u00b0F) \u00b7 66% Sun"
       }
     },
     {
@@ -555,14 +555,14 @@
       "lat": 42.45,
       "lon": -76.5,
       "elevFt": 1120,
-      "peakDoyBase": 291,
+      "peakDoyBase": 292,
       "weather": {
-        "nightLowF": 42,
-        "dayHighF": 57,
+        "nightLowF": 43,
+        "dayHighF": 58,
         "diurnalSwingF": 15,
-        "sunnyPct": 62,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 42\u00b0F / Day 57\u00b0F (\u0394T 15\u00b0F) \u00b7 62% Sun"
+        "sunnyPct": 71,
+        "moistureIdx": 0.18,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 43\u00b0F / Day 58\u00b0F (\u0394T 15\u00b0F) \u00b7 71% Sun"
       }
     },
     {
@@ -574,12 +574,12 @@
       "elevFt": 140,
       "peakDoyBase": 306,
       "weather": {
-        "nightLowF": 50,
-        "dayHighF": 62,
-        "diurnalSwingF": 12,
-        "sunnyPct": 59,
-        "moistureIdx": 1.18,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 62\u00b0F (\u0394T 12\u00b0F) \u00b7 59% Sun"
+        "nightLowF": 49,
+        "dayHighF": 63,
+        "diurnalSwingF": 14,
+        "sunnyPct": 78,
+        "moistureIdx": 0.18,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 49\u00b0F / Day 63\u00b0F (\u0394T 14\u00b0F) \u00b7 78% Sun"
       }
     },
     {
@@ -591,12 +591,12 @@
       "elevFt": 1920,
       "peakDoyBase": 287,
       "weather": {
-        "nightLowF": 40,
-        "dayHighF": 53,
-        "diurnalSwingF": 13,
-        "sunnyPct": 53,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 40\u00b0F / Day 53\u00b0F (\u0394T 13\u00b0F) \u00b7 53% Sun"
+        "nightLowF": 41,
+        "dayHighF": 55,
+        "diurnalSwingF": 14,
+        "sunnyPct": 64,
+        "moistureIdx": 0.37,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 41\u00b0F / Day 55\u00b0F (\u0394T 14\u00b0F) \u00b7 64% Sun"
       }
     },
     {
@@ -606,14 +606,14 @@
       "lat": 36.09,
       "lon": -81.83,
       "elevFt": 4100,
-      "peakDoyBase": 292,
+      "peakDoyBase": 291,
       "weather": {
-        "nightLowF": 41,
+        "nightLowF": 38,
         "dayHighF": 50,
-        "diurnalSwingF": 9,
-        "sunnyPct": 38,
+        "diurnalSwingF": 12,
+        "sunnyPct": 63,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 41\u00b0F / Day 50\u00b0F (\u0394T 9\u00b0F) \u00b7 38% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 38\u00b0F / Day 50\u00b0F (\u0394T 12\u00b0F) \u00b7 63% Sun"
       }
     },
     {
@@ -623,14 +623,14 @@
       "lat": 33.79,
       "lon": -80.78,
       "elevFt": 110,
-      "peakDoyBase": 321,
+      "peakDoyBase": 320,
       "weather": {
-        "nightLowF": 58,
-        "dayHighF": 72,
-        "diurnalSwingF": 14,
-        "sunnyPct": 72,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 58\u00b0F / Day 72\u00b0F (\u0394T 14\u00b0F) \u00b7 72% Sun"
+        "nightLowF": 55,
+        "dayHighF": 73,
+        "diurnalSwingF": 18,
+        "sunnyPct": 85,
+        "moistureIdx": 1.04,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 55\u00b0F / Day 73\u00b0F (\u0394T 18\u00b0F) \u00b7 85% Sun"
       }
     },
     {
@@ -640,14 +640,14 @@
       "lat": 34.25,
       "lon": -87.35,
       "elevFt": 1150,
-      "peakDoyBase": 317,
+      "peakDoyBase": 316,
       "weather": {
-        "nightLowF": 55,
-        "dayHighF": 67,
-        "diurnalSwingF": 12,
-        "sunnyPct": 65,
+        "nightLowF": 53,
+        "dayHighF": 64,
+        "diurnalSwingF": 11,
+        "sunnyPct": 59,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 55\u00b0F / Day 67\u00b0F (\u0394T 12\u00b0F) \u00b7 65% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 53\u00b0F / Day 64\u00b0F (\u0394T 11\u00b0F) \u00b7 59% Sun"
       }
     },
     {
@@ -657,14 +657,14 @@
       "lat": 37.8,
       "lon": -83.62,
       "elevFt": 1320,
-      "peakDoyBase": 303,
+      "peakDoyBase": 302,
       "weather": {
-        "nightLowF": 50,
-        "dayHighF": 65,
-        "diurnalSwingF": 15,
-        "sunnyPct": 56,
+        "nightLowF": 48,
+        "dayHighF": 60,
+        "diurnalSwingF": 12,
+        "sunnyPct": 43,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 65\u00b0F (\u0394T 15\u00b0F) \u00b7 56% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 48\u00b0F / Day 60\u00b0F (\u0394T 12\u00b0F) \u00b7 43% Sun"
       }
     },
     {
@@ -677,11 +677,11 @@
       "peakDoyBase": 296,
       "weather": {
         "nightLowF": 48,
-        "dayHighF": 60,
-        "diurnalSwingF": 12,
-        "sunnyPct": 68,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 48\u00b0F / Day 60\u00b0F (\u0394T 12\u00b0F) \u00b7 68% Sun"
+        "dayHighF": 59,
+        "diurnalSwingF": 11,
+        "sunnyPct": 53,
+        "moistureIdx": 0.34,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 48\u00b0F / Day 59\u00b0F (\u0394T 11\u00b0F) \u00b7 53% Sun"
       }
     },
     {
@@ -691,14 +691,14 @@
       "lat": 37.6,
       "lon": -88.38,
       "elevFt": 820,
-      "peakDoyBase": 307,
+      "peakDoyBase": 306,
       "weather": {
-        "nightLowF": 53,
-        "dayHighF": 64,
-        "diurnalSwingF": 11,
-        "sunnyPct": 51,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 53\u00b0F / Day 64\u00b0F (\u0394T 11\u00b0F) \u00b7 51% Sun"
+        "nightLowF": 50,
+        "dayHighF": 62,
+        "diurnalSwingF": 12,
+        "sunnyPct": 39,
+        "moistureIdx": 0.37,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 62\u00b0F (\u0394T 12\u00b0F) \u00b7 39% Sun"
       }
     },
     {
@@ -708,14 +708,14 @@
       "lat": 45.88,
       "lon": -89.62,
       "elevFt": 1620,
-      "peakDoyBase": 278,
+      "peakDoyBase": 279,
       "weather": {
-        "nightLowF": 38,
-        "dayHighF": 48,
-        "diurnalSwingF": 10,
-        "sunnyPct": 55,
-        "moistureIdx": 0.77,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 38\u00b0F / Day 48\u00b0F (\u0394T 10\u00b0F) \u00b7 55% Sun"
+        "nightLowF": 40,
+        "dayHighF": 51,
+        "diurnalSwingF": 11,
+        "sunnyPct": 43,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 40\u00b0F / Day 51\u00b0F (\u0394T 11\u00b0F) \u00b7 43% Sun"
       }
     },
     {
@@ -725,14 +725,14 @@
       "lat": 43.09,
       "lon": -91.18,
       "elevFt": 1080,
-      "peakDoyBase": 291,
+      "peakDoyBase": 292,
       "weather": {
-        "nightLowF": 45,
-        "dayHighF": 54,
-        "diurnalSwingF": 9,
+        "nightLowF": 46,
+        "dayHighF": 57,
+        "diurnalSwingF": 11,
         "sunnyPct": 43,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 45\u00b0F / Day 54\u00b0F (\u0394T 9\u00b0F) \u00b7 43% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 46\u00b0F / Day 57\u00b0F (\u0394T 11\u00b0F) \u00b7 43% Sun"
       }
     },
     {
@@ -742,14 +742,14 @@
       "lat": 37.18,
       "lon": -91.25,
       "elevFt": 1280,
-      "peakDoyBase": 307,
+      "peakDoyBase": 306,
       "weather": {
-        "nightLowF": 55,
-        "dayHighF": 67,
-        "diurnalSwingF": 12,
-        "sunnyPct": 56,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 55\u00b0F / Day 67\u00b0F (\u0394T 12\u00b0F) \u00b7 56% Sun"
+        "nightLowF": 52,
+        "dayHighF": 61,
+        "diurnalSwingF": 9,
+        "sunnyPct": 38,
+        "moistureIdx": 0.62,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 52\u00b0F / Day 61\u00b0F (\u0394T 9\u00b0F) \u00b7 38% Sun"
       }
     },
     {
@@ -759,14 +759,14 @@
       "lat": 34.69,
       "lon": -94.62,
       "elevFt": 2150,
-      "peakDoyBase": 313,
+      "peakDoyBase": 312,
       "weather": {
-        "nightLowF": 52,
-        "dayHighF": 66,
-        "diurnalSwingF": 14,
-        "sunnyPct": 55,
-        "moistureIdx": 0.54,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 52\u00b0F / Day 66\u00b0F (\u0394T 14\u00b0F) \u00b7 55% Sun"
+        "nightLowF": 51,
+        "dayHighF": 63,
+        "diurnalSwingF": 12,
+        "sunnyPct": 56,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 51\u00b0F / Day 63\u00b0F (\u0394T 12\u00b0F) \u00b7 56% Sun"
       }
     },
     {
@@ -776,14 +776,14 @@
       "lat": 39.1,
       "lon": -96.56,
       "elevFt": 1180,
-      "peakDoyBase": 303,
+      "peakDoyBase": 302,
       "weather": {
-        "nightLowF": 50,
-        "dayHighF": 59,
-        "diurnalSwingF": 9,
-        "sunnyPct": 41,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 59\u00b0F (\u0394T 9\u00b0F) \u00b7 41% Sun"
+        "nightLowF": 48,
+        "dayHighF": 60,
+        "diurnalSwingF": 12,
+        "sunnyPct": 66,
+        "moistureIdx": 1.03,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 48\u00b0F / Day 60\u00b0F (\u0394T 12\u00b0F) \u00b7 66% Sun"
       }
     },
     {
@@ -793,14 +793,14 @@
       "lat": 42.78,
       "lon": -100.02,
       "elevFt": 2650,
-      "peakDoyBase": 289,
+      "peakDoyBase": 288,
       "weather": {
-        "nightLowF": 46,
-        "dayHighF": 56,
-        "diurnalSwingF": 10,
-        "sunnyPct": 46,
+        "nightLowF": 45,
+        "dayHighF": 58,
+        "diurnalSwingF": 13,
+        "sunnyPct": 64,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 46\u00b0F / Day 56\u00b0F (\u0394T 10\u00b0F) \u00b7 46% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 45\u00b0F / Day 58\u00b0F (\u0394T 13\u00b0F) \u00b7 64% Sun"
       }
     },
     {
@@ -810,14 +810,14 @@
       "lat": 48.85,
       "lon": -100.05,
       "elevFt": 2150,
-      "peakDoyBase": 270,
+      "peakDoyBase": 271,
       "weather": {
-        "nightLowF": 35,
-        "dayHighF": 49,
-        "diurnalSwingF": 14,
-        "sunnyPct": 73,
-        "moistureIdx": -0.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 35\u00b0F / Day 49\u00b0F (\u0394T 14\u00b0F) \u00b7 73% Sun"
+        "nightLowF": 37,
+        "dayHighF": 52,
+        "diurnalSwingF": 15,
+        "sunnyPct": 77,
+        "moistureIdx": -0.17,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 37\u00b0F / Day 52\u00b0F (\u0394T 15\u00b0F) \u00b7 77% Sun"
       }
     },
     {
@@ -832,9 +832,9 @@
         "nightLowF": 23,
         "dayHighF": 42,
         "diurnalSwingF": 19,
-        "sunnyPct": 91,
-        "moistureIdx": 0.45,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 23\u00b0F / Day 42\u00b0F (\u0394T 19\u00b0F) \u00b7 91% Sun"
+        "sunnyPct": 90,
+        "moistureIdx": 0.58,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 23\u00b0F / Day 42\u00b0F (\u0394T 19\u00b0F) \u00b7 90% Sun"
       }
     },
     {
@@ -844,14 +844,14 @@
       "lat": 37.93,
       "lon": -107.81,
       "elevFt": 9300,
-      "peakDoyBase": 272,
+      "peakDoyBase": 271,
       "weather": {
-        "nightLowF": 27,
-        "dayHighF": 43,
+        "nightLowF": 24,
+        "dayHighF": 40,
         "diurnalSwingF": 16,
-        "sunnyPct": 82,
+        "sunnyPct": 84,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 27\u00b0F / Day 43\u00b0F (\u0394T 16\u00b0F) \u00b7 82% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 24\u00b0F / Day 40\u00b0F (\u0394T 16\u00b0F) \u00b7 84% Sun"
       }
     },
     {
@@ -864,11 +864,11 @@
       "peakDoyBase": 295,
       "weather": {
         "nightLowF": 41,
-        "dayHighF": 55,
-        "diurnalSwingF": 14,
-        "sunnyPct": 85,
-        "moistureIdx": 0.03,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 41\u00b0F / Day 55\u00b0F (\u0394T 14\u00b0F) \u00b7 85% Sun"
+        "dayHighF": 54,
+        "diurnalSwingF": 13,
+        "sunnyPct": 79,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 41\u00b0F / Day 54\u00b0F (\u0394T 13\u00b0F) \u00b7 79% Sun"
       }
     },
     {
@@ -880,12 +880,12 @@
       "elevFt": 4600,
       "peakDoyBase": 286,
       "weather": {
-        "nightLowF": 34,
-        "dayHighF": 49,
+        "nightLowF": 36,
+        "dayHighF": 51,
         "diurnalSwingF": 15,
-        "sunnyPct": 86,
+        "sunnyPct": 78,
         "moistureIdx": 0.29,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 34\u00b0F / Day 49\u00b0F (\u0394T 15\u00b0F) \u00b7 86% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 36\u00b0F / Day 51\u00b0F (\u0394T 15\u00b0F) \u00b7 78% Sun"
       }
     },
     {
@@ -895,14 +895,14 @@
       "lat": 44.21,
       "lon": -114.93,
       "elevFt": 6450,
-      "peakDoyBase": 271,
+      "peakDoyBase": 274,
       "weather": {
-        "nightLowF": 22,
+        "nightLowF": 28,
         "dayHighF": 45,
-        "diurnalSwingF": 23,
-        "sunnyPct": 79,
-        "moistureIdx": 0.79,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 22\u00b0F / Day 45\u00b0F (\u0394T 23\u00b0F) \u00b7 79% Sun"
+        "diurnalSwingF": 17,
+        "sunnyPct": 77,
+        "moistureIdx": 1.06,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 28\u00b0F / Day 45\u00b0F (\u0394T 17\u00b0F) \u00b7 77% Sun"
       }
     },
     {
@@ -914,12 +914,12 @@
       "elevFt": 3800,
       "peakDoyBase": 276,
       "weather": {
-        "nightLowF": -2,
-        "dayHighF": 6,
-        "diurnalSwingF": 8,
-        "sunnyPct": 65,
+        "nightLowF": -3,
+        "dayHighF": 8,
+        "diurnalSwingF": 11,
+        "sunnyPct": 62,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night -2\u00b0F / Day 6\u00b0F (\u0394T 8\u00b0F) \u00b7 65% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night -3\u00b0F / Day 8\u00b0F (\u0394T 11\u00b0F) \u00b7 62% Sun"
       }
     },
     {
@@ -929,14 +929,14 @@
       "lat": 40.28,
       "lon": -121.15,
       "elevFt": 4500,
-      "peakDoyBase": 293,
+      "peakDoyBase": 292,
       "weather": {
-        "nightLowF": 32,
-        "dayHighF": 56,
+        "nightLowF": 30,
+        "dayHighF": 54,
         "diurnalSwingF": 24,
-        "sunnyPct": 77,
+        "sunnyPct": 80,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 32\u00b0F / Day 56\u00b0F (\u0394T 24\u00b0F) \u00b7 77% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 30\u00b0F / Day 54\u00b0F (\u0394T 24\u00b0F) \u00b7 80% Sun"
       }
     },
     {
@@ -946,14 +946,14 @@
       "lat": 35.78,
       "lon": -105.82,
       "elevFt": 8800,
-      "peakDoyBase": 282,
+      "peakDoyBase": 281,
       "weather": {
-        "nightLowF": 32,
-        "dayHighF": 46,
+        "nightLowF": 30,
+        "dayHighF": 44,
         "diurnalSwingF": 14,
-        "sunnyPct": 84,
-        "moistureIdx": 0.55,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 32\u00b0F / Day 46\u00b0F (\u0394T 14\u00b0F) \u00b7 84% Sun"
+        "sunnyPct": 70,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 30\u00b0F / Day 44\u00b0F (\u0394T 14\u00b0F) \u00b7 70% Sun"
       }
     },
     {
@@ -966,11 +966,11 @@
       "peakDoyBase": 267,
       "weather": {
         "nightLowF": 19,
-        "dayHighF": 33,
-        "diurnalSwingF": 14,
-        "sunnyPct": 58,
+        "dayHighF": 34,
+        "diurnalSwingF": 15,
+        "sunnyPct": 67,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 19\u00b0F / Day 33\u00b0F (\u0394T 14\u00b0F) \u00b7 58% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 19\u00b0F / Day 34\u00b0F (\u0394T 15\u00b0F) \u00b7 67% Sun"
       }
     },
     {
@@ -980,14 +980,14 @@
       "lat": 44.75,
       "lon": -72.06,
       "elevFt": 1880,
-      "peakDoyBase": 275,
+      "peakDoyBase": 276,
       "weather": {
-        "nightLowF": 32,
-        "dayHighF": 48,
-        "diurnalSwingF": 16,
-        "sunnyPct": 62,
-        "moistureIdx": 0.89,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 32\u00b0F / Day 48\u00b0F (\u0394T 16\u00b0F) \u00b7 62% Sun"
+        "nightLowF": 35,
+        "dayHighF": 50,
+        "diurnalSwingF": 15,
+        "sunnyPct": 65,
+        "moistureIdx": 0.48,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 35\u00b0F / Day 50\u00b0F (\u0394T 15\u00b0F) \u00b7 65% Sun"
       }
     },
     {
@@ -999,12 +999,12 @@
       "elevFt": 1650,
       "peakDoyBase": 276,
       "weather": {
-        "nightLowF": 32,
-        "dayHighF": 48,
+        "nightLowF": 33,
+        "dayHighF": 49,
         "diurnalSwingF": 16,
-        "sunnyPct": 57,
-        "moistureIdx": 0.5,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 32\u00b0F / Day 48\u00b0F (\u0394T 16\u00b0F) \u00b7 57% Sun"
+        "sunnyPct": 67,
+        "moistureIdx": 0.43,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 33\u00b0F / Day 49\u00b0F (\u0394T 16\u00b0F) \u00b7 67% Sun"
       }
     },
     {
@@ -1014,14 +1014,14 @@
       "lat": 41.78,
       "lon": -70.32,
       "elevFt": 110,
-      "peakDoyBase": 305,
+      "peakDoyBase": 304,
       "weather": {
-        "nightLowF": 49,
-        "dayHighF": 57,
-        "diurnalSwingF": 8,
-        "sunnyPct": 71,
-        "moistureIdx": 0.93,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 49\u00b0F / Day 57\u00b0F (\u0394T 8\u00b0F) \u00b7 71% Sun"
+        "nightLowF": 47,
+        "dayHighF": 56,
+        "diurnalSwingF": 9,
+        "sunnyPct": 81,
+        "moistureIdx": 1.02,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 47\u00b0F / Day 56\u00b0F (\u0394T 9\u00b0F) \u00b7 81% Sun"
       }
     },
     {
@@ -1034,11 +1034,11 @@
       "peakDoyBase": 295,
       "weather": {
         "nightLowF": 41,
-        "dayHighF": 57,
-        "diurnalSwingF": 16,
-        "sunnyPct": 68,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 41\u00b0F / Day 57\u00b0F (\u0394T 16\u00b0F) \u00b7 68% Sun"
+        "dayHighF": 58,
+        "diurnalSwingF": 17,
+        "sunnyPct": 80,
+        "moistureIdx": 0.86,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 41\u00b0F / Day 58\u00b0F (\u0394T 17\u00b0F) \u00b7 80% Sun"
       }
     },
     {
@@ -1048,14 +1048,14 @@
       "lat": 43.78,
       "lon": -75.62,
       "elevFt": 1780,
-      "peakDoyBase": 281,
+      "peakDoyBase": 282,
       "weather": {
-        "nightLowF": 35,
-        "dayHighF": 50,
-        "diurnalSwingF": 15,
-        "sunnyPct": 62,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 35\u00b0F / Day 50\u00b0F (\u0394T 15\u00b0F) \u00b7 62% Sun"
+        "nightLowF": 37,
+        "dayHighF": 51,
+        "diurnalSwingF": 14,
+        "sunnyPct": 75,
+        "moistureIdx": 0.5,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 37\u00b0F / Day 51\u00b0F (\u0394T 14\u00b0F) \u00b7 75% Sun"
       }
     },
     {
@@ -1067,12 +1067,12 @@
       "elevFt": 1620,
       "peakDoyBase": 293,
       "weather": {
-        "nightLowF": 42,
-        "dayHighF": 58,
-        "diurnalSwingF": 16,
-        "sunnyPct": 67,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 42\u00b0F / Day 58\u00b0F (\u0394T 16\u00b0F) \u00b7 67% Sun"
+        "nightLowF": 41,
+        "dayHighF": 59,
+        "diurnalSwingF": 18,
+        "sunnyPct": 65,
+        "moistureIdx": 0.32,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 41\u00b0F / Day 59\u00b0F (\u0394T 18\u00b0F) \u00b7 65% Sun"
       }
     },
     {
@@ -1085,11 +1085,11 @@
       "peakDoyBase": 291,
       "weather": {
         "nightLowF": 45,
-        "dayHighF": 58,
-        "diurnalSwingF": 13,
-        "sunnyPct": 54,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 45\u00b0F / Day 58\u00b0F (\u0394T 13\u00b0F) \u00b7 54% Sun"
+        "dayHighF": 59,
+        "diurnalSwingF": 14,
+        "sunnyPct": 58,
+        "moistureIdx": 0.47,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 45\u00b0F / Day 59\u00b0F (\u0394T 14\u00b0F) \u00b7 58% Sun"
       }
     },
     {
@@ -1102,11 +1102,11 @@
       "peakDoyBase": 288,
       "weather": {
         "nightLowF": 40,
-        "dayHighF": 53,
-        "diurnalSwingF": 13,
-        "sunnyPct": 49,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 40\u00b0F / Day 53\u00b0F (\u0394T 13\u00b0F) \u00b7 49% Sun"
+        "dayHighF": 55,
+        "diurnalSwingF": 15,
+        "sunnyPct": 62,
+        "moistureIdx": 0.93,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 40\u00b0F / Day 55\u00b0F (\u0394T 15\u00b0F) \u00b7 62% Sun"
       }
     },
     {
@@ -1119,11 +1119,11 @@
       "peakDoyBase": 293,
       "weather": {
         "nightLowF": 45,
-        "dayHighF": 59,
-        "diurnalSwingF": 14,
-        "sunnyPct": 54,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 45\u00b0F / Day 59\u00b0F (\u0394T 14\u00b0F) \u00b7 54% Sun"
+        "dayHighF": 60,
+        "diurnalSwingF": 15,
+        "sunnyPct": 63,
+        "moistureIdx": 0.22,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 45\u00b0F / Day 60\u00b0F (\u0394T 15\u00b0F) \u00b7 63% Sun"
       }
     },
     {
@@ -1133,14 +1133,14 @@
       "lat": 38.88,
       "lon": -75.85,
       "elevFt": 65,
-      "peakDoyBase": 310,
+      "peakDoyBase": 308,
       "weather": {
-        "nightLowF": 51,
-        "dayHighF": 63,
-        "diurnalSwingF": 12,
-        "sunnyPct": 64,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 51\u00b0F / Day 63\u00b0F (\u0394T 12\u00b0F) \u00b7 64% Sun"
+        "nightLowF": 48,
+        "dayHighF": 64,
+        "diurnalSwingF": 16,
+        "sunnyPct": 87,
+        "moistureIdx": 0.16,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 48\u00b0F / Day 64\u00b0F (\u0394T 16\u00b0F) \u00b7 87% Sun"
       }
     },
     {
@@ -1150,14 +1150,14 @@
       "lat": 38.07,
       "lon": -81.08,
       "elevFt": 1980,
-      "peakDoyBase": 298,
+      "peakDoyBase": 296,
       "weather": {
-        "nightLowF": 49,
-        "dayHighF": 61,
-        "diurnalSwingF": 12,
-        "sunnyPct": 61,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 49\u00b0F / Day 61\u00b0F (\u0394T 12\u00b0F) \u00b7 61% Sun"
+        "nightLowF": 45,
+        "dayHighF": 59,
+        "diurnalSwingF": 14,
+        "sunnyPct": 60,
+        "moistureIdx": 0.75,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 45\u00b0F / Day 59\u00b0F (\u0394T 14\u00b0F) \u00b7 60% Sun"
       }
     },
     {
@@ -1167,14 +1167,14 @@
       "lat": 36.66,
       "lon": -81.54,
       "elevFt": 4450,
-      "peakDoyBase": 288,
+      "peakDoyBase": 287,
       "weather": {
-        "nightLowF": 37,
-        "dayHighF": 48,
-        "diurnalSwingF": 11,
-        "sunnyPct": 43,
+        "nightLowF": 34,
+        "dayHighF": 47,
+        "diurnalSwingF": 13,
+        "sunnyPct": 58,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 37\u00b0F / Day 48\u00b0F (\u0394T 11\u00b0F) \u00b7 43% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 34\u00b0F / Day 47\u00b0F (\u0394T 13\u00b0F) \u00b7 58% Sun"
       }
     },
     {
@@ -1184,14 +1184,14 @@
       "lat": 37.55,
       "lon": -77.85,
       "elevFt": 420,
-      "peakDoyBase": 308,
+      "peakDoyBase": 307,
       "weather": {
-        "nightLowF": 50,
-        "dayHighF": 64,
-        "diurnalSwingF": 14,
-        "sunnyPct": 57,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 64\u00b0F (\u0394T 14\u00b0F) \u00b7 57% Sun"
+        "nightLowF": 47,
+        "dayHighF": 65,
+        "diurnalSwingF": 18,
+        "sunnyPct": 80,
+        "moistureIdx": 0.61,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 47\u00b0F / Day 65\u00b0F (\u0394T 18\u00b0F) \u00b7 80% Sun"
       }
     },
     {
@@ -1201,14 +1201,14 @@
       "lat": 35.06,
       "lon": -83.2,
       "elevFt": 3850,
-      "peakDoyBase": 299,
+      "peakDoyBase": 298,
       "weather": {
-        "nightLowF": 46,
-        "dayHighF": 55,
-        "diurnalSwingF": 9,
-        "sunnyPct": 41,
+        "nightLowF": 43,
+        "dayHighF": 54,
+        "diurnalSwingF": 11,
+        "sunnyPct": 57,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 46\u00b0F / Day 55\u00b0F (\u0394T 9\u00b0F) \u00b7 41% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 43\u00b0F / Day 54\u00b0F (\u0394T 11\u00b0F) \u00b7 57% Sun"
       }
     },
     {
@@ -1218,14 +1218,14 @@
       "lat": 35.42,
       "lon": -80.05,
       "elevFt": 740,
-      "peakDoyBase": 313,
+      "peakDoyBase": 312,
       "weather": {
-        "nightLowF": 53,
-        "dayHighF": 66,
-        "diurnalSwingF": 13,
-        "sunnyPct": 55,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 53\u00b0F / Day 66\u00b0F (\u0394T 13\u00b0F) \u00b7 55% Sun"
+        "nightLowF": 50,
+        "dayHighF": 68,
+        "diurnalSwingF": 18,
+        "sunnyPct": 80,
+        "moistureIdx": 1.02,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 68\u00b0F (\u0394T 18\u00b0F) \u00b7 80% Sun"
       }
     },
     {
@@ -1235,14 +1235,14 @@
       "lat": 35.02,
       "lon": -82.72,
       "elevFt": 2250,
-      "peakDoyBase": 310,
+      "peakDoyBase": 309,
       "weather": {
-        "nightLowF": 52,
+        "nightLowF": 50,
         "dayHighF": 63,
-        "diurnalSwingF": 11,
-        "sunnyPct": 44,
+        "diurnalSwingF": 13,
+        "sunnyPct": 68,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 52\u00b0F / Day 63\u00b0F (\u0394T 11\u00b0F) \u00b7 44% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 63\u00b0F (\u0394T 13\u00b0F) \u00b7 68% Sun"
       }
     },
     {
@@ -1257,9 +1257,9 @@
         "nightLowF": 54,
         "dayHighF": 67,
         "diurnalSwingF": 13,
-        "sunnyPct": 62,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 54\u00b0F / Day 67\u00b0F (\u0394T 13\u00b0F) \u00b7 62% Sun"
+        "sunnyPct": 64,
+        "moistureIdx": 1.06,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 54\u00b0F / Day 67\u00b0F (\u0394T 13\u00b0F) \u00b7 64% Sun"
       }
     },
     {
@@ -1269,14 +1269,14 @@
       "lat": 30.57,
       "lon": -84.95,
       "elevFt": 250,
-      "peakDoyBase": 329,
+      "peakDoyBase": 330,
       "weather": {
-        "nightLowF": 59,
+        "nightLowF": 60,
         "dayHighF": 75,
-        "diurnalSwingF": 16,
-        "sunnyPct": 80,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 59\u00b0F / Day 75\u00b0F (\u0394T 16\u00b0F) \u00b7 80% Sun"
+        "diurnalSwingF": 15,
+        "sunnyPct": 81,
+        "moistureIdx": 0.69,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 60\u00b0F / Day 75\u00b0F (\u0394T 15\u00b0F) \u00b7 81% Sun"
       }
     },
     {
@@ -1289,11 +1289,11 @@
       "peakDoyBase": 313,
       "weather": {
         "nightLowF": 49,
-        "dayHighF": 62,
-        "diurnalSwingF": 13,
-        "sunnyPct": 68,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 49\u00b0F / Day 62\u00b0F (\u0394T 13\u00b0F) \u00b7 68% Sun"
+        "dayHighF": 61,
+        "diurnalSwingF": 12,
+        "sunnyPct": 57,
+        "moistureIdx": 0.65,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 49\u00b0F / Day 61\u00b0F (\u0394T 12\u00b0F) \u00b7 57% Sun"
       }
     },
     {
@@ -1303,14 +1303,14 @@
       "lat": 34.6,
       "lon": -88.18,
       "elevFt": 590,
-      "peakDoyBase": 318,
+      "peakDoyBase": 317,
       "weather": {
-        "nightLowF": 56,
-        "dayHighF": 69,
-        "diurnalSwingF": 13,
-        "sunnyPct": 57,
-        "moistureIdx": 0.89,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 56\u00b0F / Day 69\u00b0F (\u0394T 13\u00b0F) \u00b7 57% Sun"
+        "nightLowF": 53,
+        "dayHighF": 64,
+        "diurnalSwingF": 11,
+        "sunnyPct": 53,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 53\u00b0F / Day 64\u00b0F (\u0394T 11\u00b0F) \u00b7 53% Sun"
       }
     },
     {
@@ -1322,12 +1322,12 @@
       "elevFt": 1920,
       "peakDoyBase": 304,
       "weather": {
-        "nightLowF": 51,
-        "dayHighF": 64,
-        "diurnalSwingF": 13,
-        "sunnyPct": 56,
+        "nightLowF": 49,
+        "dayHighF": 61,
+        "diurnalSwingF": 12,
+        "sunnyPct": 64,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 51\u00b0F / Day 64\u00b0F (\u0394T 13\u00b0F) \u00b7 56% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 49\u00b0F / Day 61\u00b0F (\u0394T 12\u00b0F) \u00b7 64% Sun"
       }
     },
     {
@@ -1339,12 +1339,12 @@
       "elevFt": 320,
       "peakDoyBase": 316,
       "weather": {
-        "nightLowF": 56,
-        "dayHighF": 68,
-        "diurnalSwingF": 12,
-        "sunnyPct": 47,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 56\u00b0F / Day 68\u00b0F (\u0394T 12\u00b0F) \u00b7 47% Sun"
+        "nightLowF": 54,
+        "dayHighF": 65,
+        "diurnalSwingF": 11,
+        "sunnyPct": 58,
+        "moistureIdx": 0.7,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 54\u00b0F / Day 65\u00b0F (\u0394T 11\u00b0F) \u00b7 58% Sun"
       }
     },
     {
@@ -1354,14 +1354,14 @@
       "lat": 36.86,
       "lon": -88.06,
       "elevFt": 620,
-      "peakDoyBase": 309,
+      "peakDoyBase": 308,
       "weather": {
-        "nightLowF": 54,
-        "dayHighF": 66,
-        "diurnalSwingF": 12,
-        "sunnyPct": 54,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 54\u00b0F / Day 66\u00b0F (\u0394T 12\u00b0F) \u00b7 54% Sun"
+        "nightLowF": 52,
+        "dayHighF": 63,
+        "diurnalSwingF": 11,
+        "sunnyPct": 49,
+        "moistureIdx": 0.87,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 52\u00b0F / Day 63\u00b0F (\u0394T 11\u00b0F) \u00b7 49% Sun"
       }
     },
     {
@@ -1374,11 +1374,11 @@
       "peakDoyBase": 293,
       "weather": {
         "nightLowF": 45,
-        "dayHighF": 60,
-        "diurnalSwingF": 15,
-        "sunnyPct": 69,
-        "moistureIdx": 1.06,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 45\u00b0F / Day 60\u00b0F (\u0394T 15\u00b0F) \u00b7 69% Sun"
+        "dayHighF": 58,
+        "diurnalSwingF": 13,
+        "sunnyPct": 56,
+        "moistureIdx": 1.11,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 45\u00b0F / Day 58\u00b0F (\u0394T 13\u00b0F) \u00b7 56% Sun"
       }
     },
     {
@@ -1388,14 +1388,14 @@
       "lat": 39.88,
       "lon": -87.2,
       "elevFt": 690,
-      "peakDoyBase": 300,
+      "peakDoyBase": 299,
       "weather": {
-        "nightLowF": 51,
+        "nightLowF": 49,
         "dayHighF": 61,
-        "diurnalSwingF": 10,
-        "sunnyPct": 45,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 51\u00b0F / Day 61\u00b0F (\u0394T 10\u00b0F) \u00b7 45% Sun"
+        "diurnalSwingF": 12,
+        "sunnyPct": 46,
+        "moistureIdx": 0.49,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 49\u00b0F / Day 61\u00b0F (\u0394T 12\u00b0F) \u00b7 46% Sun"
       }
     },
     {
@@ -1408,11 +1408,11 @@
       "peakDoyBase": 296,
       "weather": {
         "nightLowF": 50,
-        "dayHighF": 58,
-        "diurnalSwingF": 8,
-        "sunnyPct": 40,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 58\u00b0F (\u0394T 8\u00b0F) \u00b7 40% Sun"
+        "dayHighF": 60,
+        "diurnalSwingF": 10,
+        "sunnyPct": 48,
+        "moistureIdx": 0.14,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 60\u00b0F (\u0394T 10\u00b0F) \u00b7 48% Sun"
       }
     },
     {
@@ -1422,14 +1422,14 @@
       "lat": 46.56,
       "lon": -86.32,
       "elevFt": 890,
-      "peakDoyBase": 282,
+      "peakDoyBase": 283,
       "weather": {
-        "nightLowF": 41,
-        "dayHighF": 50,
-        "diurnalSwingF": 9,
-        "sunnyPct": 64,
-        "moistureIdx": 0.53,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 41\u00b0F / Day 50\u00b0F (\u0394T 9\u00b0F) \u00b7 64% Sun"
+        "nightLowF": 43,
+        "dayHighF": 53,
+        "diurnalSwingF": 10,
+        "sunnyPct": 58,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 43\u00b0F / Day 53\u00b0F (\u0394T 10\u00b0F) \u00b7 58% Sun"
       }
     },
     {
@@ -1441,12 +1441,12 @@
       "elevFt": 1250,
       "peakDoyBase": 289,
       "weather": {
-        "nightLowF": 43,
-        "dayHighF": 53,
-        "diurnalSwingF": 10,
-        "sunnyPct": 41,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 43\u00b0F / Day 53\u00b0F (\u0394T 10\u00b0F) \u00b7 41% Sun"
+        "nightLowF": 45,
+        "dayHighF": 56,
+        "diurnalSwingF": 11,
+        "sunnyPct": 48,
+        "moistureIdx": 0.98,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 45\u00b0F / Day 56\u00b0F (\u0394T 11\u00b0F) \u00b7 48% Sun"
       }
     },
     {
@@ -1461,9 +1461,9 @@
         "nightLowF": 38,
         "dayHighF": 51,
         "diurnalSwingF": 13,
-        "sunnyPct": 74,
-        "moistureIdx": 0.62,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 38\u00b0F / Day 51\u00b0F (\u0394T 13\u00b0F) \u00b7 74% Sun"
+        "sunnyPct": 62,
+        "moistureIdx": 0.9,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 38\u00b0F / Day 51\u00b0F (\u0394T 13\u00b0F) \u00b7 62% Sun"
       }
     },
     {
@@ -1478,9 +1478,9 @@
         "nightLowF": 43,
         "dayHighF": 54,
         "diurnalSwingF": 11,
-        "sunnyPct": 55,
+        "sunnyPct": 45,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 43\u00b0F / Day 54\u00b0F (\u0394T 11\u00b0F) \u00b7 55% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 43\u00b0F / Day 54\u00b0F (\u0394T 11\u00b0F) \u00b7 45% Sun"
       }
     },
     {
@@ -1490,14 +1490,14 @@
       "lat": 41.85,
       "lon": -95.92,
       "elevFt": 1220,
-      "peakDoyBase": 296,
+      "peakDoyBase": 295,
       "weather": {
-        "nightLowF": 50,
+        "nightLowF": 47,
         "dayHighF": 57,
-        "diurnalSwingF": 7,
-        "sunnyPct": 29,
+        "diurnalSwingF": 10,
+        "sunnyPct": 52,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 57\u00b0F (\u0394T 7\u00b0F) \u00b7 29% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 47\u00b0F / Day 57\u00b0F (\u0394T 10\u00b0F) \u00b7 52% Sun"
       }
     },
     {
@@ -1507,14 +1507,14 @@
       "lat": 38.7,
       "lon": -91.44,
       "elevFt": 860,
-      "peakDoyBase": 304,
+      "peakDoyBase": 302,
       "weather": {
-        "nightLowF": 54,
-        "dayHighF": 66,
-        "diurnalSwingF": 12,
-        "sunnyPct": 57,
-        "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 54\u00b0F / Day 66\u00b0F (\u0394T 12\u00b0F) \u00b7 57% Sun"
+        "nightLowF": 50,
+        "dayHighF": 61,
+        "diurnalSwingF": 11,
+        "sunnyPct": 34,
+        "moistureIdx": 1.1,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 50\u00b0F / Day 61\u00b0F (\u0394T 11\u00b0F) \u00b7 34% Sun"
       }
     },
     {
@@ -1526,12 +1526,12 @@
       "elevFt": 2650,
       "peakDoyBase": 307,
       "weather": {
-        "nightLowF": 47,
-        "dayHighF": 61,
-        "diurnalSwingF": 14,
-        "sunnyPct": 55,
+        "nightLowF": 46,
+        "dayHighF": 58,
+        "diurnalSwingF": 12,
+        "sunnyPct": 46,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 47\u00b0F / Day 61\u00b0F (\u0394T 14\u00b0F) \u00b7 55% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 46\u00b0F / Day 58\u00b0F (\u0394T 12\u00b0F) \u00b7 46% Sun"
       }
     },
     {
@@ -1544,11 +1544,11 @@
       "peakDoyBase": 323,
       "weather": {
         "nightLowF": 55,
-        "dayHighF": 74,
-        "diurnalSwingF": 19,
-        "sunnyPct": 76,
-        "moistureIdx": 0.23,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 55\u00b0F / Day 74\u00b0F (\u0394T 19\u00b0F) \u00b7 76% Sun"
+        "dayHighF": 70,
+        "diurnalSwingF": 15,
+        "sunnyPct": 64,
+        "moistureIdx": 0.8,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 55\u00b0F / Day 70\u00b0F (\u0394T 15\u00b0F) \u00b7 64% Sun"
       }
     },
     {
@@ -1560,12 +1560,12 @@
       "elevFt": 5650,
       "peakDoyBase": 310,
       "weather": {
-        "nightLowF": 52,
-        "dayHighF": 65,
+        "nightLowF": 51,
+        "dayHighF": 64,
         "diurnalSwingF": 13,
-        "sunnyPct": 96,
-        "moistureIdx": 0.54,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 52\u00b0F / Day 65\u00b0F (\u0394T 13\u00b0F) \u00b7 96% Sun"
+        "sunnyPct": 95,
+        "moistureIdx": 0.49,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 51\u00b0F / Day 64\u00b0F (\u0394T 13\u00b0F) \u00b7 95% Sun"
       }
     },
     {
@@ -1575,14 +1575,14 @@
       "lat": 40.52,
       "lon": -106.78,
       "elevFt": 8850,
-      "peakDoyBase": 264,
+      "peakDoyBase": 265,
       "weather": {
-        "nightLowF": 25,
+        "nightLowF": 26,
         "dayHighF": 41,
-        "diurnalSwingF": 16,
-        "sunnyPct": 86,
-        "moistureIdx": 0.91,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 25\u00b0F / Day 41\u00b0F (\u0394T 16\u00b0F) \u00b7 86% Sun"
+        "diurnalSwingF": 15,
+        "sunnyPct": 78,
+        "moistureIdx": 0.94,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 26\u00b0F / Day 41\u00b0F (\u0394T 15\u00b0F) \u00b7 78% Sun"
       }
     },
     {
@@ -1595,11 +1595,11 @@
       "peakDoyBase": 272,
       "weather": {
         "nightLowF": 23,
-        "dayHighF": 38,
-        "diurnalSwingF": 15,
-        "sunnyPct": 93,
-        "moistureIdx": 1.08,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 23\u00b0F / Day 38\u00b0F (\u0394T 15\u00b0F) \u00b7 93% Sun"
+        "dayHighF": 36,
+        "diurnalSwingF": 13,
+        "sunnyPct": 80,
+        "moistureIdx": 1.09,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 23\u00b0F / Day 36\u00b0F (\u0394T 13\u00b0F) \u00b7 80% Sun"
       }
     },
     {
@@ -1609,14 +1609,14 @@
       "lat": 44.32,
       "lon": -107.25,
       "elevFt": 7600,
-      "peakDoyBase": 267,
+      "peakDoyBase": 266,
       "weather": {
-        "nightLowF": 23,
-        "dayHighF": 36,
+        "nightLowF": 21,
+        "dayHighF": 34,
         "diurnalSwingF": 13,
-        "sunnyPct": 85,
-        "moistureIdx": 0.17,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 23\u00b0F / Day 36\u00b0F (\u0394T 13\u00b0F) \u00b7 85% Sun"
+        "sunnyPct": 80,
+        "moistureIdx": 0.63,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 21\u00b0F / Day 34\u00b0F (\u0394T 13\u00b0F) \u00b7 80% Sun"
       }
     },
     {
@@ -1626,14 +1626,14 @@
       "lat": 35.86,
       "lon": -106.52,
       "elevFt": 8650,
-      "peakDoyBase": 282,
+      "peakDoyBase": 281,
       "weather": {
-        "nightLowF": 34,
-        "dayHighF": 49,
-        "diurnalSwingF": 15,
-        "sunnyPct": 82,
-        "moistureIdx": 0.97,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 34\u00b0F / Day 49\u00b0F (\u0394T 15\u00b0F) \u00b7 82% Sun"
+        "nightLowF": 32,
+        "dayHighF": 46,
+        "diurnalSwingF": 14,
+        "sunnyPct": 70,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 32\u00b0F / Day 46\u00b0F (\u0394T 14\u00b0F) \u00b7 70% Sun"
       }
     },
     {
@@ -1645,12 +1645,12 @@
       "elevFt": 8650,
       "peakDoyBase": 290,
       "weather": {
-        "nightLowF": 36,
-        "dayHighF": 51,
+        "nightLowF": 35,
+        "dayHighF": 50,
         "diurnalSwingF": 15,
-        "sunnyPct": 94,
-        "moistureIdx": 0.62,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 36\u00b0F / Day 51\u00b0F (\u0394T 15\u00b0F) \u00b7 94% Sun"
+        "sunnyPct": 91,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 35\u00b0F / Day 50\u00b0F (\u0394T 15\u00b0F) \u00b7 91% Sun"
       }
     },
     {
@@ -1662,12 +1662,12 @@
       "elevFt": 8350,
       "peakDoyBase": 285,
       "weather": {
-        "nightLowF": 36,
-        "dayHighF": 54,
-        "diurnalSwingF": 18,
-        "sunnyPct": 84,
-        "moistureIdx": 0.53,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 36\u00b0F / Day 54\u00b0F (\u0394T 18\u00b0F) \u00b7 84% Sun"
+        "nightLowF": 35,
+        "dayHighF": 51,
+        "diurnalSwingF": 16,
+        "sunnyPct": 81,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 35\u00b0F / Day 51\u00b0F (\u0394T 16\u00b0F) \u00b7 81% Sun"
       }
     },
     {
@@ -1679,12 +1679,12 @@
       "elevFt": 8850,
       "peakDoyBase": 271,
       "weather": {
-        "nightLowF": 30,
-        "dayHighF": 46,
-        "diurnalSwingF": 16,
-        "sunnyPct": 91,
-        "moistureIdx": 0.88,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 30\u00b0F / Day 46\u00b0F (\u0394T 16\u00b0F) \u00b7 91% Sun"
+        "nightLowF": 29,
+        "dayHighF": 44,
+        "diurnalSwingF": 15,
+        "sunnyPct": 79,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 29\u00b0F / Day 44\u00b0F (\u0394T 15\u00b0F) \u00b7 79% Sun"
       }
     },
     {
@@ -1694,14 +1694,14 @@
       "lat": 40.62,
       "lon": -115.38,
       "elevFt": 8200,
-      "peakDoyBase": 274,
+      "peakDoyBase": 273,
       "weather": {
-        "nightLowF": 25,
-        "dayHighF": 37,
-        "diurnalSwingF": 12,
-        "sunnyPct": 89,
-        "moistureIdx": 1.12,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 25\u00b0F / Day 37\u00b0F (\u0394T 12\u00b0F) \u00b7 89% Sun"
+        "nightLowF": 22,
+        "dayHighF": 32,
+        "diurnalSwingF": 10,
+        "sunnyPct": 86,
+        "moistureIdx": 1.2,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 22\u00b0F / Day 32\u00b0F (\u0394T 10\u00b0F) \u00b7 86% Sun"
       }
     },
     {
@@ -1711,14 +1711,14 @@
       "lat": 38.78,
       "lon": -119.93,
       "elevFt": 7150,
-      "peakDoyBase": 283,
+      "peakDoyBase": 282,
       "weather": {
-        "nightLowF": 32,
-        "dayHighF": 51,
-        "diurnalSwingF": 19,
-        "sunnyPct": 86,
+        "nightLowF": 30,
+        "dayHighF": 47,
+        "diurnalSwingF": 17,
+        "sunnyPct": 88,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 32\u00b0F / Day 51\u00b0F (\u0394T 19\u00b0F) \u00b7 86% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 30\u00b0F / Day 47\u00b0F (\u0394T 17\u00b0F) \u00b7 88% Sun"
       }
     },
     {
@@ -1728,14 +1728,14 @@
       "lat": 38.5,
       "lon": -122.47,
       "elevFt": 850,
-      "peakDoyBase": 314,
+      "peakDoyBase": 312,
       "weather": {
-        "nightLowF": 51,
-        "dayHighF": 71,
-        "diurnalSwingF": 20,
-        "sunnyPct": 82,
+        "nightLowF": 48,
+        "dayHighF": 69,
+        "diurnalSwingF": 21,
+        "sunnyPct": 91,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 51\u00b0F / Day 71\u00b0F (\u0394T 20\u00b0F) \u00b7 82% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 48\u00b0F / Day 69\u00b0F (\u0394T 21\u00b0F) \u00b7 91% Sun"
       }
     },
     {
@@ -1747,12 +1747,12 @@
       "elevFt": 2950,
       "peakDoyBase": 292,
       "weather": {
-        "nightLowF": 38,
-        "dayHighF": 57,
-        "diurnalSwingF": 19,
-        "sunnyPct": 77,
+        "nightLowF": 37,
+        "dayHighF": 53,
+        "diurnalSwingF": 16,
+        "sunnyPct": 56,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 38\u00b0F / Day 57\u00b0F (\u0394T 19\u00b0F) \u00b7 77% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 37\u00b0F / Day 53\u00b0F (\u0394T 16\u00b0F) \u00b7 56% Sun"
       }
     },
     {
@@ -1764,12 +1764,12 @@
       "elevFt": 4850,
       "peakDoyBase": 285,
       "weather": {
-        "nightLowF": 34,
-        "dayHighF": 48,
+        "nightLowF": 35,
+        "dayHighF": 49,
         "diurnalSwingF": 14,
-        "sunnyPct": 82,
+        "sunnyPct": 74,
         "moistureIdx": 1.2,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 34\u00b0F / Day 48\u00b0F (\u0394T 14\u00b0F) \u00b7 82% Sun"
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 35\u00b0F / Day 49\u00b0F (\u0394T 14\u00b0F) \u00b7 74% Sun"
       }
     },
     {
@@ -1779,14 +1779,14 @@
       "lat": 48.35,
       "lon": -116.85,
       "elevFt": 3400,
-      "peakDoyBase": 283,
+      "peakDoyBase": 284,
       "weather": {
-        "nightLowF": 34,
-        "dayHighF": 50,
-        "diurnalSwingF": 16,
-        "sunnyPct": 73,
-        "moistureIdx": 1.15,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 34\u00b0F / Day 50\u00b0F (\u0394T 16\u00b0F) \u00b7 73% Sun"
+        "nightLowF": 37,
+        "dayHighF": 52,
+        "diurnalSwingF": 15,
+        "sunnyPct": 63,
+        "moistureIdx": 0.93,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 37\u00b0F / Day 52\u00b0F (\u0394T 15\u00b0F) \u00b7 63% Sun"
       }
     },
     {
@@ -1796,14 +1796,14 @@
       "lat": 45.45,
       "lon": -111.15,
       "elevFt": 6150,
-      "peakDoyBase": 269,
+      "peakDoyBase": 270,
       "weather": {
-        "nightLowF": 26,
-        "dayHighF": 43,
-        "diurnalSwingF": 17,
-        "sunnyPct": 80,
-        "moistureIdx": 0.78,
-        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 26\u00b0F / Day 43\u00b0F (\u0394T 17\u00b0F) \u00b7 80% Sun"
+        "nightLowF": 30,
+        "dayHighF": 46,
+        "diurnalSwingF": 16,
+        "sunnyPct": 85,
+        "moistureIdx": 0.44,
+        "microclimateLabel": "Live Open-Meteo / NOAA GFS Sync \u00b7 Night 30\u00b0F / Day 46\u00b0F (\u0394T 16\u00b0F) \u00b7 85% Sun"
       }
     }
   ]
