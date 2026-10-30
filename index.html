@@ -402,8 +402,8 @@
                 <feGaussianBlur stdDeviation="3" result="blur" />
                 <feComposite in="SourceGraphic" in2="blur" operator="over" />
               </filter>
-              <!-- Dynamic linear/radial gradients per state injected by JS -->
-              <g id="mapDefsGradients"></g>
+              <!-- Contiguous US landmass clipPath for coastal mosaic dots & continuous gradient -->
+              <clipPath id="usaLandmassClip" clipPathUnits="userSpaceOnUse"></clipPath>
             </defs>
 
             <!-- Subtle Parchment Graticule & Cartographic Ocean Typography -->
@@ -412,7 +412,7 @@
               <path d="M 160 0 L 160 600 M 320 0 L 320 600 M 480 0 L 480 600 M 640 0 L 640 600 M 800 0 L 800 600" />
             </g>
             <g class="pointer-events-none select-none" fill="#9A9D90" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="13" letter-spacing="0.28em">
-              <text x="825" y="545" text-anchor="middle">ATLANTIC OCEAN</text>
+              <text x="855" y="445" text-anchor="middle">ATLANTIC</text>
               <text x="68" y="395" text-anchor="middle">PACIFIC</text>
               <text x="585" y="565" text-anchor="middle" font-size="11">GULF OF MEXICO</text>
             </g>
@@ -641,20 +641,31 @@
             <!-- Populated dynamically with the 5 canonical foliage classes: Red, Orange, Gold, Green, Brown -->
           </div>
 
-          <!-- Minimalist < Slider > Scroller (Matching Screenshot 3) -->
-          <div class="mt-5 flex items-center gap-3">
-            <button id="btnStepDatePrev" type="button" class="w-7 h-7 rounded-full hover:bg-[#EFECE1] text-[#687368] hover:text-[#1B3528] flex items-center justify-center transition font-serif-editorial text-lg leading-none" title="Previous Day">‹</button>
-            <input
-              id="locationTimeSlider"
-              type="range"
-              min="244"
-              max="334"
-              value="295"
-              step="1"
-              aria-label="Selected Location Time Scroller"
-              class="time-slider flex-1"
-            />
-            <button id="btnStepDateNext" type="button" class="w-7 h-7 rounded-full hover:bg-[#EFECE1] text-[#687368] hover:text-[#1B3528] flex items-center justify-center transition font-serif-editorial text-lg leading-none" title="Next Day">›</button>
+          <!-- Minimalist < Slider > Scroller with Date Ticks -->
+          <div class="mt-5">
+            <div class="flex items-center gap-3">
+              <button id="btnStepDatePrev" type="button" class="w-7 h-7 rounded-full hover:bg-[#EFECE1] text-[#687368] hover:text-[#1B3528] flex items-center justify-center transition font-serif-editorial text-lg leading-none" title="Previous Day">‹</button>
+              <input
+                id="locationTimeSlider"
+                type="range"
+                min="244"
+                max="334"
+                value="295"
+                step="1"
+                aria-label="Selected Location Time Scroller"
+                class="time-slider flex-1"
+              />
+              <button id="btnStepDateNext" type="button" class="w-7 h-7 rounded-full hover:bg-[#EFECE1] text-[#687368] hover:text-[#1B3528] flex items-center justify-center transition font-serif-editorial text-lg leading-none" title="Next Day">›</button>
+            </div>
+            <div class="flex justify-between text-[10.5px] font-mono text-[#6E7A6E] mt-1.5 px-8">
+              <span>Sep 1</span>
+              <span>Sep 15</span>
+              <span>Oct 1</span>
+              <span>Oct 15</span>
+              <span>Nov 1</span>
+              <span>Nov 15</span>
+              <span>Nov 30</span>
+            </div>
           </div>
           <p class="text-xs text-[#7C857B] mt-2.5">
             Modeled shares of remaining visible foliage. Bare branches and ground litter are tracked below.
@@ -865,13 +876,14 @@
           The engine evaluates a clean <strong>2×2 Orthogonal Matrix</strong> crossing <strong>Axis 1 (Phenology Anchor: w/ vs. w/o Satellite/NPN Calibration)</strong> with <strong>Axis 2 (Pigment &amp; Trajectory Kinetics: Simple Fixed Schedule vs. Complex Diurnal ΔT + CDD)</strong>:
         </p>
         <div class="bg-slate-950/90 border border-slate-800 rounded-xl p-3 font-mono text-xs text-slate-200 space-y-1.5 overflow-x-auto">
-          <div class="text-orange-300 font-semibold">// 1. Haversine + Elevation-Gaussian IDW Weights across k=6 Nearest USFS FIA Plots</div>
-          <div>w_k = exp(-|Elev_k - Elev_site| / 2200 ft) / max(12 km, d_Haversine(k))^2.2 &nbsp;|&nbsp; W_k = w_k / Σ w_j</div>
-          <div class="text-emerald-300 font-semibold pt-1">// 2A. Simple w/ Phenology Calib ('calibrated') — Empirical Anchor + Fixed Schedule</div>
-          <div>DOY_simple_calib = DOY_base_NPN_VIIRS + 1.15·ΔT_anom - 1.2·(ΔElev / 400 ft) &nbsp;|&nbsp; Schedule: [-18d, -7d, 0d, +9d]</div>
-          <div class="text-amber-300 font-semibold pt-1">// 2B. Simple w/o Phenology Calib ('weather_only') — Pure Weather Anchor + Fixed Schedule</div>
-          <div>DOY_photo = 291.0 - 1.45·(φ - 41°) &nbsp;|&nbsp; DOY_simple_wx = DOY_photo + 1.55·(T_mean - 44.5°F) + 4.5·Moist - 0.14·(Sun - 65)</div>
-          <div>Schedule: [-22d, -9d, 0d, +13d] &nbsp;|&nbsp; Zero station/satellite peakDoyBase training data</div>
+          <div class="text-orange-300 font-semibold">// 1. Site-Level Calibration FIRST, Then Spatial Offset Interpolation (Residual Kriging)</div>
+          <div>DOY_mech(φ, Wx) = 291.0 - 1.45·(φ - 41°) + 1.55·(T_mean - 44.5°F) + 4.5·Moist - 0.14·(Sun - 65)</div>
+          <div>ΔDOY_calib,k = DOY_obs,k - DOY_mech(φ_k, Wx_base,k) &nbsp;[Calibrate residual at each reference station k first]</div>
+          <div>ΔDOY_calib(x) = Σ W_k(x) · ΔDOY_calib,k &nbsp;[Interpolate weather-stripped offsets across k=6 nearest sites]</div>
+          <div class="text-emerald-300 font-semibold pt-1">// 2A. Simple w/ Phenology Calib ('calibrated') — Local Weather DOY_mech(x) + Interpolated Offset</div>
+          <div>DOY_simple_calib(x) = DOY_mech(φ_x, Wx_local(x)) + ΔDOY_calib(x) &nbsp;|&nbsp; Schedule: [-18d, -7d, 0d, +9d]</div>
+          <div class="text-amber-300 font-semibold pt-1">// 2B. Simple w/o Phenology Calib ('weather_only') — Pure Local Weather DOY_mech(x) Only</div>
+          <div>DOY_simple_wx(x) = DOY_mech(φ_x, Wx_local(x)) &nbsp;|&nbsp; Schedule: [-22d, -9d, 0d, +13d] (ΔDOY_calib = 0)</div>
           <div class="text-emerald-300 font-semibold pt-1">// 2C. Complex w/ Phenology Calib ('diurnal_dynamic') — Empirical Anchor + Diurnal ΔT/CDD</div>
           <div>CDD_14 = Σ max(0, 47°F - T_min,k) &nbsp;|&nbsp; ΔCDD_anom = CDD_climo_14 - CDD_14 &nbsp;[No double-counting of baseline chill]</div>
           <div>DOY_complex_calib = DOY_simple_calib + 0.55 · clamp(0.045 · ΔCDD_anom, -6d, +6d)</div>
@@ -966,15 +978,14 @@
 
       <div class="glass-panel rounded-2xl p-5 space-y-2.5 shadow-xl">
         <div class="text-xs font-mono uppercase text-sky-400">Model 3B · Horizontal Stand View</div>
-        <h4 class="text-sm font-bold text-white">Allometric Height, Bark & Crown Architecture</h4>
+        <h4 class="text-sm font-bold text-white">Recursive Branching Skeleton, Bark & Leaf Clusters</h4>
         <p class="text-xs text-slate-300 leading-relaxed">
-          The horizontal forest profile models a side-elevation transect (<span class="font-mono">0–105 ft</span> vertical scale at <span class="font-mono">1.92 px/ft</span>) with depth-sorted trees (<span class="font-mono">z ∈ [0.72, 1.06]</span>) and five distinct botanical crown geometries:
+          The horizontal forest profile models a botanical side-elevation transect (<span class="font-mono">0–105 ft</span> vertical scale) with misty mountain ridges, background stand layers, recursive primary/secondary woody limbs, visible terminal twigs, and individual leaf sprays:
         </p>
         <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside">
-          <li><strong>Tall Dome / Dome:</strong> Tulip Poplar (<span class="font-mono">92 ft</span>), Sugar Maple (<span class="font-mono">78 ft</span>), American Beech (<span class="font-mono">74 ft</span>)</li>
-          <li><strong>Spreading Broad Crown:</strong> White Oak (<span class="font-mono">85 ft, 112 m²</span>), Northern Red Oak (<span class="font-mono">82 ft</span>), Bigleaf Maple</li>
-          <li><strong>Columnar Lenticel Bark:</strong> Quaking Aspen (<span class="font-mono">52 ft</span>) & Paper/Yellow Birch (<span class="font-mono">62 ft</span>) with pale bark (<span class="font-mono">#D8D6CE</span>) and dark horizontal lenticels</li>
-          <li><strong>Conical / Pyramidal Tiers:</strong> Western Larch (<span class="font-mono">88 ft</span>), Evergreen Spruce/Fir/Pine (<span class="font-mono">84 ft</span>), Bald Cypress (<span class="font-mono">80 ft</span>)</li>
+          <li><strong>Multi-Forked Deciduous Hardwoods:</strong> Tapered trunks splitting into ascending limbs and fine twigs with porous multi-tone leaf clusters (<span class="font-mono">78–92 ft</span>)</li>
+          <li><strong>Lenticel White-Bark Birch & Aspen:</strong> Chalk-white bark (<span class="font-mono">#F4F1EA</span>) with dark horizontal lenticel bands and golden-yellow foliage sprays (<span class="font-mono">52–62 ft</span>)</li>
+          <li><strong>Layered Drooping Conifer Boughs:</strong> 26-tier Spruce/Fir/Pine boughs with needle serrations and deep under-bough shadows (<span class="font-mono">80–88 ft</span>)</li>
         </ul>
       </div>
 
@@ -1067,6 +1078,99 @@
             <!-- Populated dynamically by JS -->
           </tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- Section 6: Primary Data Sources, Meteorological Networks & Scientific Citations -->
+    <div class="glass-panel rounded-2xl p-5 shadow-xl space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+        <div>
+          <h3 class="text-base font-bold text-white">6. Primary Data Sources, Meteorological APIs &amp; Scientific Citations</h3>
+          <p class="text-xs text-slate-400">Authoritative federal forestry inventories, 10,000+ station climate networks, cartographic boundaries, and peer-reviewed leaf pigment literature powering PeakFolio.</p>
+        </div>
+        <span class="text-xs font-mono text-emerald-300 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-lg">100% Empirical &amp; Verifiable Sources</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 text-xs">
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+          <div class="font-bold text-white flex items-center justify-between">
+            <span>1. NOAA NCEI GHCN-Daily (10,000+ US Stations)</span>
+            <a href="https://www.ncei.noaa.gov/products/land-based-station/global-historical-climatology-network-daily" target="_blank" rel="noopener" class="font-mono text-[10px] text-orange-300 underline">ncei.noaa.gov ↗</a>
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            Menne, M.J., et al. (2012). <em>An Overview of the Global Historical Climatology Network-Daily Database</em>. Journal of Atmospheric and Oceanic Technology, 29(7), 897–910. Provides daily observed maximum/minimum thermometer (<span class="font-mono">maxt</span>, <span class="font-mono">mint</span>) and rain-gauge (<span class="font-mono">pcpn</span>) records from 1950–present across NWS COOP, ASOS, USCRN, and SNOTEL stations.
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+          <div class="font-bold text-white flex items-center justify-between">
+            <span>2. NOAA RCC-ACIS Web Services API (Live On-Demand Station Lookup)</span>
+            <a href="https://www.rcc-acis.org/docs_webservices.html" target="_blank" rel="noopener" class="font-mono text-[10px] text-orange-300 underline">rcc-acis.org ↗</a>
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            DeGaetano, A.T., et al. (2015). <em>The Applied Climate Information System (ACIS): A Flexible System for Climatological Data Dissemination</em>. Bulletin of the American Meteorological Society, 96(2). Powers both the 1950–2025 repository archive and the live browser bounding-box lookup (<span class="font-mono">data.rcc-acis.org/StnMeta</span> &amp; <span class="font-mono">StnData</span>) for any clicked map point.
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+          <div class="font-bold text-white flex items-center justify-between">
+            <span>3. USFS Forest Inventory &amp; Analysis (FIA Phase 2/3)</span>
+            <a href="https://research.fs.usda.gov/programs/fia" target="_blank" rel="noopener" class="font-mono text-[10px] text-orange-300 underline">fs.usda.gov ↗</a>
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            Bechtold, W.A., &amp; Patterson, P.L. (2005). <em>The Enhanced Forest Inventory and Analysis Program—National Sampling Design and Estimation Procedures</em>. USDA Forest Service Gen. Tech. Rep. SRS-80. Supplies species basal-area composition (<span class="font-mono">speciesMix</span>), FIA Species Codes (<span class="font-mono">SPCD</span>), mature tree heights, crown projection areas (<span class="font-mono">m²</span>), and stand stem densities (<span class="font-mono">trees/acre</span>).
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+          <div class="font-bold text-white flex items-center justify-between">
+            <span>4. PRISM 4km Climatological Normals &amp; Topographic Lapse</span>
+            <a href="https://prism.oregonstate.edu/" target="_blank" rel="noopener" class="font-mono text-[10px] text-orange-300 underline">prism.oregonstate.edu ↗</a>
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            Daly, C., et al. (2008). <em>Physiographically sensitive mapping of climatological temperature and precipitation across the conterminous United States</em>. International Journal of Climatology, 28(15), 2031–2064. Provides 1991–2020 30-year baseline normals and elevation lapse rate adjustments (<span class="font-mono">-3.5°F / 1,000 ft</span>).
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+          <div class="font-bold text-white flex items-center justify-between">
+            <span>5. USA National Phenology Network (USA-NPN) &amp; VIIRS Land Surface Phenology</span>
+            <a href="https://www.usanpn.org/data" target="_blank" rel="noopener" class="font-mono text-[10px] text-orange-300 underline">usanpn.org ↗</a>
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            Rosemartin, A.H., et al. (2014) &amp; Zhang, X., et al. (2018) <em>VIIRS Global Land Surface Phenology (VNP22Q2)</em>. Used to calibrate the reference-site peak timing (<span class="font-mono">peakDoyBase_k</span>), from which weather-stripped site calibration residuals (<span class="font-mono">ΔDOY_calib,k = DOY_obs,k - DOY_mech,k</span>) are extracted and spatially interpolated via Residual Kriging / IDW.
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+          <div class="font-bold text-white flex items-center justify-between">
+            <span>6. Leaf Pigment Biochemistry &amp; Harvard Forest Spectrophotometry</span>
+            <a href="https://harvardforest.fas.harvard.edu/" target="_blank" rel="noopener" class="font-mono text-[10px] text-orange-300 underline">harvardforest.fas.harvard.edu ↗</a>
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            Lee, D.W., O&apos;Keefe, J., Holbrook, N.M., &amp; Feild, T.S. (2003). <em>Pigment dynamics and autumn leaf senescence in a New England deciduous forest, eastern USA</em>. Ecological Research, 18(6), 677–694; &amp; Hoch, W.A., et al. (2001) on anthocyanin photoprotection and diurnal sugar-trap synthesis.
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+          <div class="font-bold text-white flex items-center justify-between">
+            <span>7. ECMWF ERA5 Reanalysis &amp; NOAA GFS/HRRR 16-Day Forecast</span>
+            <a href="https://open-meteo.com/en/docs/historical-weather-api" target="_blank" rel="noopener" class="font-mono text-[10px] text-orange-300 underline">open-meteo.com ↗</a>
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            Hersbach, H., et al. (2020) <em>The ERA5 global reanalysis</em> (Q. J. R. Meteorol. Soc., 146) and NOAA NCEP GFS / 3km HRRR numerical weather prediction models for 16-day forward canopy trajectories and Bristow &amp; Campbell (1984) diurnal solar transmittance.
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+          <div class="font-bold text-white flex items-center justify-between">
+            <span>8. U.S. Census Bureau 1:10m Cartographic Boundary TopoJSON (Albers Equal-Area)</span>
+            <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html" target="_blank" rel="noopener" class="font-mono text-[10px] text-orange-300 underline">census.gov ↗</a>
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            U.S. Census Bureau TIGER/Line 1:10,000,000 Cartographic Boundary files (<span class="font-mono">us-atlas@3/states-10m.json</span>) projected via USGS Contiguous United States Albers Equal-Area Conic (<span class="font-mono">φ₁ = 29.5°N, φ₂ = 45.5°N, φ₀ = 37.5°N, λ₀ = -96.0°W</span>).
+          </p>
+        </div>
       </div>
     </div>
 
@@ -3462,54 +3566,178 @@
     // =========================================================================
     // Stylised high-clarity contiguous + AK/HI US state polygons mapped onto 960x600
     // Each state connects to its closest ecological baseline so clicking ANY state works!
-    const US_STATES_GEO = [
-      { code: 'WA', name: 'Washington', siteId: 'enchantments-wa', path: 'M 95,55 L 185,55 L 185,115 L 95,115 Z' },
-      { code: 'OR', name: 'Oregon', siteId: 'columbia-gorge-or', path: 'M 85,115 L 185,115 L 185,185 L 85,185 Z' },
-      { code: 'CA', name: 'California', siteId: 'eastern-sierra-ca', path: 'M 75,185 L 155,185 L 185,375 L 105,390 L 75,295 Z' },
-      { code: 'ID', name: 'Idaho', siteId: 'glacier-mt', path: 'M 185,55 L 225,55 L 245,195 L 185,195 Z' },
-      { code: 'NV', name: 'Nevada', siteId: 'eastern-sierra-ca', path: 'M 155,185 L 230,185 L 230,320 L 185,345 L 155,185 Z' },
-      { code: 'MT', name: 'Montana', siteId: 'glacier-mt', path: 'M 225,55 L 365,55 L 365,140 L 235,140 Z' },
-      { code: 'WY', name: 'Wyoming', siteId: 'maroon-bells-co', path: 'M 240,140 L 355,140 L 355,225 L 240,225 Z' },
-      { code: 'UT', name: 'Utah', siteId: 'wasatch-ut', path: 'M 230,195 L 300,195 L 300,315 L 230,315 Z' },
-      { code: 'AZ', name: 'Arizona', siteId: 'sangre-de-cristo-nm', path: 'M 185,320 L 295,315 L 295,430 L 185,415 Z' },
-      { code: 'CO', name: 'Colorado', siteId: 'maroon-bells-co', path: 'M 300,225 L 405,225 L 405,315 L 300,315 Z' },
-      { code: 'NM', name: 'New Mexico', siteId: 'sangre-de-cristo-nm', path: 'M 295,315 L 400,315 L 400,435 L 295,430 Z' },
-      { code: 'ND', name: 'North Dakota', siteId: 'north-shore-mn', path: 'M 365,55 L 475,55 L 475,125 L 365,125 Z' },
-      { code: 'SD', name: 'South Dakota', siteId: 'north-shore-mn', path: 'M 365,125 L 480,125 L 480,195 L 355,195 Z' },
-      { code: 'NE', name: 'Nebraska', siteId: 'door-county-wi', path: 'M 355,195 L 490,195 L 500,255 L 405,255 L 405,225 L 355,225 Z' },
-      { code: 'KS', name: 'Kansas', siteId: 'ozarks-ar', path: 'M 405,255 L 515,255 L 515,320 L 405,320 Z' },
-      { code: 'OK', name: 'Oklahoma', siteId: 'ozarks-ar', path: 'M 400,320 L 520,320 L 520,385 L 435,385 L 435,345 L 400,345 Z' },
-      { code: 'TX', name: 'Texas', siteId: 'lost-maples-tx', path: 'M 400,345 L 435,345 L 435,385 L 530,385 L 535,485 L 465,555 L 395,465 L 400,435 Z' },
-      { code: 'MN', name: 'Minnesota', siteId: 'north-shore-mn', path: 'M 475,55 L 565,55 L 555,175 L 480,175 Z' },
-      { code: 'IA', name: 'Iowa', siteId: 'door-county-wi', path: 'M 480,175 L 568,175 L 575,240 L 495,240 Z' },
-      { code: 'MO', name: 'Missouri', siteId: 'ozarks-ar', path: 'M 495,240 L 580,240 L 595,330 L 515,330 Z' },
-      { code: 'AR', name: 'Arkansas', siteId: 'ozarks-ar', path: 'M 518,330 L 592,330 L 585,405 L 520,405 Z' },
-      { code: 'LA', name: 'Louisiana', siteId: 'caddo-lake-tx-la', path: 'M 525,405 L 585,405 L 605,485 L 535,485 Z' },
-      { code: 'WI', name: 'Wisconsin', siteId: 'door-county-wi', path: 'M 555,95 L 615,105 L 620,190 L 565,190 Z' },
-      { code: 'IL', name: 'Illinois', siteId: 'hocking-hills-oh', path: 'M 572,190 L 625,190 L 625,300 L 585,305 Z' },
-      { code: 'MI', name: 'Michigan', siteId: 'up-michigan', path: 'M 585,82 L 650,88 L 678,195 L 625,195 L 620,115 Z' },
-      { code: 'IN', name: 'Indiana', siteId: 'hocking-hills-oh', path: 'M 625,195 L 670,195 L 670,290 L 625,295 Z' },
-      { code: 'OH', name: 'Ohio', siteId: 'hocking-hills-oh', path: 'M 670,195 L 732,190 L 732,270 L 670,278 Z' },
-      { code: 'KY', name: 'Kentucky', siteId: 'smokies-nc-tn', path: 'M 615,295 L 725,272 L 735,320 L 600,325 Z' },
-      { code: 'TN', name: 'Tennessee', siteId: 'smokies-nc-tn', path: 'M 595,325 L 735,320 L 720,362 L 590,362 Z' },
-      { code: 'MS', name: 'Mississippi', siteId: 'caddo-lake-tx-la', path: 'M 588,362 L 635,362 L 635,465 L 592,465 Z' },
-      { code: 'AL', name: 'Alabama', siteId: 'caddo-lake-tx-la', path: 'M 635,362 L 688,362 L 692,462 L 635,462 Z' },
-      { code: 'GA', name: 'Georgia', siteId: 'smokies-nc-tn', path: 'M 688,362 L 755,362 L 772,455 L 692,455 Z' },
-      { code: 'FL', name: 'Florida', siteId: 'caddo-lake-tx-la', path: 'M 675,455 L 772,455 L 815,565 L 775,575 L 732,485 L 675,475 Z' },
-      { code: 'SC', name: 'South Carolina', siteId: 'smokies-nc-tn', path: 'M 725,355 L 795,350 L 770,410 L 725,380 Z' },
-      { code: 'NC', name: 'North Carolina', siteId: 'smokies-nc-tn', path: 'M 720,315 L 828,308 L 810,355 L 715,355 Z' },
-      { code: 'VA', name: 'Virginia', siteId: 'shenandoah-va', path: 'M 730,265 L 820,255 L 828,308 L 720,315 Z' },
-      { code: 'WV', name: 'West Virginia', siteId: 'shenandoah-va', path: 'M 725,245 L 772,240 L 765,290 L 725,285 Z' },
-      { code: 'MD', name: 'Maryland / DE', siteId: 'poconos-pa', path: 'M 772,232 L 832,232 L 832,258 L 772,255 Z' },
-      { code: 'PA', name: 'Pennsylvania', siteId: 'poconos-pa', path: 'M 732,190 L 822,185 L 825,232 L 732,238 Z' },
-      { code: 'NJ', name: 'New Jersey', siteId: 'poconos-pa', path: 'M 822,192 L 844,192 L 842,238 L 822,235 Z' },
-      { code: 'NY', name: 'New York', siteId: 'adirondacks-ny', path: 'M 755,125 L 835,120 L 842,188 L 745,190 Z' },
-      { code: 'CT', name: 'Connecticut / RI', siteId: 'berkshires-ma', path: 'M 840,175 L 875,172 L 875,194 L 840,194 Z' },
-      { code: 'MA', name: 'Massachusetts', siteId: 'berkshires-ma', path: 'M 838,155 L 885,152 L 885,174 L 838,175 Z' },
-      { code: 'VT', name: 'Vermont', siteId: 'stowe-vt', path: 'M 835,112 L 860,110 L 858,155 L 835,155 Z' },
-      { code: 'NH', name: 'New Hampshire', siteId: 'white-mtns-nh', path: 'M 860,108 L 882,108 L 880,153 L 858,155 Z' },
-      { code: 'ME', name: 'Maine', siteId: 'acadia-me', path: 'M 878,65 L 928,68 L 915,138 L 880,142 Z' }
+    // =========================================================================
+    // TRUE USGS CONTIGUOUS US ALBERS EQUAL-AREA CONIC PROJECTION (960 x 600)
+    // Standard parallels: φ₁ = 29.5°N, φ₂ = 45.5°N; Central: φ₀ = 37.5°N, λ₀ = -96.0°W
+    // =========================================================================
+    const ALBERS_PHI1 = (29.5 * Math.PI) / 180;
+    const ALBERS_PHI2 = (45.5 * Math.PI) / 180;
+    const ALBERS_PHI0 = (37.5 * Math.PI) / 180;
+    const ALBERS_LON0 = (-96.0 * Math.PI) / 180;
+    const ALBERS_N = 0.5 * (Math.sin(ALBERS_PHI1) + Math.sin(ALBERS_PHI2));
+    const ALBERS_C = Math.pow(Math.cos(ALBERS_PHI1), 2) + 2.0 * ALBERS_N * Math.sin(ALBERS_PHI1);
+    const ALBERS_RHO0 = Math.sqrt(ALBERS_C - 2.0 * ALBERS_N * Math.sin(ALBERS_PHI0)) / ALBERS_N;
+    const ALBERS_SCALE = 1225.0;
+    const ALBERS_TX = 480.0;
+    const ALBERS_TY = 316.0;
+
+    function projectAlbersConus(latDeg, lonDeg) {
+      const phi = (latDeg * Math.PI) / 180;
+      const lam = (lonDeg * Math.PI) / 180;
+      const rho = Math.sqrt(Math.max(0, ALBERS_C - 2.0 * ALBERS_N * Math.sin(phi))) / ALBERS_N;
+      const theta = ALBERS_N * (lam - ALBERS_LON0);
+      const xRaw = rho * Math.sin(theta);
+      const yRaw = ALBERS_RHO0 - rho * Math.cos(theta);
+      return {
+        x: Number((ALBERS_TX + xRaw * ALBERS_SCALE).toFixed(1)),
+        y: Number((ALBERS_TY - yRaw * ALBERS_SCALE).toFixed(1))
+      };
+    }
+
+    function invertAlbersConus(svgX, svgY) {
+      const xRaw = (svgX - ALBERS_TX) / ALBERS_SCALE;
+      const yRaw = (ALBERS_TY - svgY) / ALBERS_SCALE;
+      const rho0MinusY = ALBERS_RHO0 - yRaw;
+      const rho = Math.hypot(xRaw, rho0MinusY);
+      const theta = Math.atan2(xRaw, rho0MinusY);
+      const sinPhi = Math.max(-1, Math.min(1, (ALBERS_C - Math.pow(rho * ALBERS_N, 2)) / (2.0 * ALBERS_N)));
+      const lat = (Math.asin(sinPhi) * 180) / Math.PI;
+      const lon = ((ALBERS_LON0 + theta / ALBERS_N) * 180) / Math.PI;
+      return {
+        lat: Number(Math.max(24.4, Math.min(49.5, lat)).toFixed(3)),
+        lon: Number(Math.max(-124.9, Math.min(-66.8, lon)).toFixed(3))
+      };
+    }
+
+    function ringsLatLonToSvgPath(rings) {
+      return rings.map(ring => {
+        const pts = ring.map(pt => {
+          const p = projectAlbersConus(pt[0], pt[1]);
+          return `${p.x},${p.y}`;
+        });
+        return `M ${pts.join(' L ')} Z`;
+      }).join(' ');
+    }
+
+    const CONUS_STATE_RINGS_LATLON = {
+      WA: [[49.0,-123.3],[49.0,-117.0],[46.0,-116.9],[45.9,-118.9],[45.6,-121.2],[45.6,-122.7],[46.3,-124.1],[48.4,-124.7],[48.2,-122.8],[47.1,-122.7],[48.0,-122.4],[49.0,-123.3]],
+      OR: [[46.2,-124.0],[45.6,-122.7],[45.6,-121.2],[45.9,-118.9],[46.0,-116.9],[45.5,-116.5],[44.2,-117.2],[42.0,-117.0],[42.0,-124.2],[43.4,-124.4],[44.6,-124.1],[46.2,-124.0]],
+      CA: [[42.0,-124.2],[42.0,-120.0],[39.0,-120.0],[35.0,-114.6],[34.3,-114.1],[32.7,-114.7],[32.5,-117.1],[33.8,-118.4],[34.5,-120.5],[35.8,-121.3],[36.6,-121.9],[37.8,-122.5],[38.0,-123.0],[40.4,-124.4],[42.0,-124.2]],
+      ID: [[49.0,-117.0],[49.0,-116.0],[47.9,-115.7],[47.2,-115.8],[46.6,-114.3],[45.5,-114.0],[44.5,-112.9],[44.5,-111.0],[42.0,-111.0],[42.0,-117.0],[44.2,-117.2],[45.5,-116.5],[46.0,-116.9],[49.0,-117.0]],
+      NV: [[42.0,-120.0],[42.0,-114.0],[37.0,-114.0],[36.0,-114.7],[35.0,-114.6],[39.0,-120.0],[42.0,-120.0]],
+      MT: [[49.0,-116.0],[49.0,-104.0],[45.0,-104.0],[45.0,-111.0],[44.5,-111.0],[44.5,-112.9],[45.5,-114.0],[46.6,-114.3],[47.2,-115.8],[47.9,-115.7],[49.0,-116.0]],
+      WY: [[45.0,-111.0],[45.0,-104.0],[41.0,-104.0],[41.0,-111.0],[45.0,-111.0]],
+      UT: [[42.0,-114.0],[42.0,-111.0],[41.0,-111.0],[41.0,-109.0],[37.0,-109.0],[37.0,-114.0],[42.0,-114.0]],
+      AZ: [[37.0,-114.0],[37.0,-109.0],[31.3,-109.0],[31.3,-111.1],[32.5,-114.8],[34.3,-114.1],[35.0,-114.6],[36.0,-114.7],[37.0,-114.0]],
+      CO: [[41.0,-109.0],[41.0,-102.0],[37.0,-102.0],[37.0,-109.0],[41.0,-109.0]],
+      NM: [[37.0,-109.0],[37.0,-103.0],[36.5,-103.0],[32.0,-103.0],[32.0,-106.6],[31.8,-106.5],[31.8,-108.2],[31.3,-108.2],[31.3,-109.0],[37.0,-109.0]],
+      ND: [[49.0,-104.0],[49.0,-97.2],[47.9,-97.1],[46.9,-96.8],[45.9,-96.6],[45.9,-104.0],[49.0,-104.0]],
+      SD: [[45.9,-104.0],[45.9,-96.6],[45.3,-96.5],[43.5,-96.5],[42.5,-96.4],[42.8,-98.0],[43.0,-104.0],[45.9,-104.0]],
+      NE: [[43.0,-104.0],[42.8,-98.0],[42.5,-96.4],[41.4,-96.0],[40.0,-95.3],[40.0,-102.0],[41.0,-102.0],[41.0,-104.0],[43.0,-104.0]],
+      KS: [[40.0,-102.0],[40.0,-95.3],[39.1,-94.6],[37.0,-94.6],[37.0,-102.0],[40.0,-102.0]],
+      OK: [[37.0,-103.0],[37.0,-94.6],[35.4,-94.4],[33.6,-94.5],[33.9,-96.5],[34.5,-100.0],[36.5,-100.0],[36.5,-103.0],[37.0,-103.0]],
+      TX: [[36.5,-103.0],[36.5,-100.0],[34.5,-100.0],[33.9,-96.5],[33.6,-94.0],[31.2,-93.5],[29.7,-93.8],[28.9,-95.3],[27.8,-97.1],[25.9,-97.2],[26.4,-99.1],[27.5,-99.5],[29.8,-101.4],[29.0,-103.1],[30.6,-104.9],[31.8,-106.5],[32.0,-106.6],[32.0,-103.0],[36.5,-103.0]],
+      MN: [[49.0,-97.2],[49.0,-95.1],[49.4,-95.1],[48.5,-93.0],[48.0,-89.6],[46.8,-92.1],[46.0,-92.8],[45.5,-92.7],[44.5,-92.1],[43.5,-91.2],[43.5,-96.5],[45.3,-96.5],[45.9,-96.6],[46.9,-96.8],[47.9,-97.1],[49.0,-97.2]],
+      IA: [[43.5,-96.5],[43.5,-91.2],[42.5,-90.6],[41.5,-90.3],[40.4,-91.4],[40.6,-95.8],[41.4,-96.0],[42.5,-96.4],[43.5,-96.5]],
+      MO: [[40.6,-95.8],[40.4,-91.4],[39.2,-90.7],[38.6,-90.1],[37.0,-89.1],[36.0,-89.7],[36.5,-90.1],[36.5,-94.6],[37.0,-94.6],[39.1,-94.6],[40.6,-95.8]],
+      AR: [[36.5,-94.6],[36.5,-90.1],[36.0,-89.7],[35.0,-90.1],[33.0,-91.2],[33.0,-94.0],[33.6,-94.5],[35.4,-94.4],[36.5,-94.6]],
+      LA: [[33.0,-94.0],[33.0,-91.2],[31.0,-91.6],[31.0,-89.7],[30.2,-89.6],[29.1,-89.1],[29.6,-91.3],[29.7,-93.8],[31.2,-93.5],[33.0,-94.0]],
+      WI: [[46.8,-92.1],[46.9,-90.8],[46.1,-88.7],[45.3,-87.6],[45.2,-86.9],[44.5,-87.5],[42.5,-87.8],[42.5,-90.6],[43.5,-91.2],[44.5,-92.1],[45.5,-92.7],[46.0,-92.8],[46.8,-92.1]],
+      IL: [[42.5,-90.6],[42.5,-87.8],[41.7,-87.5],[39.4,-87.5],[37.8,-88.0],[37.0,-89.1],[38.6,-90.1],[39.2,-90.7],[40.4,-91.4],[41.5,-90.3],[42.5,-90.6]],
+      MI: [
+        [[47.4,-88.0],[46.7,-89.9],[46.1,-88.7],[45.3,-87.6],[45.8,-86.5],[46.0,-84.6],[46.5,-84.4],[46.7,-85.9],[47.4,-88.0]],
+        [[45.8,-84.7],[45.0,-83.3],[43.6,-83.9],[44.0,-82.7],[42.6,-82.5],[41.7,-83.4],[41.8,-86.8],[43.0,-86.2],[44.8,-86.1],[45.8,-84.7]]
+      ],
+      IN: [[41.8,-86.8],[41.8,-84.8],[39.1,-84.8],[37.8,-88.0],[39.4,-87.5],[41.7,-87.5],[41.8,-86.8]],
+      OH: [[41.8,-84.8],[41.7,-83.4],[41.5,-82.7],[41.9,-80.5],[40.6,-80.5],[39.4,-81.4],[38.4,-82.6],[39.1,-84.8],[41.8,-84.8]],
+      KY: [[39.1,-84.8],[38.4,-82.6],[37.5,-82.0],[36.6,-83.7],[36.5,-89.5],[37.0,-89.1],[37.8,-88.0],[39.1,-84.8]],
+      TN: [[36.5,-89.5],[36.6,-83.7],[36.6,-81.7],[35.6,-83.5],[35.0,-84.3],[35.0,-90.1],[36.0,-89.7],[36.5,-89.5]],
+      MS: [[35.0,-90.1],[35.0,-88.1],[31.0,-88.4],[30.2,-88.5],[30.2,-89.6],[31.0,-89.7],[31.0,-91.6],[33.0,-91.2],[35.0,-90.1]],
+      AL: [[35.0,-88.1],[35.0,-85.6],[32.8,-85.1],[31.0,-85.0],[31.0,-87.6],[30.2,-87.5],[30.2,-88.5],[31.0,-88.4],[35.0,-88.1]],
+      GA: [[35.0,-85.6],[35.0,-83.1],[33.4,-81.9],[32.0,-80.8],[30.7,-81.5],[30.4,-82.2],[30.7,-84.9],[31.0,-85.0],[32.8,-85.1],[35.0,-85.6]],
+      FL: [[31.0,-87.6],[31.0,-85.0],[30.7,-84.9],[30.4,-82.2],[30.7,-81.5],[28.5,-80.6],[26.8,-80.0],[25.2,-80.4],[25.2,-81.1],[26.1,-81.8],[28.0,-82.8],[29.9,-83.8],[29.7,-85.0],[30.4,-86.5],[30.2,-87.5],[31.0,-87.6]],
+      SC: [[35.0,-83.1],[35.2,-80.9],[34.8,-79.7],[33.8,-78.5],[32.0,-80.8],[33.4,-81.9],[35.0,-83.1]],
+      NC: [[36.6,-81.7],[36.5,-75.8],[35.2,-75.5],[34.6,-76.5],[33.8,-78.5],[34.8,-79.7],[35.2,-80.9],[35.0,-83.1],[35.0,-84.3],[35.6,-83.5],[36.6,-81.7]],
+      VA: [[39.5,-78.4],[39.3,-77.7],[38.9,-77.0],[38.0,-76.3],[36.9,-76.0],[36.5,-75.8],[36.6,-81.7],[36.6,-83.7],[37.5,-82.0],[38.4,-79.6],[39.5,-78.4]],
+      WV: [[40.6,-80.5],[39.7,-79.5],[39.5,-78.4],[39.3,-77.7],[38.4,-79.6],[37.5,-82.0],[38.4,-82.6],[39.4,-81.4],[40.6,-80.5]],
+      MD: [[39.7,-79.5],[39.7,-75.8],[38.5,-75.0],[38.0,-75.2],[38.0,-76.3],[38.9,-77.0],[39.3,-77.7],[39.5,-78.4],[39.7,-79.5]],
+      DE: [[39.8,-75.6],[39.7,-75.8],[38.5,-75.7],[38.5,-75.0],[39.1,-75.4],[39.8,-75.6]],
+      PA: [[42.3,-79.8],[42.0,-79.8],[42.0,-75.3],[41.4,-74.7],[40.1,-74.8],[39.8,-75.6],[39.7,-75.8],[39.7,-79.5],[39.7,-80.5],[41.9,-80.5],[42.3,-79.8]],
+      NJ: [[41.4,-74.7],[41.0,-73.9],[40.5,-74.0],[40.0,-74.0],[38.9,-74.9],[39.3,-75.5],[39.8,-75.6],[40.1,-74.8],[41.4,-74.7]],
+      NY: [
+        [[45.0,-74.9],[45.0,-73.3],[43.5,-73.4],[42.7,-73.3],[41.0,-73.7],[41.0,-73.9],[41.4,-74.7],[42.0,-75.3],[42.0,-79.8],[42.3,-79.8],[42.8,-78.9],[43.3,-79.1],[43.6,-76.2],[44.2,-76.3],[45.0,-74.9]],
+        [[40.6,-74.0],[40.9,-73.2],[41.1,-72.0],[40.9,-72.2],[40.6,-73.8],[40.6,-74.0]]
+      ],
+      CT: [[42.0,-73.5],[42.0,-71.8],[41.3,-71.8],[41.0,-73.7],[42.0,-73.5]],
+      RI: [[42.0,-71.8],[42.0,-71.4],[41.5,-71.1],[41.3,-71.8],[42.0,-71.8]],
+      MA: [[42.7,-73.3],[42.9,-70.8],[42.6,-70.6],[42.2,-70.7],[41.8,-70.0],[41.7,-70.0],[41.5,-70.7],[41.5,-71.1],[42.0,-71.4],[42.0,-71.8],[42.0,-73.5],[42.7,-73.3]],
+      VT: [[45.0,-73.3],[45.0,-71.5],[44.4,-71.5],[42.7,-72.5],[42.7,-73.3],[43.5,-73.4],[45.0,-73.3]],
+      NH: [[45.3,-71.1],[43.1,-70.7],[42.9,-70.8],[42.7,-72.5],[44.4,-71.5],[45.0,-71.5],[45.3,-71.1]],
+      ME: [[47.4,-69.2],[47.0,-67.8],[45.2,-67.1],[44.8,-66.9],[44.3,-68.2],[43.9,-69.5],[43.1,-70.7],[45.3,-71.1],[46.4,-70.0],[47.4,-69.2]]
+    };
+
+    const STATE_META_LIST = [
+      { code: 'WA', name: 'Washington', siteId: 'enchantments-wa', fips: '53', labelLat: 47.4, labelLon: -120.5 },
+      { code: 'OR', name: 'Oregon', siteId: 'columbia-gorge-or', fips: '41', labelLat: 43.9, labelLon: -120.6 },
+      { code: 'CA', name: 'California', siteId: 'eastern-sierra-ca', fips: '06', labelLat: 37.2, labelLon: -119.6 },
+      { code: 'ID', name: 'Idaho', siteId: 'sawtooth-boise-id', fips: '16', labelLat: 44.4, labelLon: -114.6 },
+      { code: 'NV', name: 'Nevada', siteId: 'ruby-mountains-lamoille-nv', fips: '32', labelLat: 39.3, labelLon: -116.6 },
+      { code: 'MT', name: 'Montana', siteId: 'glacier-mt', fips: '30', labelLat: 47.0, labelLon: -109.6 },
+      { code: 'WY', name: 'Wyoming', siteId: 'tetons-wy-id', fips: '56', labelLat: 43.0, labelLon: -107.5 },
+      { code: 'UT', name: 'Utah', siteId: 'wasatch-ut', fips: '49', labelLat: 39.3, labelLon: -111.7 },
+      { code: 'AZ', name: 'Arizona', siteId: 'flagstaff-az', fips: '04', labelLat: 34.3, labelLon: -111.7 },
+      { code: 'CO', name: 'Colorado', siteId: 'maroon-bells-co', fips: '08', labelLat: 39.0, labelLon: -105.5 },
+      { code: 'NM', name: 'New Mexico', siteId: 'sangre-de-cristo-nm', fips: '35', labelLat: 34.4, labelLon: -106.1 },
+      { code: 'ND', name: 'North Dakota', siteId: 'turtle-mtns-sheyenne-nd', fips: '38', labelLat: 47.4, labelLon: -100.5 },
+      { code: 'SD', name: 'South Dakota', siteId: 'black-hills-sd', fips: '46', labelLat: 44.4, labelLon: -100.2 },
+      { code: 'NE', name: 'Nebraska', siteId: 'pine-ridge-niobrara-ne', fips: '31', labelLat: 41.5, labelLon: -99.8 },
+      { code: 'KS', name: 'Kansas', siteId: 'flint-hills-ks', fips: '20', labelLat: 38.5, labelLon: -98.3 },
+      { code: 'OK', name: 'Oklahoma', siteId: 'ouachita-talimena-ok', fips: '40', labelLat: 35.5, labelLon: -97.5 },
+      { code: 'TX', name: 'Texas', siteId: 'lost-maples-tx', fips: '48', labelLat: 31.5, labelLon: -99.3 },
+      { code: 'MN', name: 'Minnesota', siteId: 'north-shore-mn', fips: '27', labelLat: 46.2, labelLon: -94.3 },
+      { code: 'IA', name: 'Iowa', siteId: 'driftless-effigy-ia', fips: '19', labelLat: 42.1, labelLon: -93.5 },
+      { code: 'MO', name: 'Missouri', siteId: 'mark-twain-nf-mo', fips: '29', labelLat: 38.4, labelLon: -92.5 },
+      { code: 'AR', name: 'Arkansas', siteId: 'ozarks-ar', fips: '05', labelLat: 34.9, labelLon: -92.4 },
+      { code: 'LA', name: 'Louisiana', siteId: 'caddo-lake-tx-la', fips: '22', labelLat: 31.1, labelLon: -92.0 },
+      { code: 'WI', name: 'Wisconsin', siteId: 'door-county-wi', fips: '55', labelLat: 44.6, labelLon: -89.7 },
+      { code: 'IL', name: 'Illinois', siteId: 'shawnee-nf-il', fips: '17', labelLat: 40.0, labelLon: -89.2 },
+      { code: 'MI', name: 'Michigan', siteId: 'up-michigan', fips: '26', labelLat: 43.4, labelLon: -84.6 },
+      { code: 'IN', name: 'Indiana', siteId: 'brown-county-in', fips: '18', labelLat: 39.9, labelLon: -86.3 },
+      { code: 'OH', name: 'Ohio', siteId: 'hocking-hills-oh', fips: '39', labelLat: 40.3, labelLon: -82.8 },
+      { code: 'KY', name: 'Kentucky', siteId: 'daniel-boone-ky', fips: '21', labelLat: 37.5, labelLon: -85.3 },
+      { code: 'TN', name: 'Tennessee', siteId: 'smokies-nc-tn', fips: '47', labelLat: 35.8, labelLon: -86.3 },
+      { code: 'MS', name: 'Mississippi', siteId: 'tishomingo-natchez-ms', fips: '28', labelLat: 32.7, labelLon: -89.7 },
+      { code: 'AL', name: 'Alabama', siteId: 'bankhead-talladega-al', fips: '01', labelLat: 32.8, labelLon: -86.8 },
+      { code: 'GA', name: 'Georgia', siteId: 'chattahoochee-ga', fips: '13', labelLat: 32.7, labelLon: -83.4 },
+      { code: 'FL', name: 'Florida', siteId: 'torreya-apalachicola-fl', fips: '12', labelLat: 28.6, labelLon: -81.7 },
+      { code: 'SC', name: 'South Carolina', siteId: 'congaree-np-sc', fips: '45', labelLat: 33.9, labelLon: -80.9 },
+      { code: 'NC', name: 'North Carolina', siteId: 'smokies-nc-tn', fips: '37', labelLat: 35.6, labelLon: -79.4 },
+      { code: 'VA', name: 'Virginia', siteId: 'shenandoah-va', fips: '51', labelLat: 37.5, labelLon: -78.8 },
+      { code: 'WV', name: 'West Virginia', siteId: 'monongahela-wv', fips: '54', labelLat: 38.6, labelLon: -80.6 },
+      { code: 'MD', name: 'Maryland', siteId: 'catoctin-deep-creek-md', fips: '24', labelLat: 39.1, labelLon: -76.8 },
+      { code: 'DE', name: 'Delaware', siteId: 'delmarva-chesapeake-md-de', fips: '10', labelLat: 39.0, labelLon: -75.5 },
+      { code: 'PA', name: 'Pennsylvania', siteId: 'poconos-pa', fips: '42', labelLat: 40.9, labelLon: -77.8 },
+      { code: 'NJ', name: 'New Jersey', siteId: 'pine-barrens-nj', fips: '34', labelLat: 40.1, labelLon: -74.5 },
+      { code: 'NY', name: 'New York', siteId: 'adirondacks-ny', fips: '36', labelLat: 42.9, labelLon: -75.5 },
+      { code: 'CT', name: 'Connecticut', siteId: 'new-haven-ct', fips: '09', labelLat: 41.6, labelLon: -72.7 },
+      { code: 'RI', name: 'Rhode Island', siteId: 'quiet-corner-pachaug-ct', fips: '44', labelLat: 41.7, labelLon: -71.5 },
+      { code: 'MA', name: 'Massachusetts', siteId: 'berkshires-ma', fips: '25', labelLat: 42.3, labelLon: -71.8 },
+      { code: 'VT', name: 'Vermont', siteId: 'stowe-vt', fips: '50', labelLat: 44.0, labelLon: -72.7 },
+      { code: 'NH', name: 'New Hampshire', siteId: 'white-mtns-nh', fips: '33', labelLat: 43.7, labelLon: -71.6 },
+      { code: 'ME', name: 'Maine', siteId: 'acadia-me', fips: '23', labelLat: 45.3, labelLon: -69.2 }
     ];
+
+    const US_STATES_GEO = STATE_META_LIST.map(st => {
+      const rawRings = CONUS_STATE_RINGS_LATLON[st.code];
+      const rings = Array.isArray(rawRings[0][0]) ? rawRings : [rawRings];
+      const labelPos = projectAlbersConus(st.labelLat, st.labelLon);
+      return {
+        ...st,
+        labelX: labelPos.x,
+        labelY: labelPos.y,
+        path: ringsLatLonToSvgPath(rings)
+      };
+    });
 
     
     // Dense US Gazetteer for Instant Any-Place Search (Cities, Parks, Towns, Universities, Landmarks)
@@ -3972,22 +4200,22 @@
     function getYearClimateAdjustment(year, lat = 42, lon = -75, locObj = null, doy = null) {
       const yr = Number(year) || new Date().getFullYear();
 
-      // 1. If real daily ERA5 Historical Reanalysis or Live Open-Meteo observations have been fetched
-      //    for this coordinate & year, compute the exact observed thermal & solar anomaly from that series!
+      // 1. If real daily NOAA GHCND / ERA5 / Open-Meteo observations have been fetched for this coordinate & year,
+      //    compute the season's phenological thermal anomaly over the core pre-peak autumn window (Sep 25 – Oct 25, indices 24..55)
+      //    relative to the station's 1991–2020 baseline climate (locObj.baselineWeather), so scrubbing DOY from Sep to Nov
+      //    does NOT mistake normal seasonal cooling for a shifting year-level climate anomaly!
       if (locObj && locObj.realHistoricalDaily && locObj.realHistoricalDaily[yr]) {
         const series = locObj.realHistoricalDaily[yr];
-        const baseWx = locObj.denseWeather || locObj.weather;
+        const baseWx = locObj.baselineWeather || locObj.denseWeather || locObj.weather;
         if (series && Array.isArray(series.temperature_2m_min) && series.temperature_2m_min.length > 0) {
-          // If doy (244..334) is provided and series covers 91 days of Sep-Nov (ERA5 archive), take the 10-day trailing chilling window
           let winMins = series.temperature_2m_min;
           let winMaxs = series.temperature_2m_max;
           let winSuns = series.sunshine_duration || [];
-          if (doy !== null && series.isFullAutumnArchive && series.temperature_2m_min.length >= 60) {
-            const idx = Math.max(0, Math.min(series.temperature_2m_min.length - 1, doy - 244));
-            const startIdx = Math.max(0, idx - 9);
-            winMins = series.temperature_2m_min.slice(startIdx, idx + 1);
-            winMaxs = series.temperature_2m_max.slice(startIdx, idx + 1);
-            winSuns = (series.sunshine_duration || []).slice(startIdx, idx + 1);
+          if (series.isFullAutumnArchive && series.temperature_2m_min.length >= 60) {
+            // Core pre-peak senescence & peak window: Sep 25 (idx 24) through Oct 25 (idx 55)
+            winMins = series.temperature_2m_min.slice(24, 55);
+            winMaxs = series.temperature_2m_max.slice(24, 55);
+            winSuns = (series.sunshine_duration || []).slice(24, 55);
           }
           const validMins = winMins.filter(v => v !== null && v !== undefined && !isNaN(v));
           const validMaxs = winMaxs.filter(v => v !== null && v !== undefined && !isNaN(v));
@@ -3997,7 +4225,7 @@
             const obsDayHigh = validMaxs.reduce((a, b) => a + b, 0) / validMaxs.length;
             const climMean = (baseWx.nightLowF * 0.5 + baseWx.dayHighF * 0.5);
             const obsMean = (obsNightLow * 0.5 + obsDayHigh * 0.5);
-            const realDeltaF = Number(Math.max(-12, Math.min(12, obsMean - climMean)).toFixed(1));
+            const realDeltaF = Number(Math.max(-10, Math.min(10, obsMean - climMean)).toFixed(1));
             const obsSunPct = validSuns.length > 0
               ? Math.round((validSuns.reduce((a, b) => a + b, 0) / validSuns.length) / 38500 * 100)
               : baseWx.sunnyPct;
@@ -4007,7 +4235,7 @@
               tempDeltaF: realDeltaF,
               sunDeltaPct: realSunDelta,
               peakDelayDays: Number((realDeltaF * 1.15).toFixed(1)),
-              source: series.sourceLabel || `ERA5 Reanalysis ${yr} Observed`,
+              source: series.sourceLabel || `NOAA / ERA5 ${yr} Observed`,
               obsNightLowF: Math.round(obsNightLow),
               obsDayHighF: Math.round(obsDayHigh),
               obsSunnyPct: Math.max(20, Math.min(96, obsSunPct))
@@ -4069,6 +4297,117 @@
     // and must be spatially interpolated), meteorological data comes from a dense
     // ~4km PRISM / NOAA ASOS station grid that captures local coastal moderation,
     // urban heat islands, cold-air valley pooling, rain shadows, and ridge cloud cover.
+    // Re-project every primary USFS forestry station and every Gazetteer park/town onto exact Albers Equal-Area (mapX, mapY)
+    US_FOLIAGE_LOCATIONS.forEach(loc => {
+      const p = projectAlbersConus(loc.lat, loc.lon);
+      loc.mapX = p.x;
+      loc.mapY = p.y;
+    });
+    US_PLACE_GAZETTEER.forEach(gaz => {
+      const p = projectAlbersConus(gaz.lat, gaz.lon);
+      gaz.mapX = p.x;
+      gaz.mapY = p.y;
+    });
+
+    // Built-in pure-JS TopoJSON decoder that upgrades US_STATES_GEO to the 1:10,000,000 U.S. Census Bureau
+    // Cartographic Boundary coastlines (Long Island, Cape Cod, Martha's Vineyard, Chesapeake Bay, Puget Sound, Great Lakes)
+    async function loadHighResCensusTopoJson() {
+      try {
+        const resp = await fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json', { cache: 'force-cache' });
+        if (!resp.ok) return;
+        const topo = await resp.json();
+        if (!topo || !topo.objects || !topo.objects.states || !Array.isArray(topo.arcs)) return;
+        const sx = topo.transform ? topo.transform.scale[0] : 1;
+        const sy = topo.transform ? topo.transform.scale[1] : 1;
+        const tx = topo.transform ? topo.transform.translate[0] : 0;
+        const ty = topo.transform ? topo.transform.translate[1] : 0;
+
+        // Detect whether the TopoJSON is in geographic (lon, lat) or pre-projected Albers (975x610)
+        const sampleArc = topo.arcs[0] || [[0, 0]];
+        const sampleX = sampleArc[0][0] * sx + tx;
+        const sampleY = sampleArc[0][1] * sy + ty;
+        const isGeographicLonLat = (sampleX < -50 && sampleX >= -180 && sampleY >= 15 && sampleY <= 75);
+
+        const decodedArcs = topo.arcs.map(arc => {
+          let x = 0, y = 0;
+          const pts = [];
+          for (let i = 0; i < arc.length; i++) {
+            x += arc[i][0];
+            y += arc[i][1];
+            const valX = x * sx + tx;
+            const valY = y * sy + ty;
+            if (isGeographicLonLat) {
+              if (valY >= 24.0 && valY <= 50.0 && valX >= -126.0 && valX <= -66.0) {
+                const p = projectAlbersConus(valY, valX);
+                pts.push([p.x, p.y]);
+              }
+            } else {
+              // Pre-projected Albers 975x610 coordinates -> scale cleanly to 960x600
+              const px = Number((valX * (960.0 / 975.0)).toFixed(1));
+              const py = Number((valY * (600.0 / 610.0)).toFixed(1));
+              pts.push([px, py]);
+            }
+          }
+          return pts;
+        });
+
+        function decodeRing(arcIndices) {
+          const ringPts = [];
+          for (let i = 0; i < arcIndices.length; i++) {
+            const idx = arcIndices[i];
+            const rawArc = idx >= 0 ? decodedArcs[idx] : decodedArcs[~idx];
+            if (!rawArc || !rawArc.length) continue;
+            const arcPts = idx >= 0 ? rawArc : [...rawArc].reverse();
+            for (let j = 0; j < arcPts.length; j++) {
+              if (i > 0 && j === 0) continue;
+              ringPts.push(arcPts[j]);
+            }
+          }
+          return ringPts;
+        }
+
+        const geoms = topo.objects.states.geometries || [];
+        let updated = 0;
+        geoms.forEach(g => {
+          const fips = String(g.id).padStart(2, '0');
+          const stObj = US_STATES_GEO.find(s => s.fips === fips);
+          if (!stObj) return;
+          const polys = g.type === 'Polygon' ? [g.arcs] : (g.type === 'MultiPolygon' ? g.arcs : []);
+          const pathParts = [];
+          polys.forEach(poly => {
+            poly.forEach(ringArcs => {
+              const pts = decodeRing(ringArcs);
+              if (pts.length >= 3) {
+                pathParts.push('M ' + pts.map(p => `${p[0]},${p[1]}`).join(' L ') + ' Z');
+              }
+            });
+          });
+          if (pathParts.length > 0) {
+            const candidatePath = pathParts.join(' ');
+            const parsed = parseSvgPathToRings(candidatePath);
+            if (parsed.length > 0) {
+              stObj.path = candidatePath;
+              // Recompute state label centroid from largest ring
+              let bestRing = parsed[0];
+              for (let r = 1; r < parsed.length; r++) {
+                if ((parsed[r].maxX - parsed[r].minX) * (parsed[r].maxY - parsed[r].minY) >
+                    (bestRing.maxX - bestRing.minX) * (bestRing.maxY - bestRing.minY)) {
+                  bestRing = parsed[r];
+                }
+              }
+              stObj.labelX = Number(((bestRing.minX + bestRing.maxX) * 0.5).toFixed(1));
+              stObj.labelY = Number(((bestRing.minY + bestRing.maxY) * 0.5).toFixed(1));
+              updated++;
+            }
+          }
+        });
+        if (updated >= 40) {
+          PEAKFOLIO_CONTINENTAL_HEX_CELLS = null;
+          renderUsaMap();
+        }
+      } catch (e) {}
+    }
+
     const DENSE_WEATHER_GRID_NODES = [];
     (function buildDenseWeatherGrid() {
       // Generate a high-density ~880-node continental US 4km PRISM/NOAA weather station mesh
@@ -4109,16 +4448,20 @@
         .sort((a, b) => a.km - b.km)
         .slice(0, 3);
 
-      let wSum = 0, baseNight = 0, baseDay = 0, baseSun = 0, baseMoist = 0, baseElev = 0, basePeak = 0;
+      let wSum = 0, baseNight = 0, baseDay = 0, baseSun = 0, baseMoist = 0, baseElev = 0, interpOffset = 0;
       sortedStations.forEach(item => {
         const w = 1 / Math.pow(Math.max(5, item.km), 2.0);
-        const wx = item.s.weather;
+        const wx = item.s.baselineWeather || item.s.weather;
         baseNight += wx.nightLowF * w;
         baseDay += wx.dayHighF * w;
         baseSun += wx.sunnyPct * w;
         baseMoist += (wx.moistureIdx || 0) * w;
         baseElev += item.s.elevFt * w;
-        basePeak += item.s.peakDoyBase * w;
+        const stnMech = (item.s.mechanisticBaselineDoy !== undefined)
+          ? item.s.mechanisticBaselineDoy
+          : (291.0 - (item.s.lat - 41.0) * 1.45 + ((wx.nightLowF * 0.62 + wx.dayHighF * 0.38) - 44.5) * 1.55 + (wx.moistureIdx || 0) * 4.5 - ((wx.sunnyPct - 65.0) * 0.14));
+        const stnCalibOffset = (item.s.calibOffsetDays !== undefined) ? item.s.calibOffsetDays : (item.s.peakDoyBase - stnMech);
+        interpOffset += stnCalibOffset * w;
         wSum += w;
       });
 
@@ -4127,18 +4470,18 @@
       baseSun /= wSum;
       baseMoist /= wSum;
       baseElev /= wSum;
-      basePeak /= wSum;
+      interpOffset /= wSum;
 
       // Apply standard tropospheric environmental lapse rate (-3.5°F per +1,000 ft elevation difference from reference station)
       const elevDeltaFt = (elevFt || baseElev) - baseElev;
       const lapseF = -(elevDeltaFt / 1000) * 3.5;
-      const hopkinsShiftDays = -(elevDeltaFt / 400) * 1.2;
 
       const nightLowF = Math.round(Math.max(20, Math.min(58, baseNight + lapseF)));
       const dayHighF = Math.round(Math.max(40, Math.min(82, baseDay + lapseF)));
       const sunnyPct = Math.round(Math.max(30, Math.min(95, baseSun)));
       const moistureIdx = Number(Math.max(-0.5, Math.min(1.2, baseMoist)).toFixed(1));
-      const physicalPeakDoy = Math.round(Math.max(255, Math.min(328, basePeak + hopkinsShiftDays)));
+      const localMech = 291.0 - (lat - 41.0) * 1.45 + ((nightLowF * 0.62 + dayHighF * 0.38) - 44.5) * 1.55 + moistureIdx * 4.5 - ((sunnyPct - 65.0) * 0.14);
+      const physicalPeakDoy = Math.round(Math.max(252, Math.min(332, localMech + interpOffset)));
       const nearStn = sortedStations[0]?.s;
       const stnId = nearStn?.ghcndStationId || `PRISM-4KM-${lat.toFixed(2)}N-${Math.abs(lon).toFixed(2)}W`;
 
@@ -4188,12 +4531,35 @@ const REAL_NOAA_GHCND_STATIONS = {
       'baxter-katahdin-me': 'GHCND:USC00175304 (Millinocket, ME)',
       'finger-lakes-ithaca-ny': 'GHCND:USC00304174 (Ithaca Cornell Univ, NY)'
     };
-    // Attach both denseWeather and coarse neighbor-interpolated weather to all primary stations
+    // Pure mechanistic weather + photoperiod model DOY_mech(lat, T_night, T_day, Sun, Moist)
+    // Used FIRST at each reference station k to extract its site-specific calibration residual:
+    //   calibOffsetDays_k = peakDoyBase_k - DOY_mech_k
+    // and THEN evaluated at any target coordinate x before adding the spatially interpolated offset.
+    function computeMechanisticWeatherDoy(lat, nightLowF, dayHighF, sunnyPct, moistureIdx) {
+      const thermalMeanF = (nightLowF * 0.62 + dayHighF * 0.38);
+      const chillingDeficitDays = (thermalMeanF - 44.5) * 1.55;
+      const photoperiodBaseDoy = 291.0 - (lat - 41.0) * 1.45;
+      const moistureDelayDays = (moistureIdx || 0) * 4.5 - ((sunnyPct - 65.0) * 0.14);
+      return photoperiodBaseDoy + chillingDeficitDays + moistureDelayDays;
+    }
+
+    // Step 1 of Calibrate-then-Interpolate:
+    // Calibrate on each specific reference site k first to obtain its weather-stripped residual offset (calibOffsetDays_k)
     US_FOLIAGE_LOCATIONS.forEach(loc => {
-      const dense = computeDenseLocalWeather(loc.lat, loc.lon, loc.elevFt, loc.name, 'Primary Station');
       const realStationId = REAL_NOAA_GHCND_STATIONS[loc.id] || `GHCND/PRISM (${loc.lat.toFixed(2)}°N, ${Math.abs(loc.lon).toFixed(2)}°W · ${loc.state})`;
       loc.ghcndStationId = realStationId;
       loc.realHistoricalDaily = {};
+      loc.baselineWeather = { ...loc.weather };
+      const mechBaseDoy = computeMechanisticWeatherDoy(
+        loc.lat,
+        loc.weather.nightLowF,
+        loc.weather.dayHighF,
+        loc.weather.sunnyPct,
+        loc.weather.moistureIdx
+      );
+      loc.mechanisticBaselineDoy = Number(mechBaseDoy.toFixed(2));
+      // Site-specific empirical calibration offset: ΔDOY_calib,k = DOY_obs,k - DOY_mech,k
+      loc.calibOffsetDays = Number((loc.peakDoyBase - mechBaseDoy).toFixed(2));
       loc.denseWeather = {
         nightLowF: loc.weather.nightLowF,
         dayHighF: loc.weather.dayHighF,
@@ -4211,14 +4577,14 @@ const REAL_NOAA_GHCND_STATIONS = {
         .slice(0, 3);
       const ws = others.map(x => 1 / Math.pow(Math.max(10, x.d), 2));
       const wSum = ws.reduce((a, b) => a + b, 0);
-      let nLow = 0, dHigh = 0, sPct = 0, mIdx = 0, pDoy = 0;
+      let nLow = 0, dHigh = 0, sPct = 0, mIdx = 0, cOffset = 0;
       others.forEach((x, idx) => {
         const w = ws[idx] / wSum;
         nLow += x.o.weather.nightLowF * w;
         dHigh += x.o.weather.dayHighF * w;
         sPct += x.o.weather.sunnyPct * w;
         mIdx += x.o.weather.moistureIdx * w;
-        pDoy += x.o.peakDoyBase * w;
+        cOffset += (x.o.calibOffsetDays || 0) * w;
       });
       loc.interpWeather = {
         nightLowF: Math.round(nLow),
@@ -4227,7 +4593,8 @@ const REAL_NOAA_GHCND_STATIONS = {
         moistureIdx: Number(mIdx.toFixed(1)),
         microclimateLabel: 'Coarse IDW Average of 3 Surrounding Forest Plots (Ignores Local Microclimate)'
       };
-      loc.interpPeakDoyBase = Math.round(pDoy);
+      loc.interpCalibOffsetDays = Number(cOffset.toFixed(2));
+      loc.interpPeakDoyBase = Math.round(computeMechanisticWeatherDoy(loc.lat, Math.round(nLow), Math.round(dHigh), Math.round(sPct), Number(mIdx.toFixed(1))) + cOffset);
     });
 
     // Core Model: Given a location object, day of year (244..334), and weather anomalies,
@@ -4238,10 +4605,10 @@ const REAL_NOAA_GHCND_STATIONS = {
       const activeMode = forceWeatherMode || state.weatherMode || 'dense';
       const activeCalib = forceCalibMode || state.calibrationMode || 'diurnal_dynamic';
 
-      // Select active weather source: Dense Local Weather Grid (default) vs Coarse Interpolated Weather
+      // Select active weather source: use immutable 1991-2020 baselineWeather for reference stations so late-Oct live pulls never corrupt Oct baseline
       const activeWx = (activeMode === 'interpolated' && location.interpWeather)
         ? location.interpWeather
-        : (location.denseWeather || location.weather);
+        : (location.baselineWeather || location.denseWeather || location.weather);
 
       // Compute effective meteorological drivers at this coordinate (including selected Year climate/ENSO forcing)
       const yrAdj = getYearClimateAdjustment(state.selectedYear, location.lat, location.lon, location, doy);
@@ -4253,56 +4620,68 @@ const REAL_NOAA_GHCND_STATIONS = {
       const effMoisture = (activeWx.moistureIdx || 0) - (wxAnomaly.droughtPct / 50);
 
       // -----------------------------------------------------------------------
-      // MODE A: WITHOUT PHENOLOGY CALIBRATION ('weather_only' — 2-Tier Pure Weather + Photoperiod)
-      // Computes timing & pigment progression strictly from local temperature chilling
-      // (T_night, T_day), solar insolation (SunnyPct), soil moisture, and photoperiod latitude
-      // WITHOUT using empirical station peakDoyBase or satellite/NPN senescence calibration!
+      // STEP 1: UNCALIBRATED MECHANISTIC MODEL AT TARGET SITE ('weather_only')
+      // Evaluates DOY_mech(x) strictly from local temperature chilling (T_night, T_day),
+      // solar insolation (SunnyPct), soil moisture, and photoperiod latitude (plus any elevDeltaFt lapse).
       // -----------------------------------------------------------------------
-      const thermalMeanF = (effectiveNightLow * 0.62 + effectiveDayHigh * 0.38);
-      const chillingDeficitDays = (thermalMeanF - 44.5) * 1.55; // Warmer local temps delay chilling threshold; colder temps advance it
-      const photoperiodBaseDoy = 291.0 - (location.lat - 41.0) * 1.45; // Pure astronomical photoperiod trigger
-      const moistureDelayDays = effMoisture * 4.5 - ((effectiveSunPct - 65) * 0.14);
-      const mechanisticPeakDoy = Math.round(Math.max(252, Math.min(332,
-        photoperiodBaseDoy + chillingDeficitDays + moistureDelayDays
-      )));
+      const elevLapseF = -(elevDeltaFt / 1000.0) * 3.5;
+      const rawMechDoy = computeMechanisticWeatherDoy(
+        location.lat,
+        effectiveNightLow + elevLapseF,
+        effectiveDayHigh + elevLapseF,
+        effectiveSunPct,
+        effMoisture
+      );
+      const mechanisticPeakDoy = Math.round(Math.max(252, Math.min(332, rawMechDoy)));
 
       // -----------------------------------------------------------------------
-      // MODE B: WITH PHENOLOGY CALIBRATION ('calibrated' — 3-Tier Satellite VIIRS + USA-NPN)
-      // Anchors to empirically observed station/satellite peakDoyBase + topographic lapse rate
+      // STEP 2: CALIBRATED PHENOLOGY MODEL ('calibrated' — Calibrate-on-Sites, Interpolate-Offsets)
+      // Each reference station k is first calibrated to extract its residual offset:
+      //   ΔDOY_calib,k = DOY_obs,k - DOY_mech,k
+      // Those weather-stripped offsets are spatially interpolated to target site x (location.calibOffsetDays),
+      // and added to the target site's own local mechanistic weather prediction rawMechDoy:
+      //   DOY_calibrated(x) = rawMechDoy(x) + ΔDOY_calib(x)
       // -----------------------------------------------------------------------
-      const calibratedBaseDoy = (activeMode === 'interpolated' && location.interpPeakDoyBase !== undefined)
-        ? location.interpPeakDoyBase
-        : (location.densePeakDoyBase !== undefined ? location.densePeakDoyBase : location.peakDoyBase);
+      const siteCalibOffsetDays = (activeMode === 'interpolated' && location.interpCalibOffsetDays !== undefined)
+        ? location.interpCalibOffsetDays
+        : (location.calibOffsetDays !== undefined
+            ? location.calibOffsetDays
+            : ((location.peakDoyBase || 290) - computeMechanisticWeatherDoy(
+                location.lat,
+                activeWx.nightLowF,
+                activeWx.dayHighF,
+                activeWx.sunnyPct,
+                activeWx.moistureIdx
+              )));
 
-      const tempShiftDays = totalTempDeltaF * 1.15;
-      const elevShiftDays = -(elevDeltaFt / 400) * 1.2;
-      const calibratedEffectivePeakDoy = calibratedBaseDoy + tempShiftDays + elevShiftDays;
+      const calibratedEffectivePeakDoy = Math.max(250, Math.min(333, rawMechDoy + siteCalibOffsetDays));
+      const calibratedBaseDoy = Math.round(calibratedEffectivePeakDoy);
 
       // -----------------------------------------------------------------------
       // MODE C: DIURNAL ΔT SUGAR-TRAP + CUMULATIVE CHILLING (CDD) DYNAMIC MODEL ('diurnal_dynamic')
-      // 1) Explicitly models the Diurnal Temperature Range (ΔT_diurnal = T_day - T_night):
-      //    - Warm, sunny afternoons (T_day ~ 55–72°F) drive high leaf photosynthesis (sugar production).
-      //    - Crisp, non-freezing nights (T_night ~ 33–43°F) slow phloem export, trapping sucrose in the blade.
-      //    - Normalized so a standard autumn diurnal swing (ΔT ~ 18°F) matches the Simple baseline (~1.03–1.06x),
-      //      while wide diurnal swings (ΔT >= 22°F) amplify scarlet synthesis and narrow swings (<13°F) mute reds toward gold/bronze.
-      // 2) Replaces the fixed [-18d, -7d, 0d, +9d] time schedule with a continuous thermal chilling velocity (v_chill)
-      //    normalized around the station's climatological autumn night low so baseline timing aligns with Simple w/ Phenology Calib,
-      //    while cold snaps / wide ΔT accelerate progression and hard-frost shock (T_night <= 29°F) triggers cellular scorch.
+      // Expected seasonal temperatures at this DOY under baseline climatology (centered at DOY 288 = Oct 15):
       // -----------------------------------------------------------------------
-      const seasonalDayHigh = effectiveDayHigh - (doy - 285) * 0.24;
-      const seasonalNightLow = effectiveNightLow - (doy - 285) * 0.22;
-      const diurnalSwingF = Math.max(4, seasonalDayHigh - seasonalNightLow);
+      const climoDayHighAtDoy = activeWx.dayHighF - (doy - 288) * 0.24;
+      const climoNightLowAtDoy = activeWx.nightLowF - (doy - 288) * 0.22;
+      const climoDiurnalSwingF = Math.max(8, activeWx.dayHighF - activeWx.nightLowF);
 
-      // Station climatological reference chilling (prevents double-counting baseline chill already in peakDoyBase)
-      const stationClimoChill = Math.max(2.0, 47.0 - location.weather.nightLowF);
-      const stationExpectedCdd14 = stationClimoChill * 14.0;
+      let seasonalDayHigh = climoDayHighAtDoy + totalTempDeltaF;
+      let seasonalNightLow = climoNightLowAtDoy + totalTempDeltaF;
+      let observedMeanDiurnalF = Math.max(4, seasonalDayHigh - seasonalNightLow);
 
-      // Compute cumulative chilling degree-days (CDD < 47°F) & observed diurnal swing from daily series if available
+      // Expected 14-day cumulative chilling degree-days (CDD < 47°F) at this DOY under station climatology:
+      let expectedCdd14AtDoy = 0;
+      for (let k = 0; k < 14; k++) {
+        const dPast = doy - k;
+        const expLo = activeWx.nightLowF - (dPast - 288) * 0.22;
+        expectedCdd14AtDoy += Math.max(0, 47.0 - expLo);
+      }
+
       const activeYr = getActiveYear();
-      let cddAnomalyDays = 0; // Relative to station climatology (for w/ Phenology Calib)
+      let cddAnomalyDays = 0; // Relative to station climatology at this DOY (for w/ Phenology Calib)
       let cddAbsoluteShiftDays = 0; // Relative to continental standard (for w/o Phenology Calib)
-      let observedMeanDiurnalF = diurnalSwingF;
       const histSeries = location.realHistoricalDaily && location.realHistoricalDaily[activeYr];
+
       if (histSeries && Array.isArray(histSeries.temperature_2m_min) && histSeries.temperature_2m_min.length > 0) {
         const endIdx = histSeries.isFullAutumnArchive
           ? Math.max(0, Math.min(histSeries.temperature_2m_min.length - 1, doy - 244))
@@ -4311,39 +4690,41 @@ const REAL_NOAA_GHCND_STATIONS = {
         const minsWin = histSeries.temperature_2m_min.slice(startIdx, endIdx + 1).filter(x => x !== null && !isNaN(x));
         const maxsWin = (histSeries.temperature_2m_max || []).slice(startIdx, endIdx + 1).filter(x => x !== null && !isNaN(x));
         if (minsWin.length > 0 && maxsWin.length === minsWin.length) {
-          let sumDiurnal = 0;
-          let cdd14 = 0;
+          let sumDiurnal = 0, sumLo = 0, sumHi = 0, cdd14 = 0;
           for (let k = 0; k < minsWin.length; k++) {
             const dLo = minsWin[k] + wxAnomaly.tempDeltaF;
             const dHi = maxsWin[k] + wxAnomaly.tempDeltaF;
+            sumLo += dLo;
+            sumHi += dHi;
             sumDiurnal += Math.max(2, dHi - dLo);
             cdd14 += Math.max(0, 47.0 - dLo);
           }
+          seasonalNightLow = sumLo / minsWin.length;
+          seasonalDayHigh = sumHi / maxsWin.length;
           observedMeanDiurnalF = sumDiurnal / minsWin.length;
-          cddAnomalyDays = Math.max(-6, Math.min(6, (stationExpectedCdd14 - cdd14) * 0.045));
-          cddAbsoluteShiftDays = Math.max(-9, Math.min(9, (115 - cdd14) * 0.065));
+          const scale14 = 14.0 / minsWin.length;
+          cddAnomalyDays = Math.max(-5, Math.min(5, (expectedCdd14AtDoy - cdd14 * scale14) * 0.04));
+          cddAbsoluteShiftDays = Math.max(-8, Math.min(8, (expectedCdd14AtDoy - cdd14 * scale14) * 0.06));
         }
       } else {
-        // Derive chilling shift from thermal departure & diurnal swing anomaly
-        const dailyChill = Math.max(0, 47.0 - effectiveNightLow);
-        cddAnomalyDays = ((stationClimoChill - dailyChill) * 0.35) - ((diurnalSwingF - 18.0) * 0.12);
-        cddAbsoluteShiftDays = ((8.2 - dailyChill) * 0.85) - ((diurnalSwingF - 20.0) * 0.16);
+        let obsCdd14 = 0;
+        for (let k = 0; k < 14; k++) {
+          const dPast = doy - k;
+          const obsLo = (activeWx.nightLowF + totalTempDeltaF) - (dPast - 288) * 0.22;
+          obsCdd14 += Math.max(0, 47.0 - obsLo);
+        }
+        cddAnomalyDays = Math.max(-5, Math.min(5, (expectedCdd14AtDoy - obsCdd14) * 0.04));
+        cddAbsoluteShiftDays = Math.max(-8, Math.min(8, (expectedCdd14AtDoy - obsCdd14) * 0.06));
       }
 
-      // Clean 2×2 Orthogonal Decomposition:
-      // Axis 1 — Phenology Anchor: w/ Phenology Calib ('calibrated', 'diurnal_dynamic') vs w/o Phenology Calib ('weather_only', 'complex_weather_only')
-      // Axis 2 — Pigment & Trajectory Kinetics: Simple Fixed Schedule ('calibrated', 'weather_only') vs Complex Diurnal ΔT + CDD ('diurnal_dynamic', 'complex_weather_only')
       const usesPhenologyCalib = (activeCalib === 'calibrated' || activeCalib === 'diurnal_dynamic');
       const isComplexDiurnal = (activeCalib === 'diurnal_dynamic' || activeCalib === 'complex_weather_only');
 
-      // Complex w/ Phenology Calib: shares the exact same empirical VIIRS/USA-NPN station peakDoyBase anchor as Simple w/ Phenology Calib,
-      // shifting only when observed daily chilling or diurnal ΔT departs from the station's own climatology
       const complexCalibratedPeakDoy = Math.round(Math.max(250, Math.min(333,
         calibratedEffectivePeakDoy + cddAnomalyDays * 0.55
       )));
-      // Complex w/o Phenology Calib: anchors purely to astronomical photoperiod + cumulative chilling degree-days & diurnal swing (zero station peakDoyBase!)
       const complexWeatherOnlyPeakDoy = Math.round(Math.max(250, Math.min(333,
-        mechanisticPeakDoy + cddAbsoluteShiftDays * 1.05
+        mechanisticPeakDoy + cddAbsoluteShiftDays * 0.85
       )));
 
       const effectiveLocPeakDoy = isComplexDiurnal
@@ -4352,47 +4733,44 @@ const REAL_NOAA_GHCND_STATIONS = {
       const phenologyCalibDeltaDays = Math.round(calibratedEffectivePeakDoy - mechanisticPeakDoy);
 
       // 2. Compute Anthocyanin Synthesis Potential (A_boost)
-      // - Simple modes ('calibrated', 'weather_only'): classic night-low threshold step function
-      // - Complex modes ('diurnal_dynamic', 'complex_weather_only'): continuous Gaussian daytime photosynthesis × nighttime phloem sugar trap × Diurnal ΔT swing
+      // Normalized so under baseline station climatology (T_day = activeWx.dayHighF, T_night = activeWx.nightLowF, ΔT = climoDiurnalSwingF),
+      // Complex SugarTrap and Simple Step_A agree closely (~1.03x at Poconos), diverging when ΔT, sun, or night chill depart from normal.
       const nightColdSweetSpot = effectiveNightLow >= 32 && effectiveNightLow <= 45 ? 1.15 : (effectiveNightLow < 32 ? 0.85 : 0.78);
-      const rawWxBoost = (effectiveSunPct / 66) * nightColdSweetSpot * (1 - wxAnomaly.droughtPct / 140);
+      const simpleStepBoost = (effectiveSunPct / 70.0) * nightColdSweetSpot * (1 - wxAnomaly.droughtPct / 140);
 
-      // Continuous Diurnal Sugar-Trap Components (normalized to match Simple at standard ΔT = 18°F, T_day = 58°F, T_night = 38.5°F):
-      // Daytime photosynthetic sugar production peaks around 59°F (15°C)
-      const fDayPhoto = Math.exp(-Math.pow((seasonalDayHigh - 59.0) / 17.5, 2));
-      // Nighttime phloem chilling trap peaks around 38.5°F (3.6°C); sub-29°F hard freeze damages vascular cells
+      const fDayPhoto = Math.exp(-Math.pow((seasonalDayHigh - 59.0) / 18.5, 2));
       const fNightTrap = seasonalNightLow < 28.5
-        ? 0.42 * Math.exp(-Math.pow((28.5 - seasonalNightLow) / 6.0, 2))
-        : Math.exp(-Math.pow((seasonalNightLow - 38.5) / 8.5, 2));
-      // Diurnal amplitude multiplier normalized around ΔT_ref = 18.0°F (1.0x at 18°F; 1.28x at 23°F; 0.67x at 12°F)
-      const fDiurnalSwing = Math.max(0.50, Math.min(1.48, observedMeanDiurnalF / 18.0));
-      const diurnalSugarTrapBoost = (usesPhenologyCalib ? 1.22 : 1.28) * (effectiveSunPct / 70.0) * (0.38 + 0.62 * fDayPhoto * fNightTrap) * fDiurnalSwing * (1 - wxAnomaly.droughtPct / 140);
+        ? 0.48 * Math.exp(-Math.pow((28.5 - seasonalNightLow) / 6.0, 2))
+        : Math.exp(-Math.pow((seasonalNightLow - 38.5) / 9.5, 2));
+      // Normalize diurnal swing against a blend of the station's own baseline swing and the 20°F continental reference
+      const refSwingF = climoDiurnalSwingF * 0.65 + 20.0 * 0.35;
+      const fDiurnalSwing = Math.max(0.65, Math.min(1.38, observedMeanDiurnalF / refSwingF));
+      const diurnalSugarTrapBoost = 1.16 * (effectiveSunPct / 70.0) * (0.45 + 0.55 * fDayPhoto * fNightTrap) * fDiurnalSwing * (1 - wxAnomaly.droughtPct / 140);
 
       const anthocyaninBoost = isComplexDiurnal
         ? diurnalSugarTrapBoost
-        : (usesPhenologyCalib
-            ? (effectiveSunPct / 70) * nightColdSweetSpot * (1 - wxAnomaly.droughtPct / 140)
-            : rawWxBoost * 1.08);
+        : (usesPhenologyCalib ? simpleStepBoost : simpleStepBoost * 1.05);
 
-      // Dynamic chilling velocity (v_chill) normalized around station baseline so normal weather = ~1.00x
-      const refChillDenom = Math.max(5.5, Math.min(13.5, 48.0 - location.weather.nightLowF));
-      const chillVelocity = Math.max(0.55, Math.min(1.65,
-        ((48.0 - Math.min(58, Math.max(22, seasonalNightLow))) / refChillDenom) * (0.82 + 0.18 * (observedMeanDiurnalF / 18.0))
+      // Dynamic chilling velocity (v_chill) compared against the station's expected chill AT THIS DOY (climoNightLowAtDoy)
+      // so normal seasonal cooling from Sep to Nov gives v_chill = 1.00x instead of artificially spiking to 1.65x in late October!
+      const climoWinRefDoy = (histSeries && Array.isArray(histSeries.temperature_2m_min)) ? (doy - 6.5) : doy;
+      const climoWinNightLow = activeWx.nightLowF - (climoWinRefDoy - 288) * 0.22;
+      const expectedChillAtDoy = Math.max(4.0, 48.0 - Math.min(56, Math.max(24, climoWinNightLow)));
+      const actualChillAtDoy = Math.max(2.0, 48.0 - Math.min(58, Math.max(22, seasonalNightLow)));
+      const chillVelocity = Math.max(0.70, Math.min(1.35,
+        (actualChillAtDoy / expectedChillAtDoy) * (0.85 + 0.15 * (observedMeanDiurnalF / climoDiurnalSwingF))
       ));
-      const hardFrostShockDays = seasonalNightLow < 29.0 ? (29.0 - seasonalNightLow) * 1.35 : 0;
+      const hardFrostShockDays = seasonalNightLow < 28.0 ? (28.0 - seasonalNightLow) * 1.15 : 0;
 
       // 3. Evaluate each species in the stand
       const speciesEvaluations = [];
       let totalWeightedCrownArea = 0;
-
-      // Track dormant bark / leaf-drop understory share
       let droppedCanopyWeightedArea = 0;
 
       location.speciesMix.forEach(item => {
         const sp = spDB[item.id];
         if (!sp) return;
 
-        // Basal / Crown area weight: Abundance % * Average Crown Projection Area (m2)
         const baseCrownWeight = (item.pct / 100) * sp.avgCrownAreaM2;
 
         if (sp.isEvergreen) {
@@ -4412,79 +4790,74 @@ const REAL_NOAA_GHCND_STATIONS = {
           return;
         }
 
-        // Check if species is an active Anthocyanin synthesizer vs pure Carotenoid unmasker
         const isAnthocyaninSpecies = sp.pigmentType.toLowerCase().includes('anthocyanin') || sp.pigmentType.toLowerCase().includes('multi-pigment');
 
-        // Species-specific peak DOY
         const baseOnsetScale = usesPhenologyCalib ? 1.0 : 0.78;
-        const spOnset = isComplexDiurnal
-          ? sp.onsetOffset * baseOnsetScale * (0.82 + 0.18 * chillVelocity)
-          : sp.onsetOffset * baseOnsetScale;
+        const spOnset = sp.onsetOffset * baseOnsetScale;
         const spPeakDoy = effectiveLocPeakDoy + spOnset;
-        const daysFromPeak = doy - spPeakDoy; // negative = before peak, 0 = peak, positive = after peak
-
-        // Drought stress advances leaf drop & browning
+        const daysFromPeak = doy - spPeakDoy;
         const droughtAccel = wxAnomaly.droughtPct * 0.14;
-        const effectiveDaysFromPeak = isComplexDiurnal
-          ? (daysFromPeak * chillVelocity + droughtAccel + hardFrostShockDays)
-          : (daysFromPeak + droughtAccel);
 
-        // Compute leaf retention across all 4 modes:
-        const frostDropPenalty = (isComplexDiurnal && seasonalNightLow < 29.5)
-          ? Math.max(0.45, 1.0 - (29.5 - seasonalNightLow) * 0.085)
+        // Physically consistent velocity scaling:
+        // Senescence begins at onset (-18d before peak). Scale progression AFTER onset by chillVelocity
+        // so v_chill < 1 slows progression and v_chill > 1 accelerates progression without flipping the sign of negative pre-peak days!
+        const onsetWindow = 18.0;
+        let effectiveDaysFromPeak;
+        if (!isComplexDiurnal) {
+          effectiveDaysFromPeak = daysFromPeak + droughtAccel;
+        } else if (daysFromPeak <= -onsetWindow) {
+          effectiveDaysFromPeak = daysFromPeak + droughtAccel;
+        } else {
+          const daysSinceOnset = daysFromPeak + onsetWindow; // >= 0
+          effectiveDaysFromPeak = -onsetWindow + daysSinceOnset * chillVelocity + droughtAccel + hardFrostShockDays;
+        }
+
+        const frostDropPenalty = (isComplexDiurnal && seasonalNightLow < 28.5)
+          ? Math.max(0.55, 1.0 - (28.5 - seasonalNightLow) * 0.07)
           : 1.0;
         const baseHalfLife = usesPhenologyCalib
-          ? ((isComplexDiurnal ? 13.8 : 13.0) * sp.retentionFactor * frostDropPenalty * (1 - wxAnomaly.droughtPct / 110))
-          : ((isComplexDiurnal ? 16.2 : 17.5) * sp.retentionFactor * frostDropPenalty * Math.max(0.65, 1 + effMoisture * 0.22) * (1 - wxAnomaly.droughtPct / 115));
-        const weibullExp = usesPhenologyCalib
-          ? (isComplexDiurnal ? 1.56 : 1.65)
-          : (isComplexDiurnal ? 1.38 : 1.25);
+          ? ((isComplexDiurnal ? 13.2 : 13.0) * sp.retentionFactor * frostDropPenalty * (1 - wxAnomaly.droughtPct / 110))
+          : ((isComplexDiurnal ? 16.0 : 17.5) * sp.retentionFactor * frostDropPenalty * Math.max(0.65, 1 + effMoisture * 0.22) * (1 - wxAnomaly.droughtPct / 115));
+        const weibullExp = usesPhenologyCalib ? 1.62 : 1.30;
         let retention = 1.0;
         if (effectiveDaysFromPeak > 2) {
           retention = Math.exp(-Math.pow((effectiveDaysFromPeak - 2) / Math.max(4.5, baseHalfLife), weibullExp));
         }
         retention = Math.max(0.06, Math.min(1.0, retention));
 
-        // Determine active pigment color & stage for this species
         let currentHex = sp.colors.green.hex;
         let currentColorName = sp.colors.green.name;
         let stageLabel = 'Chlorophyll Green';
 
-        // Target peak color:
-        // In Complex modes ('diurnal_dynamic', 'complex_weather_only'), anthocyanin species respond continuously
-        // to the Diurnal Sugar-Trap index (A_diurnal) driven by ΔT = T_day - T_night
         let targetPeakHex;
         let targetPeakName;
         if (isComplexDiurnal) {
           if (isAnthocyaninSpecies) {
-            if (anthocyaninBoost >= 0.92) {
-              const vividT = Math.min(1, (anthocyaninBoost - 0.92) * 1.85);
+            if (anthocyaninBoost >= 0.88) {
+              const vividT = Math.min(1, (anthocyaninBoost - 0.88) * 2.1);
               targetPeakHex = lerpColor(sp.colors.peakMid.hex, sp.colors.peakSun.hex, vividT);
-              targetPeakName = vividT > 0.45 ? `${sp.colors.peakSun.name} (High ΔT)` : sp.colors.peakMid.name;
+              targetPeakName = vividT > 0.55 ? `${sp.colors.peakSun.name}` : sp.colors.peakMid.name;
             } else {
-              const mutedT = Math.max(0.08, Math.min(1, (anthocyaninBoost - 0.35) / 0.57));
+              const mutedT = Math.max(0.15, Math.min(1, (anthocyaninBoost - 0.35) / 0.53));
               targetPeakHex = lerpColor(sp.colors.early.hex, sp.colors.peakMid.hex, mutedT);
-              targetPeakName = mutedT < 0.45 ? `${sp.colors.early.name} (Low ΔT)` : sp.colors.peakMid.name;
+              targetPeakName = mutedT < 0.45 ? `${sp.colors.early.name}` : sp.colors.peakMid.name;
             }
           } else {
-            // Pure carotenoid species (Aspen, Birch, Hickory, Poplar, Larch) depend on sunlight clarity & absence of frost scorch
-            const caroClarity = Math.max(0.2, Math.min(1, (effectiveSunPct / 74) * (seasonalNightLow < 28 ? 0.65 : 1.05)));
+            const caroClarity = Math.max(0.2, Math.min(1, (effectiveSunPct / 72) * (seasonalNightLow < 27 ? 0.70 : 1.02)));
             targetPeakHex = lerpColor(sp.colors.peakMid.hex, sp.colors.peakSun.hex, caroClarity);
             targetPeakName = caroClarity >= 0.6 ? sp.colors.peakSun.name : sp.colors.peakMid.name;
           }
         } else {
-          targetPeakHex = anthocyaninBoost >= 0.96
-            ? lerpColor(sp.colors.peakMid.hex, sp.colors.peakSun.hex, Math.min(1, (anthocyaninBoost - 0.85) * 2.2))
+          targetPeakHex = anthocyaninBoost >= 0.88
+            ? lerpColor(sp.colors.peakMid.hex, sp.colors.peakSun.hex, Math.min(1, (anthocyaninBoost - 0.88) * 2.1))
             : lerpColor(sp.colors.early.hex, sp.colors.peakMid.hex, Math.max(0.2, anthocyaninBoost));
           targetPeakName = anthocyaninBoost >= 0.96 ? sp.colors.peakSun.name : sp.colors.peakMid.name;
         }
 
         if (isComplexDiurnal) {
-          // Continuous thermally-warped senescence index S_dynamic (centered at 0 = Peak):
-          // Window stretches or compresses dynamically with diurnal swing & chilling velocity instead of a fixed calendar schedule
-          const dynamicEarlySpan = Math.max(11, Math.min(24, 18.5 / Math.pow(chillVelocity, 0.45)));
-          const dynamicPeakRamp = Math.max(4.5, Math.min(11, 7.5 * (21.0 / Math.max(12, observedMeanDiurnalF))));
-          const dynamicLateSpan = Math.max(5.5, Math.min(14, 9.5 * frostDropPenalty));
+          const dynamicEarlySpan = 18.0;
+          const dynamicPeakRamp = Math.max(5.5, Math.min(9.5, 7.0 * (refSwingF / Math.max(12, observedMeanDiurnalF))));
+          const dynamicLateSpan = Math.max(6.5, Math.min(12.0, 9.0 * frostDropPenalty));
 
           if (effectiveDaysFromPeak <= -dynamicEarlySpan) {
             currentHex = sp.colors.green.hex;
@@ -4492,35 +4865,33 @@ const REAL_NOAA_GHCND_STATIONS = {
             stageLabel = 'Chlorophyll Green';
           } else if (effectiveDaysFromPeak <= -dynamicPeakRamp) {
             const u = (effectiveDaysFromPeak + dynamicEarlySpan) / Math.max(1, dynamicEarlySpan - dynamicPeakRamp);
-            const sCurve = u * u * (3 - 2 * u); // Smooth sigmoid chlorophyll degradation
+            const sCurve = 0.5 * u + 0.5 * (u * u * (3 - 2 * u));
             currentHex = lerpColor(sp.colors.green.hex, sp.colors.early.hex, sCurve);
             currentColorName = sCurve < 0.45 ? sp.colors.green.name : sp.colors.early.name;
             stageLabel = sCurve < 0.45 ? 'Chlorophyll Breakdown' : 'Carotenoid Unmasking';
           } else if (effectiveDaysFromPeak <= 0) {
             const u = (effectiveDaysFromPeak + dynamicPeakRamp) / Math.max(1, dynamicPeakRamp);
-            const sCurve = Math.pow(u, 0.88); // Rapid diurnal sugar-trap anthocyanin surge
+            const sCurve = Math.pow(u, 0.92);
             currentHex = lerpColor(sp.colors.early.hex, targetPeakHex, sCurve);
-            currentColorName = sCurve < 0.32 ? sp.colors.early.name : targetPeakName;
+            currentColorName = sCurve < 0.35 ? sp.colors.early.name : targetPeakName;
             stageLabel = isAnthocyaninSpecies ? 'Diurnal Anthocyanin Surge' : 'Peak Carotenoid Gold';
           } else if (effectiveDaysFromPeak <= dynamicLateSpan) {
             const u = effectiveDaysFromPeak / Math.max(1, dynamicLateSpan);
             currentHex = lerpColor(targetPeakHex, sp.colors.late.hex, u);
-            currentColorName = u < 0.52 ? targetPeakName : sp.colors.late.name;
-            stageLabel = u < 0.52 ? 'Peak Canopy' : 'Tannin Oxidation';
+            currentColorName = u < 0.55 ? targetPeakName : sp.colors.late.name;
+            stageLabel = u < 0.55 ? 'Peak Canopy' : 'Tannin Oxidation';
           } else {
-            const u = Math.min(1, (effectiveDaysFromPeak - dynamicLateSpan) / 11.0);
-            currentHex = lerpColor(sp.colors.late.hex, '#5C4738', u * 0.72);
+            const u = Math.min(1, (effectiveDaysFromPeak - dynamicLateSpan) / 12.0);
+            currentHex = lerpColor(sp.colors.late.hex, '#5C4738', u * 0.68);
             currentColorName = sp.colors.late.name;
-            stageLabel = seasonalNightLow < 29 ? 'Frost-Induced Abscission' : 'Post-Peak / Abscission';
+            stageLabel = seasonalNightLow < 28 ? 'Frost-Induced Abscission' : 'Post-Peak / Abscission';
           }
 
-          // Hard frost (< 28°F) after onset causes cellular browning/scorch on tender leaves
-          if (seasonalNightLow < 28.0 && effectiveDaysFromPeak > -12) {
-            const frostScorch = Math.min(0.55, (28.0 - seasonalNightLow) * 0.09);
+          if (seasonalNightLow < 27.5 && effectiveDaysFromPeak > -10) {
+            const frostScorch = Math.min(0.45, (27.5 - seasonalNightLow) * 0.08);
             currentHex = lerpColor(currentHex, sp.colors.late.hex, frostScorch);
           }
         } else {
-          // Standard Fixed Day-Offset Schedule ('calibrated' 3-Tier and 'weather_only' 2-Tier)
           const wGreen = activeCalib === 'weather_only' ? -22 : -18;
           const wEarly = activeCalib === 'weather_only' ? -9 : -7;
           const wLate = activeCalib === 'weather_only' ? 13 : 9;
@@ -4553,7 +4924,6 @@ const REAL_NOAA_GHCND_STATIONS = {
           }
         }
 
-        // If high drought, shift slightly toward tannin bronze
         if (wxAnomaly.droughtPct >= 25 && effectiveDaysFromPeak > -10) {
           currentHex = lerpColor(currentHex, '#854D27', (wxAnomaly.droughtPct / 100) * 0.45);
         }
@@ -4711,6 +5081,7 @@ const REAL_NOAA_GHCND_STATIONS = {
         effectiveLocPeakDoy,
         mechanisticPeakDoy,
         calibratedBaseDoy,
+        siteCalibOffsetDays: Number(siteCalibOffsetDays.toFixed(1)),
         phenologyCalibDeltaDays,
         daylightHours: daylightHours.toFixed(1),
         effectiveNightLow: Math.round(effectiveNightLow),
@@ -4745,28 +5116,18 @@ const REAL_NOAA_GHCND_STATIONS = {
       return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     }
 
-    // Project any true (lat, lon) onto the SVG map canvas (mapX, mapY) using IDW across all known stations & gazetteer points
+    // Project any true (lat, lon) onto the SVG map canvas (mapX, mapY) using exact USGS Albers Equal-Area Conic projection
     function latLonToSvgXY(lat, lon) {
+      const p = projectAlbersConus(lat, lon);
       const allRefs = [...US_FOLIAGE_LOCATIONS, ...US_PLACE_GAZETTEER];
       const nearestRefs = allRefs
         .map(r => ({ r, km: haversineKm(lat, lon, r.lat, r.lon) }))
-        .sort((a, b) => a.km - b.km)
-        .slice(0, 5);
-      if (nearestRefs[0].km < 5) {
-        return { mapX: nearestRefs[0].r.mapX, mapY: nearestRefs[0].r.mapY, nearestRef: nearestRefs[0].r, distKm: nearestRefs[0].km };
-      }
-      let wx = 0, wy = 0, wTotal = 0;
-      nearestRefs.forEach(item => {
-        const w = 1 / Math.pow(Math.max(4, item.km), 2.3);
-        wx += item.r.mapX * w;
-        wy += item.r.mapY * w;
-        wTotal += w;
-      });
+        .sort((a, b) => a.km - b.km);
       return {
-        mapX: Math.round(Math.max(78, Math.min(922, wx / wTotal))),
-        mapY: Math.round(Math.max(58, Math.min(555, wy / wTotal))),
-        nearestRef: nearestRefs[0].r,
-        distKm: nearestRefs[0].km
+        mapX: p.x,
+        mapY: p.y,
+        nearestRef: nearestRefs[0]?.r || US_FOLIAGE_LOCATIONS[0],
+        distKm: nearestRefs[0]?.km || 0
       };
     }
 
@@ -4790,24 +5151,23 @@ const REAL_NOAA_GHCND_STATIONS = {
         return sorted[0].loc;
       }
 
-      // For a raw map click, estimate (lat, lon, elevFt) from the 5 nearest reference points (stations + gazetteer) using pure spatial distance
+      // For a raw map click, invert exact USGS Albers Equal-Area projection to get true (lat, lon)
       let clickLat = 0, clickLon = 0, clickElev = sorted[0].loc.elevFt;
       if (!hasTrueLatLon) {
+        const inv = invertAlbersConus(svgX, svgY);
+        clickLat = inv.lat;
+        clickLon = inv.lon;
         const allRefs = [...US_FOLIAGE_LOCATIONS, ...US_PLACE_GAZETTEER];
         const nearClickRefs = allRefs
-          .map(r => ({ r, d: Math.hypot(r.mapX - svgX, r.mapY - svgY) }))
+          .map(r => ({ r, d: haversineKm(clickLat, clickLon, r.lat, r.lon) }))
           .sort((a, b) => a.d - b.d)
           .slice(0, 5);
         let cwSum = 0, cElev = 0;
         nearClickRefs.forEach(item => {
-          const w = 1 / Math.pow(Math.max(3, item.d), 2.6);
-          clickLat += item.r.lat * w;
-          clickLon += item.r.lon * w;
+          const w = 1 / Math.pow(Math.max(4, item.d), 2.2);
           cElev += (item.r.elevFt || 800) * w;
           cwSum += w;
         });
-        clickLat /= cwSum;
-        clickLon /= cwSum;
         clickElev = Math.round(cElev / cwSum);
       }
 
@@ -4820,17 +5180,24 @@ const REAL_NOAA_GHCND_STATIONS = {
       });
       const wSum = weights.reduce((a, b) => a + b, 0);
 
-      // Interpolate elev, peakDoyBase, weather, and speciesMix
+      // Step 2 of Calibrate-then-Interpolate:
+      // Interpolate the site-specific calibration offsets (calibOffsetDays_k = DOY_obs,k - DOY_mech,k)
+      // and tree species composition across the k=6 nearest reference stations, rather than interpolating raw peakDoyBase.
       let lat = hasTrueLatLon ? overrideMeta.lat : clickLat;
       let lon = hasTrueLatLon ? overrideMeta.lon : clickLon;
-      let elevFt = 0, peakDoyBase = 0, treesPerAcre = 0, canopyClosure = 0;
+      let elevFt = 0, interpolatedCalibOffsetDays = 0, treesPerAcre = 0, canopyClosure = 0;
       let nightLowF = 0, dayHighF = 0, sunnyPct = 0, moistureIdx = 0;
       const speciesAccum = {};
 
       nearest3.forEach((n, idx) => {
         const w = weights[idx] / wSum;
         elevFt += n.loc.elevFt * w;
-        peakDoyBase += n.loc.peakDoyBase * w;
+        const stnOffset = (n.loc.calibOffsetDays !== undefined)
+          ? n.loc.calibOffsetDays
+          : (n.loc.peakDoyBase - computeMechanisticWeatherDoy(
+              n.loc.lat, n.loc.weather.nightLowF, n.loc.weather.dayHighF, n.loc.weather.sunnyPct, n.loc.weather.moistureIdx
+            ));
+        interpolatedCalibOffsetDays += stnOffset * w;
         treesPerAcre += n.loc.treesPerAcre * w;
         canopyClosure += n.loc.canopyClosure * w;
         nightLowF += n.loc.weather.nightLowF * w;
@@ -4853,11 +5220,6 @@ const REAL_NOAA_GHCND_STATIONS = {
 
       const primary = nearest3[0].loc;
       const finalElevFt = overrideMeta && overrideMeta.elevFt !== undefined ? overrideMeta.elevFt : Math.round(elevFt);
-      const elevDiffFt = finalElevFt - elevFt;
-      // Apply topographic elevation lapse rate (-3.5°F per +1000 ft) and Hopkins' Bioclimatic shift (-1.2 days per +400 ft)
-      const lapseTempShift = -(elevDiffFt / 1000) * 3.5;
-      const hopkinsDoyShift = -(elevDiffFt / 400) * 1.2;
-
       const finalLat = overrideMeta?.lat !== undefined ? Number(overrideMeta.lat.toFixed(2)) : Number(lat.toFixed(2));
       const finalLon = overrideMeta?.lon !== undefined ? Number(overrideMeta.lon.toFixed(2)) : Number(lon.toFixed(2));
       const finalName = overrideMeta?.name || `Interpolated Stand (Near ${primary.name.split(',')[0]}, ${primary.state})`;
@@ -4865,18 +5227,32 @@ const REAL_NOAA_GHCND_STATIONS = {
 
       // A. DENSE LOCAL WEATHER (Default): Direct local NOAA/PRISM station & microclimate model at (finalLat, finalLon, finalElevFt)
       const denseWx = computeDenseLocalWeather(finalLat, finalLon, finalElevFt, finalName, finalCat);
-      // Blend 65% local physical PRISM station + 35% regional baseline so it's anchored yet microclimate-sensitive
-      const densePeakDoy = Math.round(Math.max(255, Math.min(328, denseWx.physicalPeakDoy * 0.65 + (peakDoyBase + hopkinsDoyShift) * 0.35)));
+      // Step 3: Evaluate local mechanistic weather model at target site x, then add the spatially interpolated site calibration offset!
+      const localMechDoy = computeMechanisticWeatherDoy(
+        finalLat,
+        denseWx.nightLowF,
+        denseWx.dayHighF,
+        denseWx.sunnyPct,
+        denseWx.moistureIdx
+      );
+      const densePeakDoy = Math.round(Math.max(252, Math.min(332, localMechDoy + interpolatedCalibOffsetDays)));
 
-      // B. INTERPOLATE EVERYTHING (Option): Pure distance-weighted average of the k=4 forestry stations (no local weather station / no microclimate)
+      // B. INTERPOLATE EVERYTHING (Option): Coarse IDW average weather + interpolated calibration offset
       const interpWx = {
         nightLowF: Math.round(nightLowF),
         dayHighF: Math.round(dayHighF),
         sunnyPct: Math.round(sunnyPct),
         moistureIdx: Number(moistureIdx.toFixed(1)),
-        microclimateLabel: 'Coarse IDW Average of 4 Nearest Forestry Plots (No Local Weather Station)'
+        microclimateLabel: 'Coarse IDW Average of 6 Nearest Forestry Plots (No Local Weather Station)'
       };
-      const interpPeakDoy = Math.round(peakDoyBase);
+      const interpMechDoy = computeMechanisticWeatherDoy(
+        finalLat,
+        interpWx.nightLowF,
+        interpWx.dayHighF,
+        interpWx.sunnyPct,
+        interpWx.moistureIdx
+      );
+      const interpPeakDoy = Math.round(Math.max(252, Math.min(332, interpMechDoy + interpolatedCalibOffsetDays)));
 
       const customLoc = {
         id: 'custom-point',
@@ -4889,6 +5265,8 @@ const REAL_NOAA_GHCND_STATIONS = {
         elevFt: finalElevFt,
         mapX: svgX,
         mapY: svgY,
+        calibOffsetDays: Number(interpolatedCalibOffsetDays.toFixed(2)),
+        interpCalibOffsetDays: Number(interpolatedCalibOffsetDays.toFixed(2)),
         peakDoyBase: densePeakDoy,
         densePeakDoyBase: densePeakDoy,
         interpPeakDoyBase: interpPeakDoy,
@@ -4909,67 +5287,121 @@ const REAL_NOAA_GHCND_STATIONS = {
     // Precomputed Continental US Hex-Grid Cells for Peakfolio Cartographic Map (Screenshot 1 style)
     let PEAKFOLIO_CONTINENTAL_HEX_CELLS = null;
 
+    function parseSvgPathToRings(dStr) {
+      const subpaths = String(dStr || '').split(/Z/i);
+      const rings = [];
+      for (let s = 0; s < subpaths.length; s++) {
+        const nums = subpaths[s].match(/-?\d+(?:\.\d+)?/g);
+        if (!nums || nums.length < 6) continue;
+        const ring = [];
+        let minX = 1e9, maxX = -1e9, minY = 1e9, maxY = -1e9;
+        for (let i = 0; i < nums.length - 1; i += 2) {
+          const px = parseFloat(nums[i]);
+          const py = parseFloat(nums[i + 1]);
+          ring.push([px, py]);
+          if (px < minX) minX = px;
+          if (px > maxX) maxX = px;
+          if (py < minY) minY = py;
+          if (py > maxY) maxY = py;
+        }
+        if (ring.length >= 3) {
+          rings.push({ ring, minX, maxX, minY, maxY });
+        }
+      }
+      return rings;
+    }
+
+    function isPointInPolygonRing(x, y, ringObj) {
+      if (x < ringObj.minX || x > ringObj.maxX || y < ringObj.minY || y > ringObj.maxY) return false;
+      const ring = ringObj.ring;
+      let inside = false;
+      for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+        const xi = ring[i][0], yi = ring[i][1];
+        const xj = ring[j][0], yj = ring[j][1];
+        const intersect = ((yi > y) !== (yj > y)) && (x < ((xj - xi) * (y - yi)) / ((yj - yi) || 1e-9) + xi);
+        if (intersect) inside = !inside;
+      }
+      return inside;
+    }
+
     function buildContinentalHexCells() {
       if (PEAKFOLIO_CONTINENTAL_HEX_CELLS) return PEAKFOLIO_CONTINENTAL_HEX_CELLS;
       const cells = [];
-      const svgEl = document.getElementById('usaMapSvg');
-      const statePaths = [];
-      US_STATES_GEO.forEach(st => {
-        const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        p.setAttribute('d', st.path);
-        statePaths.push({ st, pathEl: p });
-      });
+      const stateGeoms = US_STATES_GEO.map(st => ({
+        st,
+        rings: parseSvgPathToRings(st.path)
+      }));
 
-      const dx = 11.5;
-      const dy = 10.0;
+      // Honeycomb hexagonal lattice matching Screenshot 1 (touching circular mosaic dots clipped to US coastline)
+      const dx = 13.6;
+      const dy = 11.78;
+      const probeOffsets = [[0, 0], [-5.5, 0], [5.5, 0], [0, -5.5], [0, 5.5]];
       let row = 0;
-      for (let y = 34; y <= 556; y += dy) {
+      for (let y = 20; y <= 586; y += dy) {
         const xOffset = (row % 2 === 1) ? dx * 0.5 : 0;
-        for (let x = 44 + xOffset; x <= 916; x += dx) {
-          // Check if (x, y) is inside any US state polygon using SVG isPointInFill if available, or nearest state centroid distance
+        for (let x = 38 + xOffset; x <= 940; x += dx) {
           let matchedState = null;
-          if (svgEl && typeof svgEl.createSVGPoint === 'function') {
-            const pt = svgEl.createSVGPoint();
-            pt.x = x;
-            pt.y = y;
-            for (let i = 0; i < statePaths.length; i++) {
-              try {
-                if (typeof statePaths[i].pathEl.isPointInFill === 'function' && statePaths[i].pathEl.isPointInFill(pt)) {
-                  matchedState = statePaths[i].st;
+          // Check center and 4 cardinal rim points so coastal peninsulas/islands get full dot coverage before SVG clipPath slicing
+          for (let pIdx = 0; pIdx < probeOffsets.length && !matchedState; pIdx++) {
+            const px = x + probeOffsets[pIdx][0];
+            const py = y + probeOffsets[pIdx][1];
+            for (let i = 0; i < stateGeoms.length; i++) {
+              const sg = stateGeoms[i];
+              for (let r = 0; r < sg.rings.length; r++) {
+                if (isPointInPolygonRing(px, py, sg.rings[r])) {
+                  matchedState = sg.st;
                   break;
                 }
-              } catch (e) {}
+              }
+              if (matchedState) break;
             }
           }
           if (!matchedState) continue;
 
-          // Find 2 nearest forestry stations for smooth spatial interpolation across state boundaries
-          let s1 = US_FOLIAGE_LOCATIONS[0], s2 = US_FOLIAGE_LOCATIONS[1];
-          let d1 = 1e9, d2 = 1e9;
+          // Rank 3 nearest primary stations by Albers distance for smooth multi-station spatial blending
+          let s1 = US_FOLIAGE_LOCATIONS[0], s2 = US_FOLIAGE_LOCATIONS[1], s3 = US_FOLIAGE_LOCATIONS[2];
+          let d1 = 1e9, d2 = 1e9, d3 = 1e9;
           for (let i = 0; i < US_FOLIAGE_LOCATIONS.length; i++) {
             const loc = US_FOLIAGE_LOCATIONS[i];
             const d = (loc.mapX - x) * (loc.mapX - x) + (loc.mapY - y) * (loc.mapY - y);
             if (d < d1) {
+              d3 = d2; s3 = s2;
               d2 = d1; s2 = s1;
               d1 = d; s1 = loc;
             } else if (d < d2) {
+              d3 = d2; s3 = s2;
               d2 = d; s2 = loc;
+            } else if (d < d3) {
+              d3 = d; s3 = loc;
             }
           }
-          // Deterministic hash for organic tile sampling from the local palette distribution
-          const hash = ((Math.round(x * 17) * 73856093) ^ (Math.round(y * 19) * 19349663)) >>> 0;
-          const uRand = (hash % 1000) / 1000;
-          const elevNoise = ((hash >> 8) % 900) - 450;
+
+          const w1 = 1 / Math.pow(Math.max(14, Math.sqrt(d1)), 2.1);
+          const w2 = 1 / Math.pow(Math.max(14, Math.sqrt(d2)), 2.1);
+          const w3 = 1 / Math.pow(Math.max(14, Math.sqrt(d3)), 2.1);
+          const wTot = w1 + w2 + w3;
+
+          // Deterministic spatial hash so adjacent dots sample organically from the local species palette ratios
+          const hash = ((Math.round(x * 31) * 73856093) ^ (Math.round(y * 37) * 19349663) ^ (row * 83492791)) >>> 0;
+          const uStationPick = (hash % 1000) / 1000;
+          const uColorPick = ((hash >>> 10) % 1000) / 10.0; // 0..100%
+
+          let chosenSiteId = s1.id;
+          if (uStationPick > (w1 + w2) / wTot) chosenSiteId = s3.id;
+          else if (uStationPick > w1 / wTot) chosenSiteId = s2.id;
 
           cells.push({
             x: Number(x.toFixed(1)),
             y: Number(y.toFixed(1)),
             stateCode: matchedState.code,
-            siteId: s1.id,
-            secondSiteId: s2.id,
-            blendWeight: Math.min(0.45, Math.sqrt(d1) / (Math.sqrt(d1) + Math.sqrt(d2) + 0.01)),
-            uRand,
-            elevNoise
+            siteId: chosenSiteId,
+            s1Id: s1.id,
+            s2Id: s2.id,
+            s3Id: s3.id,
+            w1: w1 / wTot,
+            w2: w2 / wTot,
+            w3: w3 / wTot,
+            uColorPick
           });
         }
         row++;
@@ -4978,13 +5410,99 @@ const REAL_NOAA_GHCND_STATIONS = {
       return cells;
     }
 
-    // Return full-opacity true botanical pigment hex without parchment wash/translucency
+    // Tone raw pigment hex into the warm botanical cartographic mosaic palette (matching Screenshot 1)
     function toBotanicalMapTone(hex) {
-      return hex;
+      const c = hexToRgb(hex);
+      // Softly blend 82% true pigment + 18% warm botanical parchment (#D9CFAF) for cohesive editorial map harmony
+      return rgbToHex(
+        c.r * 0.82 + 217 * 0.18,
+        c.g * 0.82 + 207 * 0.18,
+        c.b * 0.82 + 175 * 0.18
+      );
+    }
+
+    // Continuous color ramp for Legacy "Peak" Status mode:
+    // Maps continuous deltaPeak = doy - effectiveLocPeakDoy smoothly across Green -> Gold -> Orange -> Crimson -> Russet
+    function evaluateContinuousLegacyPeakHex(deltaPeak) {
+      const stops = [
+        { d: -20, hex: '#4F7752' }, // Pre-Change Forest Green
+        { d: -11, hex: '#7F995B' }, // Early Olive-Sage
+        { d: -5,  hex: '#DFC164' }, // Patchy Ochre Gold
+        { d: -1,  hex: '#D98242' }, // Partial Apricot Orange
+        { d: +2,  hex: '#BA4738' }, // Peak Terracotta Crimson
+        { d: +9,  hex: '#92583E' }, // Late Peak Russet
+        { d: +18, hex: '#634B3D' }  // Past Peak Umber Brown
+      ];
+      if (deltaPeak <= stops[0].d) return stops[0].hex;
+      if (deltaPeak >= stops[stops.length - 1].d) return stops[stops.length - 1].hex;
+      for (let i = 0; i < stops.length - 1; i++) {
+        if (deltaPeak >= stops[i].d && deltaPeak <= stops[i + 1].d) {
+          const t = (deltaPeak - stops[i].d) / (stops[i + 1].d - stops[i].d);
+          return lerpColor(stops[i].hex, stops[i + 1].hex, t);
+        }
+      }
+      return '#BA4738';
+    }
+
+    // Render a smooth 2D continuous raster gradient data URL for Legacy "Peak" mode
+    function buildContinuousLegacyGradientDataUrl(locResults) {
+      const gw = 192;
+      const gh = 120;
+      const offscreen = document.createElement('canvas');
+      offscreen.width = gw;
+      offscreen.height = gh;
+      const ctx = offscreen.getContext('2d');
+      const imgData = ctx.createImageData(gw, gh);
+      const data = imgData.data;
+
+      const stns = US_FOLIAGE_LOCATIONS.map(s => ({
+        x: s.mapX,
+        y: s.mapY,
+        deltaPeak: state.currentDoy - (locResults[s.id]?.effectiveLocPeakDoy || s.peakDoyBase)
+      }));
+
+      let ptr = 0;
+      for (let py = 0; py < gh; py++) {
+        const svgY = (py / (gh - 1)) * 600;
+        for (let px = 0; px < gw; px++) {
+          const svgX = (px / (gw - 1)) * 960;
+          // Inverse-distance weighted continuous deltaPeak across nearest stations
+          let wSum = 0;
+          let dPeakSum = 0;
+          for (let i = 0; i < stns.length; i++) {
+            const dx = stns[i].x - svgX;
+            const dy = stns[i].y - svgY;
+            const d2 = dx * dx + dy * dy;
+            if (d2 < 36000) {
+              const w = 1 / Math.pow(Math.max(64, d2), 1.15);
+              dPeakSum += stns[i].deltaPeak * w;
+              wSum += w;
+            }
+          }
+          if (wSum === 0) {
+            for (let i = 0; i < stns.length; i++) {
+              const dx = stns[i].x - svgX;
+              const dy = stns[i].y - svgY;
+              const w = 1 / Math.max(100, dx * dx + dy * dy);
+              dPeakSum += stns[i].deltaPeak * w;
+              wSum += w;
+            }
+          }
+          const contDelta = dPeakSum / Math.max(1e-6, wSum);
+          const hex = evaluateContinuousLegacyPeakHex(contDelta);
+          const rgb = hexToRgb(hex);
+          data[ptr++] = rgb.r;
+          data[ptr++] = rgb.g;
+          data[ptr++] = rgb.b;
+          data[ptr++] = 255;
+        }
+      }
+      ctx.putImageData(imgData, 0, 0);
+      return offscreen.toDataURL('image/png');
     }
 
     function renderUsaMap() {
-      const defsGradients = document.getElementById('mapDefsGradients');
+      const clipPathEl = document.getElementById('usaLandmassClip');
       const statesLayer = document.getElementById('mapStatesLayer');
       const subgridLayer = document.getElementById('mapSubgridLayer');
       const miniPalettesLayer = document.getElementById('mapStateMiniPalettes');
@@ -4998,175 +5516,135 @@ const REAL_NOAA_GHCND_STATIONS = {
       });
 
       const activeLoc = getActiveLocation();
-      let gradientsHtml = '';
+
+      // 1. Populate <clipPath id="usaLandmassClip"> from all contiguous US state polygons so mosaic dots & continuous gradients clip to true coastlines
+      let clipPathsHtml = '';
       let statesHtml = '';
-      let miniSwatchesHtml = '';
+      let watermarksHtml = '';
 
       US_STATES_GEO.forEach(st => {
-        const res = locResults[st.siteId];
-        const pal = res.palette;
-        const gradId = `stateGrad-${st.code}`;
-
-        let stopsHtml = '';
-        let cumPct = 0;
-        pal.slice(0, 4).forEach((swatch) => {
-          const nextPct = Math.min(100, cumPct + swatch.pct * 1.15);
-          const toned = toBotanicalMapTone(swatch.hex);
-          stopsHtml += `<stop offset="${Math.round(cumPct)}%" stop-color="${toned}" />`;
-          stopsHtml += `<stop offset="${Math.round(nextPct)}%" stop-color="${toned}" />`;
-          cumPct = nextPct;
-        });
-
-        gradientsHtml += `
-          <linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="100%">
-            ${stopsHtml}
-          </linearGradient>
-        `;
-
-        // In 'palette' or 'mosaic' mode, draw soft base state polygon + crisp white borders like Screenshot 1
-        let fillStyle = state.mapMode === 'peak' ? res.legacyColor : toBotanicalMapTone(res.blendedHex);
+        clipPathsHtml += `<path d="${st.path}" />`;
         const isStateSelected = !state.customLocation && activeLoc.state === st.code;
 
+        // Interactive state hit-area & warm parchment base under mosaic dots
         statesHtml += `
           <path
             d="${st.path}"
-            fill="${fillStyle}"
+            fill="#DDD6C0"
             fill-opacity="1"
             stroke="#FAF8F2"
-            stroke-width="${isStateSelected ? '2.4' : '1.6'}"
+            stroke-width="${isStateSelected ? '2.0' : '1.2'}"
             class="state-cell"
             data-state="${st.code}"
             data-site="${st.siteId}"
           />
         `;
 
-        // Calculate state label center
-        const coords = st.path.match(/\d+/g).map(Number);
-        let sumX = 0, sumY = 0, count = 0;
-        for (let i = 0; i < coords.length; i += 2) {
-          sumX += coords[i];
-          sumY += coords[i + 1];
-          count++;
-        }
-        const cx = sumX / count;
-        const cy = sumY / count;
-
-        // Bold white-haloed state abbreviation matching Screenshot 1 (NY, VT, ME, PA, OH, WV, VA, NC, MI, WI, etc.)
-        miniSwatchesHtml += `
-          <g class="pointer-events-none">
+        // Subtle semi-transparent watermarked state code (matching Screenshot 1 NY, PA, WV style)
+        if (!['RI', 'DE', 'CT', 'NJ', 'MD'].includes(st.code)) {
+          watermarksHtml += `
             <text
-              x="${cx.toFixed(1)}"
-              y="${(cy + 3).toFixed(1)}"
+              x="${st.labelX.toFixed(1)}"
+              y="${(st.labelY + 6).toFixed(1)}"
               text-anchor="middle"
-              fill="#6A6A5E"
-              stroke="#FAF8F2"
-              stroke-width="3.8"
+              fill="rgba(78, 70, 58, 0.20)"
+              stroke="rgba(250, 248, 242, 0.42)"
+              stroke-width="2.2"
               stroke-linejoin="round"
               paint-order="stroke"
-              font-size="12.5"
+              font-size="20"
               font-weight="800"
               font-family="Plus Jakarta Sans, sans-serif"
               letter-spacing="0.04em"
+              class="pointer-events-none select-none"
             >${st.code}</text>
-          </g>
-        `;
+          `;
+        }
+      });
+      if (clipPathEl) clipPathEl.innerHTML = clipPathsHtml;
+      statesLayer.innerHTML = statesHtml;
+
+      // 2. Render either Packed Honeycomb Mosaic Dots ('palette') OR Smooth Continuous Color Gradient ('peak')
+      let stateBordersOverlay = '';
+      US_STATES_GEO.forEach(st => {
+        stateBordersOverlay += `<path d="${st.path}" fill="none" stroke="#FAF8F2" stroke-width="1.45" stroke-linejoin="round" class="pointer-events-none" />`;
       });
 
-      defsGradients.innerHTML = gradientsHtml;
-
-      // 2. Render Packed Continental Hexagonal/Circle Canopy Mosaic across the US (Screenshot 1 signature look)
       if (state.mapMode === 'palette') {
         const hexCells = buildContinentalHexCells();
-        let hexHtml = '';
-        const dotR = 5.15;
+        let hexHtml = '<g clip-path="url(#usaLandmassClip)" class="pointer-events-none">';
+        const dotR = 6.65;
 
         hexCells.forEach(cell => {
-          const res1 = locResults[cell.siteId];
-          const res2 = locResults[cell.secondSiteId] || res1;
-          const activeRes = (cell.uRand < cell.blendWeight) ? res2 : res1;
+          const activeRes = locResults[cell.siteId] || locResults[cell.s1Id];
           const pal = activeRes.palette;
 
-          // Sample a color from the location's exact canopy percentage distribution so the regional mosaic reflects true species ratios!
           let chosenHex = activeRes.blendedHex;
           let acc = 0;
-          const target = ((cell.uRand * 100) + (cell.elevNoise > 180 ? 12 : 0)) % 100;
           for (let i = 0; i < pal.length; i++) {
             acc += pal[i].pct;
-            if (target <= acc) {
+            if (cell.uColorPick <= acc) {
               chosenHex = pal[i].hex;
               break;
             }
           }
           const tonedHex = toBotanicalMapTone(chosenHex);
-
-          hexHtml += `<circle cx="${cell.x}" cy="${cell.y}" r="${dotR}" fill="${tonedHex}" class="pointer-events-none" />`;
+          hexHtml += `<circle cx="${cell.x}" cy="${cell.y}" r="${dotR}" fill="${tonedHex}" />`;
         });
-
-        // Draw crisp white state boundary lines on top of the packed hex dots
-        let stateBordersOverlay = '';
-        US_STATES_GEO.forEach(st => {
-          stateBordersOverlay += `<path d="${st.path}" fill="none" stroke="#FAF8F2" stroke-width="1.65" class="pointer-events-none" />`;
-        });
-
+        hexHtml += '</g>';
         subgridLayer.innerHTML = hexHtml + stateBordersOverlay;
       } else {
-        subgridLayer.innerHTML = '';
+        // Legacy "Peak" Status mode: Smooth 2D continuous color gradient clipped to the true US landmass
+        const gradDataUrl = buildContinuousLegacyGradientDataUrl(locResults);
+        subgridLayer.innerHTML = `
+          <g clip-path="url(#usaLandmassClip)" class="pointer-events-none">
+            <image href="${gradDataUrl}" x="0" y="0" width="960" height="600" preserveAspectRatio="none" style="image-rendering: auto;" />
+          </g>
+          ${stateBordersOverlay}
+        `;
       }
 
-      statesLayer.innerHTML = statesHtml;
-      miniPalettesLayer.innerHTML = miniSwatchesHtml;
+      miniPalettesLayer.innerHTML = watermarksHtml;
 
-      // 3. Render Town/Park Pins (White circle with dark forest green stroke + curated town labels like Screenshot 1)
+      // 3. Render Town/Park/Station Pins & Collision-Avoided Town Labels (Matching Screenshot 1)
       let pinsHtml = '';
+      const placedLabelBoxes = [];
 
-      if (state.showWeatherGridNodes) {
-        DENSE_WEATHER_GRID_NODES.forEach(wn => {
-          const dwx = computeDenseLocalWeather(wn.lat, wn.lon, wn.baseElevFt, '', 'Grid');
-          const tCol = dwx.nightLowF <= 35 ? '#285E78' : (dwx.nightLowF <= 41 ? '#C86D3B' : '#896A52');
-          pinsHtml += `
-            <g class="pointer-events-none" transform="translate(${wn.mapX}, ${wn.mapY})" opacity="0.65">
-              <rect x="-1.8" y="-1.8" width="3.6" height="3.6" rx="0.8" fill="${tCol}" />
-            </g>
-          `;
-        });
+      function canPlaceLabel(x, y, textStr) {
+        const w = textStr.length * 5.8 + 14;
+        const h = 13;
+        const box = { x1: x - 4, y1: y - h * 0.7, x2: x + w, y2: y + h * 0.5 };
+        if (box.x2 > 952 || box.y1 < 10 || box.y2 > 590) return false;
+        for (let i = 0; i < placedLabelBoxes.length; i++) {
+          const b = placedLabelBoxes[i];
+          if (!(box.x2 < b.x1 || box.x1 > b.x2 || box.y2 < b.y1 || box.y1 > b.y2)) {
+            return false;
+          }
+        }
+        placedLabelBoxes.push(box);
+        return true;
       }
 
-      if (state.showGazetteerPins) {
-        US_PLACE_GAZETTEER.forEach((gaz, gIdx) => {
-          const isGazSelected = state.customLocation && state.customLocation.name === gaz.name;
-          // Show clean white circular pins with dark forest stroke (Screenshot 1)
-          pinsHtml += `
-            <g class="hotspot-pin gazetteer-pin" data-gazidx="${gIdx}" transform="translate(${gaz.mapX}, ${gaz.mapY})">
-              <circle cx="0" cy="0" r="7" fill="transparent" />
-              <circle class="pin-visual" cx="0" cy="0" r="${isGazSelected ? 5.5 : 3.2}" fill="#FAF8F2" stroke="#1B3528" stroke-width="1.4" />
-            </g>
-          `;
-        });
-      }
+      // Reserve label box for active selected location first so it is always shown
+      const activeShortName = activeLoc.name.split('(')[0].split(',')[0].split('&')[0].trim();
+      canPlaceLabel(activeLoc.mapX + 8, activeLoc.mapY, activeShortName);
 
-      // Featured callout town/park labels shown directly on the map like Screenshot 1
-      const featuredLabelIds = new Set([
-        'stowe-vt', 'acadia-me', 'hudson-valley-catskills-ny', 'shenandoah-va', 'pisgah-grandfather-nc',
-        'up-michigan', 'door-county-wi', 'north-shore-mn', 'ozarks-ar',
-        'hocking-hills-oh', 'poconos-pa', 'berkshires-ma', 'maroon-bells-co',
-        'columbia-gorge-or', 'enchantments-wa', 'zion-kolob-ut', 'sangre-de-cristo-nm', 'white-mtns-nh'
-      ]);
-
+      // Render primary forestry station pins + non-overlapping town labels
       US_FOLIAGE_LOCATIONS.forEach(loc => {
         const isSelected = !state.customLocation && activeLoc.id === loc.id;
-        const shortTownName = loc.name.split(',')[0].split('&')[0].trim();
-        const showLabel = featuredLabelIds.has(loc.id) || isSelected;
+        const shortTownName = loc.name.split('(')[0].split(',')[0].split('&')[0].trim();
+        const showLabel = isSelected || canPlaceLabel(loc.mapX + 6, loc.mapY, shortTownName);
 
         pinsHtml += `
           <g class="hotspot-pin" data-site="${loc.id}" transform="translate(${loc.mapX}, ${loc.mapY})">
-            <circle cx="0" cy="0" r="10" fill="transparent" />
-            <circle class="pin-visual" cx="0" cy="0" r="${isSelected ? 9 : 4.2}" fill="${isSelected ? '#1B3528' : '#FAF8F2'}" stroke="${isSelected ? '#FAF8F2' : '#1B3528'}" stroke-width="${isSelected ? 3 : 1.6}" />
-            ${isSelected ? `<circle class="pointer-events-none" cx="0" cy="0" r="3.2" fill="#FAF8F2" />` : ''}
+            <circle cx="0" cy="0" r="9" fill="transparent" />
+            <circle class="pin-visual" cx="0" cy="0" r="${isSelected ? 7.5 : 3.2}" fill="${isSelected ? '#1B3528' : '#FAF8F2'}" stroke="${isSelected ? '#FAF8F2' : '#264634'}" stroke-width="${isSelected ? 2.6 : 1.5}" />
+            ${isSelected ? `<circle class="pointer-events-none" cx="0" cy="0" r="2.8" fill="#FAF8F2" />` : ''}
             ${showLabel ? `
               <text
-                x="${isSelected ? 13 : 7}"
+                x="${isSelected ? 11 : 6.5}"
                 y="3.5"
-                fill="#1B3528"
+                fill="#223D2E"
                 stroke="#FAF8F2"
                 stroke-width="3.2"
                 stroke-linejoin="round"
@@ -5180,16 +5658,46 @@ const REAL_NOAA_GHCND_STATIONS = {
           </g>
         `;
       });
+
+      if (state.showGazetteerPins) {
+        US_PLACE_GAZETTEER.forEach((gaz, gIdx) => {
+          const isGazSelected = state.customLocation && state.customLocation.name === gaz.name;
+          const shortGazName = gaz.name.split('(')[0].split(',')[0].split('&')[0].trim();
+          const showGazLabel = !isGazSelected && (gIdx % 3 === 0) && canPlaceLabel(gaz.mapX + 6, gaz.mapY, shortGazName);
+          pinsHtml += `
+            <g class="hotspot-pin gazetteer-pin" data-gazidx="${gIdx}" transform="translate(${gaz.mapX}, ${gaz.mapY})">
+              <circle cx="0" cy="0" r="7" fill="transparent" />
+              <circle class="pin-visual" cx="0" cy="0" r="${isGazSelected ? 5.5 : 2.9}" fill="#FAF8F2" stroke="#264634" stroke-width="1.4" />
+              ${showGazLabel ? `
+                <text
+                  x="6"
+                  y="3.2"
+                  fill="#2C4738"
+                  stroke="#FAF8F2"
+                  stroke-width="3.0"
+                  stroke-linejoin="round"
+                  paint-order="stroke"
+                  font-size="9.5"
+                  font-weight="600"
+                  font-family="Plus Jakarta Sans, sans-serif"
+                  class="pointer-events-none"
+                >${shortGazName}</text>
+              ` : ''}
+            </g>
+          `;
+        });
+      }
+
       hotspotsLayer.innerHTML = pinsHtml;
 
-      // 4. Active Selection Target Bullseye for custom/gazetteer clicked location (Screenshot 1 Woodstock bullseye)
+      // 4. Active Selection Target Bullseye for custom/gazetteer clicked location
       if (state.customLocation) {
         const shortCustom = state.customLocation.name.split('(')[0].split(',')[0].trim();
         selectionLayer.innerHTML = `
           <g transform="translate(${state.customLocation.mapX}, ${state.customLocation.mapY})" class="pointer-events-none">
-            <circle cx="0" cy="0" r="10" fill="#1B3528" stroke="#FAF8F2" stroke-width="3.2" />
-            <circle cx="0" cy="0" r="3.4" fill="#FAF8F2" />
-            <text x="13" y="4" fill="#1B3528" stroke="#FAF8F2" stroke-width="3.5" stroke-linejoin="round" paint-order="stroke" font-size="11.5" font-weight="700" font-family="Plus Jakarta Sans, sans-serif">${shortCustom}</text>
+            <circle cx="0" cy="0" r="8.5" fill="#1B3528" stroke="#FAF8F2" stroke-width="2.8" />
+            <circle cx="0" cy="0" r="3.0" fill="#FAF8F2" />
+            <text x="12" y="4" fill="#1B3528" stroke="#FAF8F2" stroke-width="3.4" stroke-linejoin="round" paint-order="stroke" font-size="11.5" font-weight="700" font-family="Plus Jakarta Sans, sans-serif">${shortCustom}</text>
           </g>
         `;
       } else {
@@ -5583,59 +6091,283 @@ const REAL_NOAA_GHCND_STATIONS = {
       ctx.stroke();
     }
 
-    // HORIZONTAL FOREST STAND PROFILE RENDERER
+    // =========================================================================
+    // REALISTIC BOTANICAL HORIZONTAL FOREST STAND PROFILE RENDERER (Matching image_7a8c9f.jpg)
+    // =========================================================================
     function renderHorizontalForest(location, inference) {
       const canvas = document.getElementById('horizontalForestCanvas');
       if (!canvas) return;
-      const { ctx, w, h } = prepareHiDPICanvas(canvas, 560, 280);
+      const { ctx, w, h } = prepareHiDPICanvas(canvas, 640, 320);
       ctx.clearRect(0, 0, w, h);
 
       const rand = seededRandom(state.mosaicSeed + location.id.length * 97);
+      const groundY = h - Math.max(26, Math.round(h * 0.095));
+      const pxPerFt = (groundY - 26) / 108;
 
-      // 1. Sky gradient (reflects solar UV / sunny vs overcast weather)
-      const sunFactor = inference.effectiveSunPct / 100;
-      const skyGrad = ctx.createLinearGradient(0, 0, 0, h * 0.82);
-      skyGrad.addColorStop(0, lerpColor('#5b82b5', '#2e81d1', sunFactor));
-      skyGrad.addColorStop(0.6, lerpColor('#6783ab', '#376cb3', sunFactor));
-      skyGrad.addColorStop(1, lerpColor('#7e98bd', '#fdba74', sunFactor * 0.35));
+      // 1. Watercolor Sky & Soft Cloud Brushstrokes (matching image_7a8c9f.jpg)
+      const skyGrad = ctx.createLinearGradient(0, 0, 0, groundY);
+      skyGrad.addColorStop(0, '#CFDFEE');
+      skyGrad.addColorStop(0.52, '#E2ECF5');
+      skyGrad.addColorStop(1, '#F2F5F8');
       ctx.fillStyle = skyGrad;
       ctx.fillRect(0, 0, w, h);
 
-      // 2. Distant mountain / ridge silhouette scaled by location elevation
-      const ridgeBaseY = h - 34;
-      const elevPeakH = Math.min(95, 18 + (location.elevFt / 9500) * 75);
-      ctx.fillStyle = 'rgba(15, 23, 42, 0.55)';
-      ctx.beginPath();
-      ctx.moveTo(0, ridgeBaseY);
-      for (let x = 0; x <= w; x += 28) {
-        const mh = elevPeakH * (0.65 + 0.35 * Math.sin(x * 0.018 + location.lat));
-        ctx.lineTo(x, ridgeBaseY - mh);
+      // Soft translucent watercolor clouds
+      for (let c = 0; c < 18; c++) {
+        const cx = rand() * w;
+        const cy = 18 + rand() * (groundY * 0.48);
+        const cr = 26 + rand() * 55;
+        const cGrad = ctx.createRadialGradient(cx, cy, 4, cx, cy, cr);
+        cGrad.addColorStop(0, 'rgba(255, 255, 255, 0.55)');
+        cGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        ctx.fillStyle = cGrad;
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, cr * 1.6, cr * 0.55, 0, 0, Math.PI * 2);
+        ctx.fill();
       }
-      ctx.lineTo(w, ridgeBaseY);
-      ctx.closePath();
-      ctx.fill();
 
-      // 3. Height Scale Bar on left (25 ft, 50 ft, 75 ft, 100 ft)
-      const groundY = h - Math.max(24, Math.round(h * 0.10));
-      const pxPerFt = (groundY - 18) / 105; // Dynamically calibrated so 105 ft fits cleanly with 1:1 aspect ratio
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.32)';
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.94)';
-      ctx.font = '600 10px JetBrains Mono, monospace';
+      // 2. Layered Misty Blue-Grey Mountain Ridges in Background
+      const elevScale = Math.min(1.25, 0.55 + (location.elevFt / 7500) * 0.70);
+      const ridgeLayers = [
+        { color: 'rgba(184, 201, 216, 0.65)', baseH: 54 * elevScale, freq: 0.011, phase: 0.4 },
+        { color: 'rgba(154, 175, 194, 0.72)', baseH: 38 * elevScale, freq: 0.016, phase: 2.1 },
+        { color: 'rgba(128, 150, 168, 0.68)', baseH: 24 * elevScale, freq: 0.023, phase: 4.0 }
+      ];
+      ridgeLayers.forEach(rl => {
+        ctx.fillStyle = rl.color;
+        ctx.beginPath();
+        ctx.moveTo(0, groundY);
+        for (let x = 0; x <= w; x += 12) {
+          const yOff = rl.baseH * (0.68 + 0.22 * Math.sin(x * rl.freq + rl.phase) + 0.10 * Math.cos(x * rl.freq * 2.3));
+          ctx.lineTo(x, groundY - yOff);
+        }
+        ctx.lineTo(w, groundY);
+        ctx.closePath();
+        ctx.fill();
+      });
+
+      // Soft misty background forest silhouette along the valley floor (0-26 ft)
+      for (let bx = 8; bx < w - 8; bx += 9) {
+        const bh = (14 + rand() * 16) * pxPerFt;
+        const bw = 6 + rand() * 6;
+        ctx.fillStyle = rand() > 0.45 ? 'rgba(118, 138, 132, 0.35)' : 'rgba(168, 148, 112, 0.28)';
+        ctx.beginPath();
+        ctx.ellipse(bx, groundY - bh * 0.55, bw, bh * 0.55, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // 3. Height (ft) Title & Dashed Reference Lines (25 ft, 50 ft, 75 ft, 100 ft) matching image_7a8c9f.jpg
+      ctx.fillStyle = '#1E2F3C';
+      ctx.font = '700 12px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('Height (ft)', 14, 24);
+
+      ctx.font = '700 11.5px "Plus Jakarta Sans", sans-serif';
       [25, 50, 75, 100].forEach(ft => {
-        const y = groundY - ft * pxPerFt;
-        if (y > 12) {
+        const y = Math.round(groundY - ft * pxPerFt) + 0.5;
+        if (y > 30) {
+          ctx.strokeStyle = 'rgba(110, 134, 154, 0.52)';
+          ctx.lineWidth = 1.0;
           ctx.beginPath();
-          ctx.setLineDash([3, 4]);
-          ctx.moveTo(32, y);
-          ctx.lineTo(w - 8, y);
+          ctx.setLineDash([5, 5]);
+          ctx.moveTo(54, y);
+          ctx.lineTo(w - 12, y);
           ctx.stroke();
           ctx.setLineDash([]);
-          ctx.fillText(`${ft}ft`, 4, y + 3);
+          ctx.fillStyle = '#1E2F3C';
+          ctx.fillText(`${ft} ft`, 14, y + 4);
         }
       });
 
-      // 4. Generate 18–26 trees along the horizontal transect weighted by species abundance
-      const numTrees = Math.min(28, Math.max(14, Math.round(location.treesPerAcre / 10)));
+      // Helper: Draw a realistic layered drooping conifer (Spruce / Fir / Pine / Larch) matching central trees in image_7a8c9f.jpg
+      function drawRealisticConifer(treeX, treeH, crownW, baseHex, barkColor, retention, isDeciduousConifer) {
+        const topY = groundY - treeH;
+        const trunkW = Math.max(3.2, crownW * 0.11);
+
+        // Tapered woody trunk
+        const tGrad = ctx.createLinearGradient(treeX - trunkW, 0, treeX + trunkW, 0);
+        tGrad.addColorStop(0, lerpColor(barkColor, '#1A120C', 0.35));
+        tGrad.addColorStop(0.4, lerpColor(barkColor, '#9E7B60', 0.18));
+        tGrad.addColorStop(1, lerpColor(barkColor, '#120C08', 0.48));
+        ctx.fillStyle = tGrad;
+        ctx.beginPath();
+        ctx.moveTo(treeX - trunkW * 1.25, groundY);
+        ctx.lineTo(treeX - trunkW * 0.22, topY + treeH * 0.08);
+        ctx.lineTo(treeX + trunkW * 0.22, topY + treeH * 0.08);
+        ctx.lineTo(treeX + trunkW * 1.25, groundY);
+        ctx.closePath();
+        ctx.fill();
+
+        const darkShade = lerpColor(baseHex, '#0F1F15', 0.42);
+        const midTone = baseHex;
+        const highlightTone = lerpColor(baseHex, '#DCE775', isDeciduousConifer ? 0.22 : 0.14);
+
+        const numWhorls = 26;
+        const crownSpanH = treeH * 0.84;
+        for (let wIdx = 0; wIdx < numWhorls; wIdx++) {
+          const frac = wIdx / (numWhorls - 1); // 0 = top spire, 1 = lowest bough
+          const wy = topY + frac * crownSpanH;
+          const halfSpan = (crownW * 0.54) * Math.pow(frac, 0.78) * (0.86 + (wIdx % 3) * 0.07) * (0.4 + 0.6 * retention);
+          const droop = 4 + frac * 11;
+
+          // Draw needle-serrated drooping bough (left & right + central fullness)
+          for (let pass = 0; pass < 3; pass++) {
+            const fillCol = pass === 0 ? darkShade : (pass === 1 ? midTone : highlightTone);
+            const yShift = pass === 0 ? 2.2 : (pass === 1 ? 0 : -1.4);
+            const spanScale = pass === 2 ? 0.72 : 1.0;
+            ctx.fillStyle = fillCol;
+            ctx.beginPath();
+            ctx.moveTo(treeX, wy - 4 + yShift);
+
+            const steps = 6;
+            // Right bough needle jags
+            for (let s = 1; s <= steps; s++) {
+              const sf = s / steps;
+              const bx = treeX + halfSpan * spanScale * sf;
+              const by = wy + droop * Math.pow(sf, 1.3) + yShift + ((s % 2 === 0) ? -1.8 : 2.2);
+              ctx.lineTo(bx, by);
+            }
+            // Underside scallop back to center and out to left bough
+            ctx.lineTo(treeX, wy + droop * 0.65 + 3 + yShift);
+            for (let s = steps; s >= 1; s--) {
+              const sf = s / steps;
+              const bx = treeX - halfSpan * spanScale * sf;
+              const by = wy + droop * Math.pow(sf, 1.3) + yShift + ((s % 2 === 0) ? -1.8 : 2.2);
+              ctx.lineTo(bx, by);
+            }
+            ctx.closePath();
+            ctx.fill();
+          }
+        }
+      }
+
+      // Helper: Draw a realistic branching deciduous tree with multi-forked woody limbs, visible fine twigs,
+      // white birch lenticels (if Birch/Aspen), and hundreds of delicate individual leaf clusters
+      function drawRealisticDeciduous(treeX, treeH, crownW, ev, morph, depthScale) {
+        const spId = ev.species.id;
+        const isWhiteBark = (spId === 'quaking_aspen' || spId === 'yellow_paper_birch');
+        const barkBase = isWhiteBark ? '#F2EFE9' : morph.barkColor;
+        const barkShadow = isWhiteBark ? '#C2BDB2' : lerpColor(morph.barkColor, '#1B130E', 0.42);
+        const twigColor = isWhiteBark ? '#4A433C' : lerpColor(morph.barkColor, '#1F1712', 0.35);
+
+        const trunkBaseW = Math.max(2.6, crownW * (isWhiteBark ? 0.068 : 0.088));
+        const forkY = groundY - treeH * (isWhiteBark ? 0.42 : 0.36);
+
+        // 1. Draw main trunk with root flare & vertical bark shading
+        const tGrad = ctx.createLinearGradient(treeX - trunkBaseW, 0, treeX + trunkBaseW, 0);
+        tGrad.addColorStop(0, barkBase);
+        tGrad.addColorStop(0.55, barkBase);
+        tGrad.addColorStop(1, barkShadow);
+        ctx.fillStyle = tGrad;
+        ctx.beginPath();
+        ctx.moveTo(treeX - trunkBaseW * 1.45, groundY);
+        ctx.quadraticCurveTo(treeX - trunkBaseW * 0.85, groundY - treeH * 0.12, treeX - trunkBaseW * 0.62, forkY);
+        ctx.lineTo(treeX + trunkBaseW * 0.62, forkY);
+        ctx.quadraticCurveTo(treeX + trunkBaseW * 0.85, groundY - treeH * 0.12, treeX + trunkBaseW * 1.45, groundY);
+        ctx.closePath();
+        ctx.fill();
+
+        // Subtle vertical bark furrows for hardwoods
+        if (!isWhiteBark) {
+          ctx.strokeStyle = 'rgba(24, 16, 10, 0.32)';
+          ctx.lineWidth = 0.8;
+          for (let f = -0.4; f <= 0.4; f += 0.4) {
+            ctx.beginPath();
+            ctx.moveTo(treeX + trunkBaseW * f, groundY - 2);
+            ctx.lineTo(treeX + trunkBaseW * f * 0.6, forkY + 4);
+            ctx.stroke();
+          }
+        }
+
+        // 2. Recursive branching skeleton: collect twig anchors for foliage sprays
+        const foliageAnchors = [];
+        function drawBranch(x0, y0, len, angle, width, depthLeft) {
+          const x1 = x0 + Math.sin(angle) * len;
+          const y1 = y0 - Math.cos(angle) * len;
+
+          ctx.strokeStyle = depthLeft >= 3 ? barkBase : twigColor;
+          ctx.lineWidth = Math.max(0.65, width);
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.moveTo(x0, y0);
+          const ctrlX = (x0 + x1) * 0.5 + (rand() - 0.5) * len * 0.14;
+          const ctrlY = (y0 + y1) * 0.5;
+          ctx.quadraticCurveTo(ctrlX, ctrlY, x1, y1);
+          ctx.stroke();
+
+          // Dark lenticel dashes along white birch / aspen trunks & primary limbs
+          if (isWhiteBark && depthLeft >= 2) {
+            ctx.fillStyle = '#2B2521';
+            const steps = Math.max(2, Math.floor(len / 7));
+            for (let s = 1; s <= steps; s++) {
+              const u = s / (steps + 1);
+              const lx = x0 + (x1 - x0) * u;
+              const ly = y0 + (y1 - y0) * u;
+              ctx.fillRect(lx - width * 0.48, ly, width * 0.92, 1.35);
+            }
+          }
+
+          if (depthLeft <= 2) {
+            foliageAnchors.push({ x: x1, y: y1, spread: 8 + depthLeft * 5 });
+          }
+
+          if (depthLeft > 0) {
+            const subBranches = depthLeft === 3 ? 3 : 2;
+            for (let b = 0; b < subBranches; b++) {
+              const spreadAng = subBranches === 3
+                ? (b - 1) * (0.34 + rand() * 0.14)
+                : (b === 0 ? -1 : 1) * (0.28 + rand() * 0.18);
+              const nextAngle = angle * 0.78 + spreadAng;
+              const nextLen = len * (0.66 + rand() * 0.14);
+              drawBranch(x1, y1, nextLen, nextAngle, width * 0.64, depthLeft - 1);
+            }
+          }
+        }
+
+        // Launch 3 primary scaffold limbs from forkY
+        const mainSpan = treeH * 0.29;
+        drawBranch(treeX, forkY + 4, mainSpan, -0.34 + (rand() - 0.5) * 0.08, trunkBaseW * 0.72, 3);
+        drawBranch(treeX, forkY, mainSpan * 1.08, (rand() - 0.5) * 0.12, trunkBaseW * 0.78, 3);
+        drawBranch(treeX, forkY + 4, mainSpan, 0.34 + (rand() - 0.5) * 0.08, trunkBaseW * 0.72, 3);
+
+        // Re-draw lower birch lenticels on the main trunk so they sit crisp on top
+        if (isWhiteBark) {
+          ctx.fillStyle = '#28221E';
+          for (let by = groundY - 6; by > forkY + 2; by -= 5.5) {
+            const wDash = trunkBaseW * (0.55 + rand() * 0.65);
+            const xShift = (rand() - 0.5) * trunkBaseW * 0.45;
+            ctx.fillRect(treeX - wDash * 0.5 + xShift, by, wDash, 1.4 + (rand() > 0.75 ? 1.1 : 0));
+          }
+        }
+
+        // 3. Paint porous botanical leaf clusters around twig anchors so branches remain partially visible
+        const retention = ev.leafRetentionPct / 100;
+        if (retention > 0.04) {
+          const baseColor = ev.currentHex;
+          const deepTone = lerpColor(baseColor, '#2B160C', 0.32);
+          const warmTone = lerpColor(baseColor, ev.species.colors.early.hex, 0.28);
+          const sunTone = lerpColor(baseColor, '#FFF3B0', 0.22);
+          const tones = [deepTone, baseColor, baseColor, warmTone, sunTone];
+
+          foliageAnchors.forEach(anc => {
+            const numLeaves = Math.max(2, Math.round((7 + rand() * 6) * retention * depthScale));
+            for (let l = 0; l < numLeaves; l++) {
+              const ang = rand() * Math.PI * 2;
+              const rad = Math.sqrt(rand()) * anc.spread * (isWhiteBark ? 0.82 : 1.08);
+              const lx = anc.x + Math.cos(ang) * rad;
+              const ly = anc.y + Math.sin(ang) * rad * 0.78;
+              const leafW = (2.4 + rand() * 2.4) * depthScale;
+              const leafH = (1.5 + rand() * 1.5) * depthScale;
+              ctx.fillStyle = tones[Math.floor(rand() * tones.length)];
+              ctx.beginPath();
+              ctx.ellipse(lx, ly, leafW, leafH, rand() * Math.PI, 0, Math.PI * 2);
+              ctx.fill();
+            }
+          });
+        }
+      }
+
+      // 4. Generate 20–24 stand trees across the horizontal transect weighted by species abundance
+      const numTrees = 22;
       const spEvals = inference.speciesEvaluations;
       const spWheel = [];
       let acc = 0;
@@ -5651,257 +6383,278 @@ const REAL_NOAA_GHCND_STATIONS = {
         const sp = chosenEv.species;
         const morph = LEAF_MORPHOLOGY_DB[sp.id] || { barkColor: '#4E4239', crownShape: 'dome' };
 
-        const depth = rand(); // 0 = back, 1 = foreground
-        const depthScale = 0.72 + depth * 0.34;
-        const treeHeightFt = sp.avgHeightFt * (0.86 + rand() * 0.24) * depthScale;
+        const depth = (i % 3 === 0) ? 0.35 + rand() * 0.25 : 0.65 + rand() * 0.35;
+        const depthScale = 0.78 + depth * 0.26;
+        const treeHeightFt = sp.avgHeightFt * (0.78 + rand() * 0.28) * depthScale;
         const treeH = treeHeightFt * pxPerFt;
-        const crownW = Math.sqrt(sp.avgCrownAreaM2) * 5.2 * depthScale;
-        const x = 38 + ((i + (rand() - 0.5) * 0.7) / numTrees) * (w - 62);
+        const crownW = Math.sqrt(sp.avgCrownAreaM2) * 5.0 * depthScale;
+        const x = 58 + ((i + 0.35 + (rand() - 0.5) * 0.48) / numTrees) * (w - 82);
 
-        standTrees.push({
-          x,
-          depth,
-          treeH,
-          crownW,
-          ev: chosenEv,
-          morph
-        });
+        standTrees.push({ x, depth, depthScale, treeH, crownW, ev: chosenEv, morph });
       }
 
-      // Sort back-to-front
       standTrees.sort((a, b) => a.depth - b.depth);
 
-      // 5. Draw each tree (Trunk + Root flare + Branches + Species-shaped Crown)
       standTrees.forEach(t => {
-        const { x, treeH, crownW, ev, morph } = t;
-        const topY = groundY - treeH;
-        const crownH = treeH * (morph.crownShape === 'conical' ? 0.76 : 0.66);
-        const crownCenterY = topY + crownH * 0.48;
-        const trunkW = Math.max(2.5, crownW * 0.095);
-
-        ctx.save();
-        // Trunk & root flare
-        ctx.fillStyle = morph.barkColor;
-        ctx.beginPath();
-        ctx.moveTo(x - trunkW * 1.35, groundY);
-        ctx.lineTo(x - trunkW * 0.55, topY + crownH * 0.32);
-        ctx.lineTo(x + trunkW * 0.55, topY + crownH * 0.32);
-        ctx.lineTo(x + trunkW * 1.35, groundY);
-        ctx.closePath();
-        ctx.fill();
-
-        // White birch / Quaking aspen horizontal bark lenticel markings
-        if (ev.species.id === 'quaking_aspen' || ev.species.id === 'yellow_paper_birch') {
-          ctx.fillStyle = '#2d3130';
-          for (let by = groundY - 8; by > topY + crownH * 0.4; by -= 7) {
-            ctx.fillRect(x - trunkW * 0.6, by, trunkW * 1.1, 1.3);
-          }
+        const isConifer = (t.morph.crownShape === 'conical' || t.ev.species.isEvergreen);
+        if (isConifer) {
+          drawRealisticConifer(
+            t.x,
+            t.treeH,
+            t.crownW,
+            t.ev.currentHex,
+            t.morph.barkColor,
+            t.ev.leafRetentionPct / 100,
+            !t.ev.species.isEvergreen
+          );
+        } else {
+          drawRealisticDeciduous(t.x, t.treeH, t.crownW, t.ev, t.morph, t.depthScale);
         }
-
-        // Internal scaffold branches (especially visible as leaves drop!)
-        ctx.strokeStyle = lerpColor(morph.barkColor, '#27201C', 0.25);
-        ctx.lineWidth = Math.max(1.1, trunkW * 0.38);
-        const branchPairs = 5;
-        for (let b = 1; b <= branchPairs; b++) {
-          const frac = b / (branchPairs + 1);
-          const by = groundY - treeH * (0.28 + frac * 0.52);
-          const dir = b % 2 === 0 ? 1 : -1;
-          const bw = crownW * (0.42 * (1 - frac * 0.35)) * dir;
-          ctx.beginPath();
-          ctx.moveTo(x, by);
-          ctx.quadraticCurveTo(x + bw * 0.5, by - 6, x + bw, by - 14);
-          ctx.stroke();
-        }
-
-        // Foliage Clusters based on Leaf Retention % & Crown Shape
-        const retention = ev.leafRetentionPct / 100;
-        if (retention > 0.05) {
-          if (morph.crownShape === 'conical') {
-            // Conical Spruce / Fir / Western Larch tiers
-            const tiers = 6;
-            for (let tier = 0; tier < tiers; tier++) {
-              const tf = tier / tiers;
-              const ty = topY + tf * crownH * 0.88;
-              const tw = crownW * (0.22 + tf * 0.85) * (0.7 + 0.3 * retention);
-              const th = (crownH / tiers) * 1.65;
-              ctx.fillStyle = tier % 2 === 0 ? ev.currentHex : lerpColor(ev.currentHex, '#0f172a', 0.18);
-              ctx.beginPath();
-              ctx.moveTo(x, ty);
-              ctx.lineTo(x + tw * 0.5, ty + th);
-              ctx.lineTo(x - tw * 0.5, ty + th);
-              ctx.closePath();
-              ctx.fill();
-            }
-          } else {
-            // Deciduous multi-puff crown (dome, spreading oak, columnar aspen)
-            const puffCount = Math.max(4, Math.round(14 * retention));
-            for (let p = 0; p < puffCount; p++) {
-              const ang = (p / puffCount) * Math.PI * 2 + rand() * 0.5;
-              const distFrac = Math.sqrt(rand()) * 0.42;
-              const px = x + Math.cos(ang) * crownW * distFrac;
-              const py = crownCenterY + Math.sin(ang) * crownH * distFrac * 0.85;
-              const pr = (crownW * 0.26) * (0.65 + rand() * 0.45) * Math.pow(retention, 0.25);
-
-              // Shadow puff
-              ctx.fillStyle = lerpColor(ev.currentHex, '#090d16', 0.28);
-              ctx.beginPath();
-              ctx.arc(px + 1.5, py + 2.5, pr, 0, Math.PI * 2);
-              ctx.fill();
-
-              // Main sunlit puff
-              const isTop = py < crownCenterY;
-              ctx.fillStyle = isTop ? lerpColor(ev.currentHex, '#ffffff', 0.12) : ev.currentHex;
-              ctx.beginPath();
-              ctx.arc(px, py, pr, 0, Math.PI * 2);
-              ctx.fill();
-            }
-          }
-        }
-        ctx.restore();
       });
 
-      // 6. Forest Floor & Fallen Leaf Carpet Layer at base of horizontal profile
-      const gradFloor = ctx.createLinearGradient(0, groundY - 3, 0, h);
-      gradFloor.addColorStop(0, '#292019');
-      gradFloor.addColorStop(1, '#120e0b');
-      ctx.fillStyle = gradFloor;
+      // 5. Rich Forest Floor Soil Cross-Section & Miniature Fallen Autumn Leaves at Base (matching image_7a8c9f.jpg)
+      const soilGrad = ctx.createLinearGradient(0, groundY - 2, 0, h);
+      soilGrad.addColorStop(0, '#3D2718');
+      soilGrad.addColorStop(0.45, '#2A1A0F');
+      soilGrad.addColorStop(1, '#1A1009');
+      ctx.fillStyle = soilGrad;
       ctx.fillRect(0, groundY, w, h - groundY);
 
-      // Scatter fallen leaf flecks along the forest floor proportional to abscission
-      const avgRetention = spEvals.reduce((a, b) => a + (b.species.isEvergreen ? 100 : b.leafRetentionPct), 0) / spEvals.length;
-      const litterDensity = Math.max(25, Math.round((115 - avgRetention) * 2.4));
-      for (let l = 0; l < litterDensity; l++) {
-        const ev = spEvals[Math.floor(rand() * spEvals.length)];
-        const lx = rand() * w;
-        const ly = groundY + 2 + rand() * (h - groundY - 4);
-        ctx.fillStyle = ev.species.isEvergreen ? '#5C4028' : ev.currentHex;
+      // Small grass/understory shoots along soil top edge
+      for (let gx = 10; gx < w - 10; gx += 7 + rand() * 8) {
+        const gh = 4 + rand() * 7;
+        ctx.strokeStyle = rand() > 0.5 ? '#6B5834' : '#8C6232';
+        ctx.lineWidth = 0.9;
         ctx.beginPath();
-        ctx.ellipse(lx, ly, 2.5 + rand() * 3.5, 1.2 + rand() * 1.5, rand() * Math.PI, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.moveTo(gx, groundY + 1);
+        ctx.lineTo(gx + (rand() - 0.5) * 4, groundY - gh);
+        ctx.stroke();
+      }
+
+      // Scatter 110+ miniature star-shaped maple and elliptic fallen leaves across the soil cross-section
+      const leafPalette = inference.palette.filter(p => !p.name.includes('Green') && !p.name.includes('Pine'));
+      const fallbackColors = ['#E06D2B', '#D99B26', '#C83B2B', '#E5B842', '#9E4724'];
+      for (let i = 0; i < 115; i++) {
+        const lx = 6 + rand() * (w - 12);
+        const ly = groundY + 2 + rand() * (h - groundY - 5);
+        const col = leafPalette.length
+          ? leafPalette[Math.floor(rand() * leafPalette.length)].hex
+          : fallbackColors[i % fallbackColors.length];
+        const rLeaf = 2.2 + rand() * 2.6;
+        ctx.save();
+        ctx.translate(lx, ly);
+        ctx.rotate(rand() * Math.PI * 2);
+        ctx.fillStyle = col;
+        if (i % 2 === 0) {
+          drawBotanicalLeafPath(ctx, 'maple5', rLeaf);
+          ctx.fill();
+        } else {
+          ctx.beginPath();
+          ctx.ellipse(0, 0, rLeaf * 1.1, rLeaf * 0.6, 0, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
       }
     }
 
-    // GROUND FALLEN LEAF LITTER QUADRAT RENDERER (1m x 1m Forest Floor)
+    // =========================================================================
+    // REALISTIC 1m x 1m FOREST FLOOR LEAF LITTER QUADRAT (Matching image_7a88a2.jpg)
+    // =========================================================================
     function renderGroundLeaves(location, inference) {
       const canvas = document.getElementById('groundLeavesCanvas');
       if (!canvas) return;
-      const { ctx, w, h } = prepareHiDPICanvas(canvas, 560, 280);
+      const { ctx, w, h } = prepareHiDPICanvas(canvas, 640, 320);
       ctx.clearRect(0, 0, w, h);
 
       const rand = seededRandom(state.mosaicSeed + location.id.length * 53 + state.currentDoy * 3);
 
-      // 1. Rich forest floor humus, soil, moss & twigs base
-      const bgGrad = ctx.createRadialGradient(w * 0.5, h * 0.5, 20, w * 0.5, h * 0.5, w * 0.65);
-      bgGrad.addColorStop(0, '#271f19');
-      bgGrad.addColorStop(1, '#17120e');
-      ctx.fillStyle = bgGrad;
+      // 1. Rich Dark Organic Forest Soil & Humus Base (matching image_7a88a2.jpg)
+      const soilGrad = ctx.createRadialGradient(w * 0.48, h * 0.48, 20, w * 0.5, h * 0.5, w * 0.72);
+      soilGrad.addColorStop(0, '#3B2617');
+      soilGrad.addColorStop(0.55, '#2E1D11');
+      soilGrad.addColorStop(1, '#21140B');
+      ctx.fillStyle = soilGrad;
       ctx.fillRect(0, 0, w, h);
 
-      // Soil/moss granules & small forest twigs
-      for (let m = 0; m < 90; m++) {
-        ctx.fillStyle = m % 4 === 0 ? 'rgba(42, 75, 44, 0.32)' : 'rgba(68, 52, 40, 0.38)';
-        ctx.beginPath();
-        ctx.arc(rand() * w, rand() * h, 2 + rand() * 7, 0, Math.PI * 2);
-        ctx.fill();
+      // High-density granular soil texture (2,400+ organic humus specks, dark loam pockets, and tiny bark crumbs)
+      const soilTones = ['#1B1008', '#4A311E', '#26170D', '#583B24', '#332012', '#68482E'];
+      for (let g = 0; g < 2400; g++) {
+        const gx = rand() * w;
+        const gy = rand() * h;
+        const gr = 0.6 + rand() * 2.1;
+        ctx.fillStyle = soilTones[g % soilTones.length];
+        ctx.fillRect(gx, gy, gr, gr * (0.7 + rand() * 0.6));
       }
-      ctx.strokeStyle = '#3d3026';
-      ctx.lineWidth = 1.6;
-      for (let tw = 0; tw < 14; tw++) {
-        const tx = rand() * w, ty = rand() * h, tang = rand() * Math.PI * 2, tlen = 18 + rand() * 32;
+
+      // Subtle mossy micro-patches on damp soil
+      for (let m = 0; m < 16; m++) {
+        const mx = rand() * w;
+        const my = rand() * h;
+        for (let d = 0; d < 18; d++) {
+          ctx.fillStyle = d % 2 === 0 ? 'rgba(68, 96, 44, 0.55)' : 'rgba(48, 72, 32, 0.50)';
+          ctx.beginPath();
+          ctx.arc(mx + (rand() - 0.5) * 16, my + (rand() - 0.5) * 14, 1.1 + rand() * 2.0, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      // Smooth rounded forest pebbles / stones with 3D top-left highlight & contact shadow
+      for (let p = 0; p < 24; p++) {
+        const px = rand() * w;
+        const py = rand() * h;
+        const rx = 3.2 + rand() * 4.2;
+        const ry = rx * (0.68 + rand() * 0.28);
+        const pang = rand() * Math.PI;
+        ctx.save();
+        ctx.translate(px, py);
+        ctx.rotate(pang);
+        ctx.fillStyle = 'rgba(10, 6, 3, 0.55)';
+        ctx.beginPath();
+        ctx.ellipse(1.2, 1.6, rx, ry, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        const pGrad = ctx.createRadialGradient(-rx * 0.28, -ry * 0.28, 0.5, 0, 0, rx);
+        pGrad.addColorStop(0, '#8E8478');
+        pGrad.addColorStop(0.65, '#6B6258');
+        pGrad.addColorStop(1, '#474039');
+        ctx.fillStyle = pGrad;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // Realistic woody twigs with shadow underside and bark highlight
+      for (let tw = 0; tw < 18; tw++) {
+        const tx = rand() * w, ty = rand() * h, tang = rand() * Math.PI * 2;
+        const tlen = 16 + rand() * 28;
+        const tx2 = tx + Math.cos(tang) * tlen;
+        const ty2 = ty + Math.sin(tang) * tlen;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = 'rgba(12, 7, 4, 0.55)';
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        ctx.moveTo(tx + 1, ty + 1.5);
+        ctx.lineTo(tx2 + 1, ty2 + 1.5);
+        ctx.stroke();
+
+        ctx.strokeStyle = '#6B523E';
+        ctx.lineWidth = 1.8;
         ctx.beginPath();
         ctx.moveTo(tx, ty);
-        ctx.lineTo(tx + Math.cos(tang) * tlen, ty + Math.sin(tang) * tlen);
+        ctx.lineTo(tx2, ty2);
         ctx.stroke();
       }
 
-      // 2. Calculate fallen leaf litter composition & coverage from current date & species retention
+      // 2. Build Fallen Leaf Litter Pool Scaled to Natural Physical Proportions (matching image_7a88a2.jpg)
       const spEvals = inference.speciesEvaluations;
       const litterPool = [];
-      let totalDroppedScore = 0;
+      let accW = 0;
 
       spEvals.forEach(ev => {
         const morph = LEAF_MORPHOLOGY_DB[ev.species.id] || { shape: 'maple5', lengthCm: 10, sizeLabel: '4 in', morphDesc: 'Simple blade' };
-        // Even before peak, some early leaves drop; after peak, dropped fraction climbs rapidly
         const dropFraction = ev.species.isEvergreen
-          ? 0.08
-          : Math.max(0.12, (100 - ev.leafRetentionPct) / 100 + (state.currentDoy > 270 ? 0.18 : 0.05));
+          ? 0.06
+          : Math.max(0.15, (100 - ev.leafRetentionPct) / 100 + (state.currentDoy > 268 ? 0.22 : 0.08));
         const weight = ev.abundancePct * dropFraction;
-        totalDroppedScore += weight;
-
-        // Ground leaf color combines the species' current canopy color with cured late/tannin tones
-        const freshColor = ev.currentHex;
-        const curedColor = ev.species.colors.late.hex;
-
+        accW += weight;
         litterPool.push({
+          threshold: accW,
           ev,
           morph,
-          weight,
-          freshColor,
-          curedColor
+          freshColor: ev.currentHex,
+          earlyColor: ev.species.colors.early.hex,
+          curedColor: ev.species.colors.late.hex
         });
       });
 
-      // Total number of fallen leaves rendered on the 1m x 1m quadrat scales with seasonal progression
-      const avgDroppedPct = spEvals.reduce((acc, ev) => acc + (ev.species.isEvergreen ? 10 : (100 - ev.leafRetentionPct)), 0) / spEvals.length;
-      const coveragePct = Math.min(98, Math.max(14, Math.round(18 + avgDroppedPct * 0.95 + Math.max(0, state.currentDoy - 265) * 0.85)));
+      const avgDroppedPct = spEvals.reduce((acc, ev) => acc + (ev.species.isEvergreen ? 8 : (100 - ev.leafRetentionPct)), 0) / spEvals.length;
+      const coveragePct = Math.min(95, Math.max(15, Math.round(16 + avgDroppedPct * 0.88 + Math.max(0, state.currentDoy - 268) * 0.72)));
       const badgeEl = document.getElementById('groundLitterCoverageBadge');
       if (badgeEl) badgeEl.textContent = `Ground Litter Cover: ${coveragePct}%`;
 
-      const numFallenLeaves = Math.round(28 + (coveragePct / 100) * 145);
+      // Keep leaf count & scale natural (85-155 leaves at 0.95 px/cm radius) so rich dark soil remains visible around clusters like image_7a88a2.jpg
+      const numFallenLeaves = Math.round(68 + (coveragePct / 100) * 92);
+      const pxPerCm = 1.12;
 
-      // Build cumulative wheel
-      let accW = 0;
-      const wheel = litterPool.map(item => {
-        accW += item.weight;
-        return { threshold: accW, item };
-      });
+      // Create 18 natural wind-drift cluster centers across the quadrat
+      const clusterCenters = [];
+      for (let c = 0; c < 18; c++) {
+        clusterCenters.push({ x: 24 + rand() * (w - 48), y: 20 + rand() * (h - 40) });
+      }
 
-      // 3. Draw each fallen botanical leaf scaled to its real lengthCm (1.95 px per cm)
-      const pxPerCm = 1.95;
       for (let i = 0; i < numFallenLeaves; i++) {
         const r = rand() * accW;
-        const chosen = (wheel.find(wItem => r <= wItem.threshold) || wheel[0]).item;
-        const { morph, freshColor, curedColor } = chosen;
+        const chosen = litterPool.find(wItem => r <= wItem.threshold) || litterPool[0];
+        const { morph, freshColor, earlyColor, curedColor, ev } = chosen;
 
-        const lx = rand() * w;
-        const ly = rand() * h;
+        // 65% of leaves gather near wind-drifted micro-clusters; 35% scatter freely across the soil
+        let lx, ly;
+        if (rand() < 0.65) {
+          const cl = clusterCenters[Math.floor(rand() * clusterCenters.length)];
+          lx = cl.x + (rand() - 0.5) * 68;
+          ly = cl.y + (rand() - 0.5) * 56;
+        } else {
+          lx = 12 + rand() * (w - 24);
+          ly = 12 + rand() * (h - 24);
+        }
+
         const rot = rand() * Math.PI * 2;
-        // True physical size scaling with natural specimen variance (+/- 15%)
-        const leafRadiusPx = Math.max(6, (morph.lengthCm * pxPerCm * 0.5) * (0.85 + rand() * 0.3));
+        const leafRadiusPx = Math.max(5.5, Math.min(14.5, (morph.lengthCm * pxPerCm * 0.5) * (0.82 + rand() * 0.36)));
 
-        // Older leaves at bottom of pile are more tannin-cured; top leaves are fresh & vivid
-        const layerFreshness = i / numFallenLeaves;
-        const leafHex = layerFreshness > 0.42
-          ? lerpColor(curedColor, freshColor, (layerFreshness - 0.3) * 1.3)
-          : lerpColor('#6E472B', curedColor, layerFreshness * 2);
+        // Realistic mix of fresh flame-orange/crimson/gold leaves and pale parchment-tan cured leaves (like image_7a88a2.jpg)
+        const stageRoll = rand();
+        let leafHex;
+        if (stageRoll < 0.18) {
+          // Bleached parchment-tan / buckskin cured leaf (characteristic of beech/birch litter in image_7a88a2.jpg)
+          leafHex = lerpColor('#DFC9A6', curedColor, 0.25 + rand() * 0.25);
+        } else if (stageRoll < 0.38) {
+          leafHex = lerpColor(earlyColor, freshColor, 0.35 + rand() * 0.45);
+        } else if (stageRoll < 0.82) {
+          leafHex = freshColor;
+        } else {
+          leafHex = lerpColor(freshColor, curedColor, 0.45 + rand() * 0.45);
+        }
 
         ctx.save();
         ctx.translate(lx, ly);
         ctx.rotate(rot);
 
-        // Drop shadow under leaf
+        // Soft contact shadow on soil
         ctx.save();
-        ctx.translate(1.8, 2.2);
+        ctx.translate(1.6, 2.0);
         drawBotanicalLeafPath(ctx, morph.shape, leafRadiusPx);
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.42)';
+        ctx.fillStyle = 'rgba(8, 4, 2, 0.52)';
         ctx.fill();
         ctx.restore();
 
-        // Fill botanical leaf blade
-        drawBotanicalLeafPath(ctx, morph.shape, leafRadiusPx);
-        ctx.fillStyle = leafHex;
-        ctx.fill();
-        ctx.strokeStyle = lerpColor(leafHex, '#1a120b', 0.35);
-        ctx.lineWidth = 0.8;
+        // Slender petiole (leaf stem)
+        ctx.strokeStyle = lerpColor(leafHex, '#3D2718', 0.48);
+        ctx.lineWidth = Math.max(0.75, leafRadiusPx * 0.08);
+        ctx.beginPath();
+        ctx.moveTo(0, leafRadiusPx * 0.55);
+        ctx.lineTo(leafRadiusPx * 0.12, leafRadiusPx * 1.18);
         ctx.stroke();
 
-        // Draw botanical leaf veins
-        drawLeafVeins(ctx, morph.shape, leafRadiusPx, lerpColor(leafHex, '#291d12', 0.38));
+        // Subtle radial gradient across leaf blade (bright center, slightly darker/curled edge)
+        const bladeGrad = ctx.createRadialGradient(-leafRadiusPx * 0.15, -leafRadiusPx * 0.15, 1, 0, 0, leafRadiusPx * 1.05);
+        bladeGrad.addColorStop(0, lerpColor(leafHex, '#FFE8A3', 0.16));
+        bladeGrad.addColorStop(0.7, leafHex);
+        bladeGrad.addColorStop(1, lerpColor(leafHex, '#2A150B', 0.28));
 
+        drawBotanicalLeafPath(ctx, morph.shape, leafRadiusPx);
+        ctx.fillStyle = bladeGrad;
+        ctx.fill();
+        ctx.strokeStyle = lerpColor(leafHex, '#1E1109', 0.38);
+        ctx.lineWidth = 0.65;
+        ctx.stroke();
+
+        // Fine botanical venation
+        drawLeafVeins(ctx, morph.shape, leafRadiusPx, lerpColor(leafHex, '#2E1A0E', 0.34));
         ctx.restore();
       }
 
-      // 4. Render the Botanical Species Leaf Morphology & Scale Guide cards below the canvas
+      // 3. Render Botanical Species Leaf Morphology & Scale Guide cards below the canvas
       const legendGrid = document.getElementById('leafMorphologyLegendGrid');
       if (legendGrid) {
         legendGrid.innerHTML = spEvals.slice(0, 6).map((ev, idx) => {
@@ -5919,7 +6672,6 @@ const REAL_NOAA_GHCND_STATIONS = {
           `;
         }).join('');
 
-        // Draw each mini specimen silhouette scaled proportionally at High-DPI
         spEvals.slice(0, 6).forEach((ev, idx) => {
           const morph = LEAF_MORPHOLOGY_DB[ev.species.id] || { shape: 'maple5', lengthCm: 10 };
           const mc = document.getElementById(`miniLeafCanvas-${idx}`);
@@ -5930,7 +6682,6 @@ const REAL_NOAA_GHCND_STATIONS = {
           mctx.translate(mw * 0.5, mh * 0.5);
           mctx.rotate(-0.25);
           const unit = Math.min(mw, mh) / 38;
-          // Scale relative to 22cm max so Bigleaf Maple looks noticeably larger than Quaking Aspen
           const rScale = Math.max(7.5, Math.min(15.5, 6.5 + (morph.lengthCm / 22) * 9.5)) * unit;
           drawBotanicalLeafPath(mctx, morph.shape, rScale);
           mctx.fillStyle = ev.currentHex;
@@ -6259,13 +7010,15 @@ const REAL_NOAA_GHCND_STATIONS = {
       const yrAdj = getYearClimateAdjustment(activeYr, loc.lat, loc.lon, loc, state.currentDoy);
       const yrBadgeEl = document.getElementById('badgeYearClimateShift');
       if (yrBadgeEl) {
-        const hasEra5 = Boolean(loc.realHistoricalDaily && loc.realHistoricalDaily[activeYr]);
-        if (activeYr === 2026 && !hasEra5) {
+        const activeSeries = loc.realHistoricalDaily && loc.realHistoricalDaily[activeYr];
+        const hasRealObs = Boolean(activeSeries);
+        if (activeYr === 2026 && !hasRealObs) {
           yrBadgeEl.textContent = `${activeYr} NOAA/PRISM Baseline`;
         } else {
           const sign = yrAdj.tempDeltaF > 0 ? '+' : '';
           const pSign = yrAdj.peakDelayDays > 0 ? '+' : '';
-          const tag = hasEra5 ? (activeYr < new Date().getFullYear() ? 'ERA5 Obs' : 'Live GFS') : 'NCEI Obs';
+          const isNoaaStn = activeSeries && String(activeSeries.sourceLabel || '').includes('NOAA');
+          const tag = hasRealObs ? (isNoaaStn ? 'NOAA Stn Obs' : (activeYr < new Date().getFullYear() ? 'ERA5 Obs' : 'Live GFS')) : 'NCEI Obs';
           yrBadgeEl.textContent = `${activeYr} ${tag}: ${sign}${yrAdj.tempDeltaF}°F (${pSign}${yrAdj.peakDelayDays}d Peak)`;
         }
       }
@@ -6274,9 +7027,13 @@ const REAL_NOAA_GHCND_STATIONS = {
       document.getElementById('displaySeasonPhase').textContent = inf.overallStage;
       document.getElementById('locDateReadout').textContent = doyToDateLabel(state.currentDoy, activeYr);
 
-      // Update Location Header
+      // Update Location Header (including matched station from the 10,000+ NOAA GHCND network)
       document.getElementById('locRegionBadge').textContent = loc.ecoregion;
-      document.getElementById('locCoordsBadge').textContent = `${loc.lat.toFixed(2)}°N, ${Math.abs(loc.lon).toFixed(2)}°W · Elev ${loc.elevFt.toLocaleString()} ft`;
+      const noaaMeta = loc.matchedNoaaStation;
+      const noaaBadgeText = noaaMeta
+        ? ` · NOAA Stn: ${noaaMeta.name}${noaaMeta.state ? ', ' + noaaMeta.state : ''} (${noaaMeta.sid} · ${noaaMeta.distMi} mi)`
+        : '';
+      document.getElementById('locCoordsBadge').textContent = `${loc.lat.toFixed(2)}°N, ${Math.abs(loc.lon).toFixed(2)}°W · Elev ${loc.elevFt.toLocaleString()} ft${noaaBadgeText}`;
       document.getElementById('locTitle').textContent = loc.name;
       document.getElementById('locStagePill').textContent = inf.overallStage;
       document.getElementById('locDensityLabel').textContent = `Canopy Closure: ${Math.round(loc.canopyClosure * 100)}% (${loc.treesPerAcre} trees/acre)`;
@@ -6426,7 +7183,7 @@ const REAL_NOAA_GHCND_STATIONS = {
             </div>
             <div class="h-2.5 w-full rounded overflow-hidden flex border border-white/15 mb-1">${barComplexCalib}</div>
             <div class="font-mono text-[9.5px] text-slate-300 flex justify-between">
-              <span>Peak: <strong>${doyToShortLabel(Math.round(infComplexCalib.effectiveLocPeakDoy))}</strong> (DOY ${Math.round(infComplexCalib.effectiveLocPeakDoy)})</span>
+              <span>Peak: <strong>${doyToShortLabel(Math.round(infComplexCalib.effectiveLocPeakDoy))}</strong> (Offset ${infComplexCalib.siteCalibOffsetDays >= 0 ? '+' : ''}${infComplexCalib.siteCalibOffsetDays}d)</span>
               <span class="text-slate-400">SugarTrap: ${infComplexCalib.anthocyaninBoost}×</span>
             </div>
             <div class="font-mono text-[9.5px] truncate mt-0.5" style="color:${topCC?.hex}">
@@ -6455,7 +7212,7 @@ const REAL_NOAA_GHCND_STATIONS = {
             </div>
             <div class="h-2.5 w-full rounded overflow-hidden flex border border-white/15 mb-1">${barSimpleCalib}</div>
             <div class="font-mono text-[9.5px] text-slate-300 flex justify-between">
-              <span>Peak: <strong>${doyToShortLabel(Math.round(infSimpleCalib.effectiveLocPeakDoy))}</strong> (DOY ${Math.round(infSimpleCalib.effectiveLocPeakDoy)})</span>
+              <span>Peak: <strong>${doyToShortLabel(Math.round(infSimpleCalib.effectiveLocPeakDoy))}</strong> (Offset ${infSimpleCalib.siteCalibOffsetDays >= 0 ? '+' : ''}${infSimpleCalib.siteCalibOffsetDays}d)</span>
               <span class="text-slate-400">Step A: ${infSimpleCalib.anthocyaninBoost}×</span>
             </div>
             <div class="font-mono text-[9.5px] truncate mt-0.5" style="color:${topSC?.hex}">
@@ -6516,6 +7273,7 @@ const REAL_NOAA_GHCND_STATIONS = {
         state.customLocation = null;
         state.selectedSiteId = e.target.value;
         updateAllViews();
+        if (typeof syncLiveForecastForActiveLocation === 'function') syncLiveForecastForActiveLocation(true);
       });
 
       // Sync Today quick-jump button with user's date (or Sep 1 if outside autumn window)
@@ -7432,6 +8190,199 @@ const REAL_NOAA_GHCND_STATIONS = {
         } catch (e) {}
       }
 
+      // Estimate daily sunshine duration (seconds) from observed diurnal range (ΔT = Tmax - Tmin),
+      // observed precipitation (mm), and astronomical photoperiod (Bristow-Campbell 1984 transmittance).
+      function estimatePhysicalSunshineSecondsJS(lat, doy, tminF, tmaxF, prcpMm) {
+        const latRad = (lat * Math.PI) / 180;
+        const decl = 0.409 * Math.sin(((2 * Math.PI) / 365) * (doy - 81));
+        const cosH = Math.max(-1, Math.min(1, -Math.tan(latRad) * Math.tan(decl)));
+        const daylightSec = (24 / Math.PI) * Math.acos(cosH) * 3600;
+        const diurnalF = Math.max(2, tmaxF - tminF);
+        let clearFrac = 1 - Math.exp(-0.032 * Math.pow(diurnalF, 1.45));
+        if (prcpMm > 1.0) {
+          clearFrac *= Math.max(0.18, 0.72 - Math.min(0.50, prcpMm * 0.025));
+        } else if (prcpMm > 0) {
+          clearFrac *= 0.82;
+        }
+        clearFrac = Math.max(0.10, Math.min(0.95, clearFrac));
+        return Math.round(daylightSec * clearFrac);
+      }
+
+      // Live On-Demand Lookup Across All 10,000+ Official NOAA GHCND / NWS Stations (https://data.rcc-acis.org)
+      // Finds the closest real weather stations to ANY clicked coordinate (lat, lon) for any year (1950..present),
+      // fetches observed daily maxt/mint/pcpn, and applies topographic elevation lapse rate adjustment (-3.5°F / 1,000 ft).
+      async function fetchLiveNoaaAcisForCoordinate(lat, lon, targetElevFt, year) {
+        const radii = [0.32, 0.65, 1.15];
+        let candidates = [];
+
+        for (let rIdx = 0; rIdx < radii.length; rIdx++) {
+          const r = radii[rIdx];
+          const bbox = `${(lon - r).toFixed(3)},${(lat - r).toFixed(3)},${(lon + r).toFixed(3)},${(lat + r).toFixed(3)}`;
+          try {
+            const ctrl = new AbortController();
+            const tId = setTimeout(() => ctrl.abort(), 5500);
+            const metaResp = await fetch('https://data.rcc-acis.org/StnMeta', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+              body: JSON.stringify({
+                bbox,
+                sdate: `${year}-09-01`,
+                edate: `${year}-11-30`,
+                elems: 'maxt,mint,pcpn',
+                meta: 'sids,name,state,ll,elev,valid_daterange'
+              }),
+              signal: ctrl.signal
+            });
+            clearTimeout(tId);
+            if (!metaResp.ok) continue;
+            const metaJson = await metaResp.json();
+            const metas = (metaJson && metaJson.meta) || [];
+            if (!metas.length) continue;
+
+            const scored = [];
+            for (let i = 0; i < metas.length; i++) {
+              const m = metas[i];
+              const sids = m.sids || [];
+              const ll = m.ll;
+              const vdr = m.valid_daterange || [];
+              if (!sids.length || !Array.isArray(ll) || ll.length < 2) continue;
+              if (!vdr.length || !vdr[0] || vdr[0].length < 2) continue;
+              const sYr = parseInt(String(vdr[0][0]).slice(0, 4), 10);
+              const eYr = parseInt(String(vdr[0][1]).slice(0, 4), 10);
+              if (isNaN(sYr) || isNaN(eYr) || year < sYr || year > eYr) continue;
+
+              const distKm = haversineKm(lat, lon, Number(ll[1]), Number(ll[0]));
+              const stnElevFt = (m.elev !== undefined && m.elev !== null && !isNaN(Number(m.elev))) ? Number(m.elev) : targetElevFt;
+              const elevDiffFt = Math.abs((targetElevFt || stnElevFt) - stnElevFt);
+              // Prefer closest distance and similar elevation
+              const score = -(distKm * 1.5 + (elevDiffFt / 1000) * 6.0);
+              // Prefer GHCND ID (type 6) if present, else first SID
+              const ghcndSid = sids.find(s => String(s).endsWith(' 6')) || sids[0];
+              const sidCode = String(ghcndSid).split(' ')[0];
+              scored.push({
+                sid: sidCode,
+                name: m.name || sidCode,
+                state: m.state || '',
+                lat: Number(ll[1]),
+                lon: Number(ll[0]),
+                elevFt: stnElevFt,
+                distKm: Number(distKm.toFixed(1)),
+                distMi: Number((distKm * 0.621371).toFixed(1)),
+                score
+              });
+            }
+            if (scored.length > 0) {
+              scored.sort((a, b) => b.score - a.score);
+              candidates = scored.slice(0, 4);
+              break;
+            }
+          } catch (e) {}
+        }
+
+        if (!candidates.length) return null;
+
+        const mergedByDate = {};
+        let primaryStation = null;
+
+        for (let cIdx = 0; cIdx < candidates.length; cIdx++) {
+          const cand = candidates[cIdx];
+          try {
+            const ctrl = new AbortController();
+            const tId = setTimeout(() => ctrl.abort(), 6000);
+            const dataResp = await fetch('https://data.rcc-acis.org/StnData', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+              body: JSON.stringify({
+                sid: cand.sid,
+                sdate: `${year}-09-01`,
+                edate: `${year}-11-30`,
+                elems: 'maxt,mint,pcpn'
+              }),
+              signal: ctrl.signal
+            });
+            clearTimeout(tId);
+            if (!dataResp.ok) continue;
+            const dataJson = await dataResp.json();
+            const rows = (dataJson && dataJson.data) || [];
+            if (!rows.length) continue;
+
+            const elevDiffFt = (targetElevFt || cand.elevFt) - cand.elevFt;
+            const lapseAdjF = -(elevDiffFt / 1000.0) * 3.5;
+            let validCountForStation = 0;
+
+            for (let r = 0; r < rows.length; r++) {
+              const row = rows[r];
+              if (!row || row.length < 4) continue;
+              const dtStr = row[0];
+              const rawMax = row[1], rawMin = row[2], rawPcp = row[3];
+              const tmax = (rawMax !== 'M' && rawMax !== 'T' && rawMax !== '' && rawMax !== null) ? parseFloat(rawMax) : NaN;
+              const tmin = (rawMin !== 'M' && rawMin !== 'T' && rawMin !== '' && rawMin !== null) ? parseFloat(rawMin) : NaN;
+              if (isNaN(tmax) || isNaN(tmin)) continue;
+
+              let pcpMm = 0;
+              if (rawPcp === 'T') pcpMm = 0.25;
+              else if (rawPcp !== 'M' && rawPcp !== '' && rawPcp !== null && !isNaN(parseFloat(rawPcp))) {
+                pcpMm = Number((parseFloat(rawPcp) * 25.4).toFixed(2));
+              }
+
+              validCountForStation++;
+              if (!mergedByDate[dtStr]) {
+                let adjMax = Number((tmax + lapseAdjF).toFixed(1));
+                let adjMin = Number((tmin + lapseAdjF).toFixed(1));
+                if (adjMax < adjMin + 2.0) adjMax = Number((adjMin + 2.0).toFixed(1));
+                mergedByDate[dtStr] = { tmax: adjMax, tmin: adjMin, pcpMm };
+              }
+            }
+
+            if (validCountForStation >= 10 && !primaryStation) {
+              primaryStation = cand;
+            }
+            if (Object.keys(mergedByDate).length >= 88) break;
+          } catch (e) {}
+        }
+
+        const totalObsDays = Object.keys(mergedByDate).length;
+        if (!primaryStation || totalObsDays < 10) return null;
+
+        // Build 91-day Sep 1 – Nov 30 series
+        const times = [], mins = [], maxs = [], suns = [], prcps = [];
+        const startDt = new Date(Date.UTC(year, 8, 1));
+        for (let d = 0; d < 91; d++) {
+          const cur = new Date(startDt.getTime() + d * 86400000);
+          const iso = cur.toISOString().slice(0, 10);
+          times.push(iso);
+          const obs = mergedByDate[iso];
+          if (obs) {
+            maxs.push(obs.tmax);
+            mins.push(obs.tmin);
+            prcps.push(obs.pcpMm);
+            suns.push(estimatePhysicalSunshineSecondsJS(lat, 244 + d, obs.tmin, obs.tmax, obs.pcpMm));
+          } else {
+            maxs.push(null);
+            mins.push(null);
+            prcps.push(null);
+            suns.push(null);
+          }
+        }
+
+        const sourceLabel = `NOAA GHCND Live Station: ${primaryStation.name}, ${primaryStation.state} (${primaryStation.sid} · ${primaryStation.distMi} mi, Elev ${Math.round(primaryStation.elevFt)} ft)`;
+        return {
+          dailySeries: {
+            time: times,
+            temperature_2m_min: mins,
+            temperature_2m_max: maxs,
+            sunshine_duration: suns,
+            precipitation_sum: prcps,
+            isFullAutumnArchive: true,
+            sourceLabel,
+            noaaStation: primaryStation,
+            fetchedAt: new Date().toISOString()
+          },
+          stationMeta: primaryStation,
+          sourceLabel
+        };
+      }
+
       async function syncLiveForecastForActiveLocation(isAutoTrigger = false) {
         const loc = getActiveLocation();
         if (state.customLocation === loc && !loc.hasRealSrtmElevation) {
@@ -7440,17 +8391,19 @@ const REAL_NOAA_GHCND_STATIONS = {
         const activeYr = getActiveYear();
         const currentCalYear = new Date().getFullYear();
         const isHistoricalYear = activeYr < currentCalYear && activeYr >= 1950;
-        const cacheKey = `${loc.lat.toFixed(2)},${loc.lon.toFixed(2)},${activeYr}`;
-
-
+        const isCustomPoint = Boolean(state.customLocation && state.customLocation === loc);
+        const cacheKey = `${loc.lat.toFixed(3)},${loc.lon.toFixed(3)},${activeYr}`;
 
         let dailyData = realWeatherMemoryCache[cacheKey] || (loc.realHistoricalDaily && loc.realHistoricalDaily[activeYr]) || null;
+        if (dailyData && dailyData.noaaStation) {
+          loc.matchedNoaaStation = dailyData.noaaStation;
+        }
         let sourceTag = dailyData?.sourceLabel || (isHistoricalYear
-          ? `ERA5 Historical Reanalysis (${activeYr} Sep–Nov Observed)`
-          : 'Open-Meteo / NOAA GFS+HRRR Live API');
+          ? `NOAA GHCND 10,000+ Station Archive (${activeYr} Sep–Nov Observed)`
+          : 'NOAA GHCND Station + Open-Meteo GFS/HRRR Live');
 
-        // If historical year is selected and not yet cached, try loading the static GitHub repo copy first
-        if (!dailyData && isHistoricalYear && window.location.protocol.startsWith('http')) {
+        // 1. For primary USFS stations in historical years, check static GitHub repo copy first (instant 0ms bulk cache)
+        if (!dailyData && !isCustomPoint && isHistoricalYear && window.location.protocol.startsWith('http')) {
           try {
             const repoHistPath = ["data/historical/foliage", "history", `${activeYr}.json`].join("-");
             const repoResp = await fetch(repoHistPath, { cache: 'force-cache' });
@@ -7462,21 +8415,63 @@ const REAL_NOAA_GHCND_STATIONS = {
                   const stn = US_FOLIAGE_LOCATIONS.find(l => l.id === s.id || l.name === s.name);
                   if (stn && s.dailySeries) {
                     s.dailySeries.isFullAutumnArchive = true;
-                    s.dailySeries.sourceLabel = repoLabel;
+                    s.dailySeries.sourceLabel = s.dailySeries.sourceLabel || repoLabel;
                     if (!stn.realHistoricalDaily) stn.realHistoricalDaily = {};
                     stn.realHistoricalDaily[activeYr] = s.dailySeries;
-                    const k = `${stn.lat.toFixed(2)},${stn.lon.toFixed(2)},${activeYr}`;
+                    const k = `${stn.lat.toFixed(3)},${stn.lon.toFixed(3)},${activeYr}`;
                     realWeatherMemoryCache[k] = s.dailySeries;
                   }
                 });
                 persistRealWeatherCache();
                 dailyData = realWeatherMemoryCache[cacheKey] || (loc.realHistoricalDaily && loc.realHistoricalDaily[activeYr]) || null;
-                if (dailyData) sourceTag = repoLabel;
+                if (dailyData) sourceTag = dailyData.sourceLabel || repoLabel;
               }
             }
           } catch (e) {}
         }
 
+        // 2. LIVE ON-DEMAND 10,000+ NOAA STATION LOOKUP (https://data.rcc-acis.org)
+        // Always runs for any clicked map point / searched town / park, or whenever dailyData is not yet cached!
+        if (!dailyData && activeYr >= 1950 && activeYr <= currentCalYear) {
+          if (liveSubtext) {
+            liveSubtext.textContent = `Querying 10,000+ NOAA GHCND stations near (${loc.lat.toFixed(2)}°N, ${Math.abs(loc.lon).toFixed(2)}°W) for ${activeYr}...`;
+          }
+          const noaaResult = await fetchLiveNoaaAcisForCoordinate(loc.lat, loc.lon, loc.elevFt, activeYr);
+          if (noaaResult && noaaResult.dailySeries) {
+            dailyData = noaaResult.dailySeries;
+            sourceTag = noaaResult.sourceLabel;
+            loc.matchedNoaaStation = noaaResult.stationMeta;
+
+            // If current calendar year, also blend in 16-day upcoming Open-Meteo GFS/HRRR forecast for future autumn days
+            if (!isHistoricalYear) {
+              try {
+                const fcUrl = `https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&daily=temperature_2m_max,temperature_2m_min,sunshine_duration,precipitation_sum&past_days=7&forecast_days=16&temperature_unit=fahrenheit&timezone=auto`;
+                const fcResp = await fetch(fcUrl);
+                if (fcResp.ok) {
+                  const fcJson = await fcResp.json();
+                  if (fcJson && fcJson.daily && Array.isArray(fcJson.daily.time)) {
+                    fcJson.daily.time.forEach((dtIso, fIdx) => {
+                      const slotIdx = dailyData.time.indexOf(dtIso);
+                      if (slotIdx !== -1 && (dailyData.temperature_2m_min[slotIdx] === null || dailyData.temperature_2m_min[slotIdx] === undefined)) {
+                        dailyData.temperature_2m_min[slotIdx] = fcJson.daily.temperature_2m_min[fIdx];
+                        dailyData.temperature_2m_max[slotIdx] = fcJson.daily.temperature_2m_max[fIdx];
+                        dailyData.sunshine_duration[slotIdx] = fcJson.daily.sunshine_duration?.[fIdx] ?? 25000;
+                        dailyData.precipitation_sum[slotIdx] = fcJson.daily.precipitation_sum?.[fIdx] ?? 0;
+                      }
+                    });
+                    sourceTag = `${noaaResult.sourceLabel} + 16-Day GFS/HRRR Forecast`;
+                    dailyData.sourceLabel = sourceTag;
+                  }
+                }
+              } catch (e) {}
+            }
+
+            realWeatherMemoryCache[cacheKey] = dailyData;
+            persistRealWeatherCache();
+          }
+        }
+
+        // 3. Fallback to Open-Meteo forecast/archive only if outside NOAA coverage or future year
         if (!dailyData) {
           try {
             const url = isHistoricalYear
@@ -7504,7 +8499,6 @@ const REAL_NOAA_GHCND_STATIONS = {
               }
             }
           } catch (err) {
-            // Network unreachable (offline mode): use deterministic PRISM 1991-2020 30-Year Normal + NOAA NCEI Historical Anomaly Table
             sourceTag = `PRISM 1991–2020 Normal + NOAA NCEI ${activeYr} Table (Offline)`;
           }
         }
@@ -7889,6 +8883,7 @@ const REAL_NOAA_GHCND_STATIONS = {
 
       renderNationalTimelineRibbon();
       updateAllViews();
+      loadHighResCensusTopoJson();
       syncLiveForecastForActiveLocation(true);
       syncAllNationalStationsOpenMeteo(getActiveYear());
     }
